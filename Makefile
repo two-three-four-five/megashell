@@ -6,7 +6,7 @@
 #    By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 16:53:40 by gyoon             #+#    #+#              #
-#    Updated: 2023/04/25 17:03:29 by gyoon            ###   ########.fr        #
+#    Updated: 2023/04/25 22:39:36 by gyoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,12 @@ RM		= rm -rf
 # **************************************************************************** #
 
 
-
-F_TOKEN		= $(wildcard $(addprefix src/minishell/token/,	*.c))
+F_ERROR		= $(wildcard $(addprefix src/minishell/error/,	*.c))
+F_TOKEN		= $(wildcard $(addprefix src/minishell/token/,	*.c */*.c))
 F_TYPE		= $(wildcard $(addprefix src/minishell/type/,	*.c))
 F_MAIN		= src/minishell/main.c
-SRCS		=	$(F_TOKEN)	\
+SRCS		=	$(F_ERROR)	\
+				$(F_TOKEN)	\
 				$(F_TYPE)	\
 				$(F_MAIN)
 
