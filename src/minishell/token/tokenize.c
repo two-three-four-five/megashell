@@ -6,62 +6,14 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/25 15:59:00 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/25 16:55:08 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include "shell/type.h"
+#include "shell/parse.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-
-enum e_bool
-{
-	false,
-	true
-};
-
-enum e_error
-{
-	PARSE_ERR_NOT_ENOUGH_QUOTE = 1
-};
-
-static int	isquote(int c)
-{
-	if ((char)c == '\'' || (char)c == '\"')
-		return (1);
-	else
-		return (0);
-}
-
-static int	isdelimeter(int c)
-{
-	if ((char)c == ' ' || (char)c == '\t' || \
-		(char)c == '\n')
-		return (1);
-	else
-		return (0);
-}
-
-static int	isoperator(int c)
-{
-	if ((char)c == '|' || (char)c == '&' || \
-		(char)c == ';' || (char)c == '(' || \
-		(char)c == ')' || (char)c == '<' || \
-		(char)c == '>')
-		return (1);
-	else
-		return (0);
-}
-
-static int	ismeta(int c)
-{
-	if (isdelimeter(c) || isoperator(c))
-		return (1);
-	else
-		return (0);
-}
 
 static char	*get_next_token(char *s)
 {
@@ -148,32 +100,4 @@ t_list	*tokenize(char *s)
 		s += ft_strlen((char *)node->content);
 	}
 	return (lst);
-}
-
-void	ft_lstprint(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		printf("%d : %s\n", i, (char *)lst->content);
-		lst = lst->next;
-		i++;
-	}
-}
-
-int	main(void)
-{
-	char	*input;
-
-	while (true)
-	{
-		input = readline("dish-0.1$");
-		printf("line : %s\n", input);
-		ft_lstprint(tokenize(input));
-		add_history(input);
-		free(input);
-	}
-	return (0);
 }
