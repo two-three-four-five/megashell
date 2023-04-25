@@ -6,14 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:25:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/25 16:25:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/25 22:28:18 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	isdelimeter(int c)
 {
-	if ((char)c == ' ' || (char)c == '\t' || \
-		(char)c == '\n')
+	if ((char)c == ' ' || (char)c == '\t' || (char)c == '\n')
 		return (1);
 	else
 		return (0);
