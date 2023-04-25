@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/25 16:55:08 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/25 17:40:40 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,48 @@
 #include "shell/type.h"
 #include "shell/parse.h"
 #include <stdio.h>
+
+int	get_control_operator_len(char *s)
+{
+	if (!ft_strncmp(";;&", s, 3))
+		return (3);
+	else if (!ft_strncmp("||", s, 2) || !ft_strncmp(";;", s, 2) || \
+			!ft_strncmp("&&", s, 2) || !ft_strncmp(";&", s, 2) || \
+			!ft_strncmp("|&", s, 2))
+		return (2);
+	else if (!ft_strncmp("&", s, 1) || !ft_strncmp(";", s, 1) || \
+			!ft_strncmp("|", s, 1) || !ft_strncmp("(", s, 1) || \
+			!ft_strncmp(")", s, 1))
+		return (1);
+	else
+		return (0);
+}
+
+int	get_redirection_operator_len(char *s)
+{
+	if (!ft_strncmp("&>>", s, 3) || !ft_strncmp("<<-", s, 3) || \
+		!ft_strncmp("<<<", s, 3))
+		return (3);
+	else if (!ft_strncmp(">|", s, 2) || !ft_strncmp(">>", s, 2) || \
+			!ft_strncmp("&>", s, 2) || !ft_strncmp(">&", s, 2) || \
+			!ft_strncmp("<<", s, 2) || !ft_strncmp("<&", s, 2) || \
+			!ft_strncmp("<>", s, 2))
+		return (2);
+	else if (!ft_strncmp("<", s, 1) || !ft_strncmp(">", s, 1))
+		return (1);
+	else
+		return (0);
+}
+
+int	get_operator_len(char *s)
+{
+	if (get_redirection_operator_len(s))
+		return (get_redirection_operator_len(s));
+	else if (get_control_operator_len(s))
+		return (get_control_operator_len(s));
+	else
+		return (0);
+}
 
 static char	*get_next_token(char *s)
 {
@@ -25,9 +67,9 @@ static char	*get_next_token(char *s)
 	quote = 0;
 	while (s[len])
 	{
-		if (!len && isoperator(s[len]))
+		if (!len && get_operator_len(s))
 		{
-			len++;
+			len = get_operator_len(s);
 			break ;
 		}
 		if (quote && s[len] == quote)
@@ -54,9 +96,9 @@ static int	check_next_token(char *s)
 	quote = 0;
 	while (s[len])
 	{
-		if (!len && isoperator(s[len]))
+		if (!len && get_operator_len(s))
 		{
-			len++;
+			len = get_operator_len(s);
 			break ;
 		}
 		else if (quote && s[len] == quote)
