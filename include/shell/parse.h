@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/25 22:40:08 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/26 00:13:23 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 
 int		get_operator_len(char *s);
-
+char	*get_next_token(char *s);
 t_list	*tokenize(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 16:53:40 by gyoon             #+#    #+#              #
-#    Updated: 2023/04/25 23:25:24 by gyoon            ###   ########.fr        #
+#    Updated: 2023/04/26 00:25:59 by gyoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ version = "mandatory version"
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $@ -lreadline -lft -L lib -L .brew/opt/readline/lib -I .brew/opt/readline/include
+	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $@ -lreadline -lft -L lib -I .brew/opt/readline/include
 	@printf "\rCompiling source files... "
 	@printf "%.$(shell printf "%d" 64)s" $(bar_done)
 	@printf "%7.2f%%\n" 100

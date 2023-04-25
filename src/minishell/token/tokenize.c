@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/26 00:02:17 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/26 00:25:35 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ static char	*skip_delimeter(const char *s)
 {
 	while (isdelimeter(*s))
 		s++;
-	return (s);
+	return ((char *)s);
 }
