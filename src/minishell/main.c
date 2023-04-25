@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/25 17:06:49 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/25 23:30:13 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ void	ft_lstprint(t_list *lst)
 int	main(void)
 {
 	char	*input;
+	t_list	*tokenized_lst;
 
 	while (TRUE)
 	{
 		input = readline("dish-0.1$");
 		printf("line : %s\n", input);
-		ft_lstprint(tokenize(input));
+		tokenized_lst = tokenize(input);
+		ft_lstprint(tokenized_lst);
 		add_history(input);
+		ft_lstclear(&tokenized_lst, free);
 		free(input);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/25 22:41:06 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/25 23:37:09 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_list	*tokenize(char *s)
 {
 	t_list	*lst;
 	t_list	*node;
+	char	*token;
 
 	lst = NULL;
 	node = NULL;
@@ -85,13 +86,21 @@ t_list	*tokenize(char *s)
 		while (isdelimeter(*s))
 			s++;
 		if (check_next_token(s))
-			node = ft_lstnew(get_next_token(s));
+			token = get_next_token(s);
 		else
-			raise_error(PARSE_ERR_NOT_ENOUGH_QUOTE);
-		if (!node || !node->content)
+		{
+			raise_error(PARSE_NOT_ENOUGH_QUOTE);
+			ft_lstclear(&lst, free);
+			return (NULL);
+		}
+		if (!token)
 			break ;
+		node = ft_lstnew(token);
 		ft_lstadd_back(&lst, node);
 		s += ft_strlen((char *)node->content);
+		while (isdelimeter(*s))
+			s++;
 	}
+	ft_lstadd_back(&lst, ft_lstnew(ft_strdup("\n")));
 	return (lst);
 }
