@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/26 20:16:17 by gyoon            ###   ########.fr       */
+/*   Created: 2023/04/26 20:16:24 by gyoon             #+#    #+#             */
+/*   Updated: 2023/04/26 20:22:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef SIGNAL_H
+# define SIGNAL_H
 
-# include "libft.h"
-
-int		get_operator_len(char *s);
-char	*get_next_token(char *s);
-t_list	*tokenize(char *s);
+void	handle_sigint(int sig);
+void	set_signal_handler(void);
 
 #endif
