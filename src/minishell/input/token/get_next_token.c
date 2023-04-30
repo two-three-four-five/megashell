@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 00:01:22 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/26 00:35:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/29 15:56:38 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ char	*get_next_token(char *s)
 	while (s[len])
 	{
 		if (!len && get_operator_len(s))
-		{
-			len = get_operator_len(s);
-			break ;
-		}
+			return (ft_substr(s, 0, get_operator_len(s)));
 		else if (quote && s[len] == quote)
 			quote = 0;
 		else if (!quote && isquote(s[len]))

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/26 20:27:56 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/04/29 15:53:40 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int	main(void)
 			printf("exit\n");
 			break ;
 		}
-		printf("line : %s\n", input);
 		tokenized_lst = tokenize(input);
-		ft_lstprint(tokenized_lst);
+		if (!check_syntax(tokenized_lst))
+			;
+		else
+			ft_lstprint(tokenized_lst);
 		add_history(input);
 		ft_lstclear(&tokenized_lst, free);
 		free(input);
