@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:54:36 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 20:19:05 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/01 20:39:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 #include <stdio.h>
 
 static t_bool	check_undefined(t_token *curr);
-static t_bool	check_logical(t_token *pre, t_token *curr, t_token *next);
+static t_bool	check_logical(t_token *prev, t_token *curr, t_token *next);
 static t_bool	check_redirection(t_token *curr, t_token *next);
+//static t_bool	check_parentheses(t_token *prev, t_token *curr);
 t_bool			check_operator_syntax(t_list *lst);
 
 t_bool	check_operator_syntax(t_list *lst)
 {
-	t_token	*pre;
+	t_token	*prev;
 	t_token	*curr;
 	t_token	*next;
 
-	pre = NULL;
+	prev = NULL;
 	next = NULL;
 	while (lst)
 	{
@@ -37,11 +38,13 @@ t_bool	check_operator_syntax(t_list *lst)
 			next = NULL;
 		if (!check_undefined(curr))
 			return (FALSE);
-		else if (!check_logical(pre, curr, next))
+		else if (!check_logical(prev, curr, next))
 			return (FALSE);
 		else if (!check_redirection(curr, next))
 			return (FALSE);
-		pre = curr;
+		else if (!check_parentheses(prev, curr))
+			return (FALSE);
+		prev = curr;
 		lst = lst->next;
 	}
 	return (TRUE);
@@ -58,12 +61,12 @@ static t_bool	check_undefined(t_token *curr)
 		return (TRUE);
 }
 
-static t_bool	check_logical(t_token *pre, t_token *curr, t_token *next)
+static t_bool	check_logical(t_token *prev, t_token *curr, t_token *next)
 {
 	if (curr->type == PIPE || curr->type == AND_IF || curr->type == OR_IF)
 	{
-		if ((pre && next) && \
-			((pre->type == CLOSE_PAREN || pre->type == WORD) && \
+		if ((prev && next) && \
+			((prev->type == CLOSE_PAREN || prev->type == WORD) && \
 			(next->type == OPEN_PAREN || next->type == WORD || \
 			next->type & REDIRECT)))
 			return (TRUE);
