@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:07:45 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 20:20:57 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 01:53:13 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 static t_bool	check_quote(t_list *lst);
 static t_bool	check_parenthesis(t_list *lst);
 t_bool			check_matching_syntax(t_list *lst);
-
 
 t_bool	check_matching_syntax(t_list *lst)
 {
