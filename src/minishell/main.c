@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/29 15:53:40 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/01 14:40:58 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	ft_lstprint(t_list *lst)
 	i = 0;
 	while (lst)
 	{
-		printf("%d : %s\n", i, (char *)lst->content);
+		printf("%d : type(%d) %s\n", i, ((t_token *)lst->content)->type, \
+										((t_token *)lst->content)->token);
 		lst = lst->next;
 		i++;
 	}
@@ -51,12 +52,12 @@ int	main(void)
 			break ;
 		}
 		tokenized_lst = tokenize(input);
-		if (!check_syntax(tokenized_lst))
-			;
-		else
+		// if (!check_syntax(tokenized_lst))
+		// 	;
+		// else
 			ft_lstprint(tokenized_lst);
 		add_history(input);
-		ft_lstclear(&tokenized_lst, free);
+		ft_lstclear(&tokenized_lst, del_token);
 		free(input);
 	}
 	return (0);

@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isoperator.c                                       :+:      :+:    :+:   */
+/*   new_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 16:27:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 14:38:07 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/01 14:04:36 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/01 14:05:23 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	isoperator(int c)
+#include "shell/parse.h"
+#include <stdlib.h>
+
+t_token	*new_token(char type, char *str)
 {
-	if ((char)c == '|' || (char)c == '&' || (char)c == '(' || \
-		(char)c == ')' || (char)c == '<' || (char)c == '>' || \
-		(char)c == ';')
-		return (1);
-	else
-		return (0);
+	t_token	*token;
+
+	if (!str)
+		return (NULL);
+	token = (t_token *)ft_calloc(1, sizeof(t_token));
+	if (!token)
+	{
+		if (str)
+			free(str);
+		return (NULL);
+	}
+	token->type = type;
+	token->token = str;
+	return (token);
 }

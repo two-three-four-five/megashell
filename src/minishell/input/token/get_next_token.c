@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 00:01:22 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/29 15:56:38 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/01 14:33:31 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "shell/type.h"
 #include "shell/parse.h"
 
-char	*get_next_token(char *s)
+t_token	*get_next_token(char *s)
 {
-	char	*token;
+	t_token	*token;
 	char	quote;
 	size_t	len;
 
@@ -24,8 +24,9 @@ char	*get_next_token(char *s)
 	quote = 0;
 	while (s[len])
 	{
-		if (!len && get_operator_len(s))
-			return (ft_substr(s, 0, get_operator_len(s)));
+		if (!len && get_token_type(s) != WORD)
+			return (new_token(get_token_type(s), \
+					ft_substr(s, 0, get_token_len(s))));
 		else if (quote && s[len] == quote)
 			quote = 0;
 		else if (!quote && isquote(s[len]))
@@ -36,6 +37,6 @@ char	*get_next_token(char *s)
 	}
 	if (!len)
 		return (NULL);
-	token = ft_substr(s, 0, len);
+	token = new_token(WORD, ft_substr(s, 0, len));
 	return (token);
 }

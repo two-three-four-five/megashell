@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isoperator.c                                       :+:      :+:    :+:   */
+/*   del_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 16:27:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 14:38:07 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/01 14:38:47 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/01 14:43:50 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	isoperator(int c)
+#include "shell/parse.h"
+#include <stdlib.h>
+
+void	del_token(void *ptr)
 {
-	if ((char)c == '|' || (char)c == '&' || (char)c == '(' || \
-		(char)c == ')' || (char)c == '<' || (char)c == '>' || \
-		(char)c == ';')
-		return (1);
+	if (!ptr)
+		return ;
+	else if (!((t_token *)ptr)->token)
+		free(ptr);
 	else
-		return (0);
+	{
+		free(((t_token *)ptr)->token);
+		free(ptr);
+	}
 }
