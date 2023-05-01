@@ -6,13 +6,15 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 00:01:22 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 14:33:31 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/01 15:32:36 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell/type.h"
 #include "shell/parse.h"
+
+#include <stdio.h>
 
 t_token	*get_next_token(char *s)
 {

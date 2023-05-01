@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 14:43:35 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/01 20:09:30 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,24 @@
 
 typedef enum e_token_type
 {
-	UNDEFINED = -1,
-	EOF = 0,
-	WORD = 1,
-	PIPE = 2,
-	NEWLINE = 3,
+	UNDEFINED = 0x0000,
+	WORD = 0x0001,
+	PIPE = 0x0003,
+	NEWLINE = 0x0005,
 
-	LOGIC = 4,
-	AND_IF = 5,
-	OR_IF = 6,
+	LOGIC = 0x0008,
+	AND_IF = 0x0009,
+	OR_IF = 0x000B,
 
-	REDIRECT = 8,
-	LESS = 10,
-	DLESS = 11,
-	GREAT = 12,
-	DGREAT = 13,
+	REDIRECT = 0x0010,
+	LESS = 0x0011,
+	DLESS = 0x0013,
+	GREAT = 0x0015,
+	DGREAT = 0x017,
 
-	BRACKET = 16,
-	OPEN_PAREN = 18,
-	CLOSE_PAREN = 19
+	BRACKET = 0x0020,
+	OPEN_PAREN = 0x0021,
+	CLOSE_PAREN = 0x0023
 }	t_token_type;
 
 
@@ -54,9 +53,8 @@ t_token	*get_next_token(char *s);
 t_token	*new_token(char type, char *str);
 t_list	*tokenize(char *s);
 
-t_bool	check_quote(t_list *lst);
-t_bool	check_parenthesis(t_list *lst);
-t_bool	check_requirements(t_list *lst);
+t_bool	check_matching_syntax(t_list *lst);
+t_bool	check_operator_syntax(t_list *lst);
 t_bool	check_syntax(t_list *lst);
 
 #endif

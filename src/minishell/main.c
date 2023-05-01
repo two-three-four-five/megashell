@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 14:40:58 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/01 20:21:04 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_lstprint(t_list *lst)
 	i = 0;
 	while (lst)
 	{
-		printf("%d : type(%d) %s\n", i, ((t_token *)lst->content)->type, \
+		printf("%3d | type(%2d) | %s\n", i, ((t_token *)lst->content)->type, \
 										((t_token *)lst->content)->token);
 		lst = lst->next;
 		i++;
@@ -45,16 +45,14 @@ int	main(void)
 	set_signal_handler();
 	while (TRUE)
 	{
-		input = readline("dish-0.1$ ");
+		input = readline("dish-0.2$ ");
 		if (!input)
 		{
 			printf("exit\n");
 			break ;
 		}
 		tokenized_lst = tokenize(input);
-		// if (!check_syntax(tokenized_lst))
-		// 	;
-		// else
+		if (check_syntax(tokenized_lst))
 			ft_lstprint(tokenized_lst);
 		add_history(input);
 		ft_lstclear(&tokenized_lst, del_token);
