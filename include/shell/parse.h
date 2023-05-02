@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 01:50:35 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 16:08:35 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef enum e_token_type
 	OPEN_PAREN = 0x0021,
 	CLOSE_PAREN = 0x0023
 }	t_token_type;
-
-
 
 typedef struct s_token
 {

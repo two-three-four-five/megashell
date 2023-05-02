@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 01:49:13 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 16:16:55 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <signal.h>
-
-typedef struct sigaction	t_sigaction;
 
 void	ft_lstprint(t_list *lst)
 {
@@ -37,20 +34,19 @@ void	ft_lstprint(t_list *lst)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
 	t_list		*tokenized_lst;
 
+	(void)argv;
+	(void)argv;
 	set_signal_handler();
 	while (TRUE)
 	{
 		input = readline("dish-0.2$ ");
 		if (!input)
-		{
-			printf("exit\n");
 			break ;
-		}
 		tokenized_lst = tokenize(input);
 		if (check_syntax(tokenized_lst))
 			ft_lstprint(tokenized_lst);
@@ -58,5 +54,6 @@ int	main(void)
 		ft_lstclear(&tokenized_lst, del_token);
 		free(input);
 	}
+	printf("exit\n");
 	return (0);
 }
