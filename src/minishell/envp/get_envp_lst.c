@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   get_envp_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 16:55:51 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/02 16:20:55 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/02 17:10:02 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell/type.h"
-#include "shell/parse.h"
 
 static void	*clear_lst(t_list **lst, void (*del)(void *));
-static char	*skip_delimeter(const char *s);
 
-t_list	*tokenize(char *s)
+t_list	*get_envp_lst(char **envp)
 {
 	t_list	*lst;
 	t_list	*node;
 
 	lst = NULL;
-	node = NULL;
-	while (*s)
+	while (*envp)
 	{
-		s = skip_delimeter(s);
-		node = ft_lstnew(get_next_token(s));
-		if (!node || !node->content)
-			return (clear_lst(&lst, del_token));
+		node = ft_lstnew(\
+					new_dict(\
+						ft_substr(*envp, 0, ft_strchr(*envp, '=') - *envp), \
+						ft_strdup(ft_strchr(*envp, '=') + 1)));
+		if (!node)
+			return (clear_lst(&lst, del_dict));
+		else if (!node->content)
+		{
+			free(node);
+			return (clear_lst(&lst, del_dict));
+		}
 		ft_lstadd_back(&lst, node);
-		s += ft_strlen(((t_token *)node->content)->token);
-		s = skip_delimeter(s);
+		envp++;
 	}
-	node = ft_lstnew(new_token(NEWLINE, ft_strdup("\n")));
-	if (!node || !node->content)
-		return (clear_lst(&lst, del_token));
-	ft_lstadd_back(&lst, node);
 	return (lst);
 }
 
@@ -45,11 +44,4 @@ static void	*clear_lst(t_list **lst, void (*del)(void *))
 {
 	ft_lstclear(lst, del);
 	return (NULL);
-}
-
-static char	*skip_delimeter(const char *s)
-{
-	while (isdelimeter(*s))
-		s++;
-	return ((char *)s);
 }

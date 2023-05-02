@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   del_dict.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 16:17:38 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 17:09:38 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/02 16:34:05 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/02 17:09:18 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#include "shell/type.h"
+#include <stdlib.h>
 
-typedef enum e_bool
+void	del_dict(void *ptr)
 {
-	FALSE = 0,
-	TRUE = 1
-}	t_bool;
-
-typedef struct s_dict
-{
-	char	*key;
-	char	*value;
-}	t_dict;
-
-
-int		isdelimeter(int c);
-int		ismeta(int c);
-int		isoperator(int c);
-int		isquote(int c);
-
-void	del_dict(void *ptr);
-t_dict	*new_dict(char *key, char *value);
-
-#endif
+	if (!ptr)
+		return ;
+	if (((t_dict *)ptr)->key)
+		free(((t_dict *)ptr)->key);
+	if (((t_dict *)ptr)->value)
+		free(((t_dict *)ptr)->value);
+	free(ptr);
+}
