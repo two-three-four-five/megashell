@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 17:24:09 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 20:44:16 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,37 +26,53 @@ void	print_token_lst(t_list *lst)
 	int	i;
 
 	i = 0;
+	printf("---------------------------------------------------------\n");
 	while (lst)
 	{
 		printf("%3d | type(%2d) | %s\n", i++, ((t_token *)lst->content)->type, \
 										((t_token *)lst->content)->token);
 		lst = lst->next;
 	}
+	printf("---------------------------------------------------------\n");
 }
 
-void	print_dict_lst(t_list *lst)
+void	print_dict(t_dict *lst)
 {
 	int	i;
 
 	i = 0;
+	printf("---------------------------------------------------------\n");
 	while (lst)
 	{
-		printf("%3d | %-30s | %s\n", i++, ((t_dict *)lst->content)->key, \
-										((t_dict *)lst->content)->value);
+		printf("%3d | %-30s | %s\n", i++, ((t_str_pair *)lst->content)->s1, \
+										((t_str_pair *)lst->content)->s2);
 		lst = lst->next;
 	}
+	printf("---------------------------------------------------------\n");
+}
+
+static t_bool	check_arg(int argc, char **argv)
+{
+	(void)argv;
+	if (argc == 1)
+		return (TRUE);
+	else
+		return (FALSE);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
 	t_list		*tokenized_lst;
-	t_list		*envp_lst;
+	t_dict		*envp_dict;
 
-	(void)argc;
-	(void)argv;
-	envp_lst = get_envp_lst(envp);
-	print_dict_lst(envp_lst);
+	if (!check_arg(argc, argv))
+	{
+		printf("usage : ./minishell\n");
+		return (1);
+	}
+	envp_dict = get_envp_dict(envp);
+	print_dict(envp_dict);
 	set_signal_handler();
 	while (TRUE)
 	{
@@ -64,12 +80,13 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			break ;
 		tokenized_lst = tokenize(input);
-		if (check_syntax(tokenized_lst))
-			print_token_lst(tokenized_lst);
+		check_syntax(tokenized_lst);
+		print_token_lst(tokenized_lst);
 		add_history(input);
 		ft_lstclear(&tokenized_lst, del_token);
 		free(input);
 	}
+	ft_lstclear(&envp_dict, del_str_pair);
 	printf("exit\n");
 	return (0);
 }

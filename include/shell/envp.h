@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 17:02:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 20:34:44 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define ENVP_H
 
 # include "libft.h"
+# include "shell/type.h"
 
-t_list	*get_envp_lst(char **envp);
+t_dict	*get_envp_dict(char **envp);
 
 #endif

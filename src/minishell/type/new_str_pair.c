@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_dict.c                                         :+:      :+:    :+:   */
+/*   new_str_pair.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:26:19 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 16:33:54 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 20:25:38 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 #include "shell/type.h"
 #include <stdlib.h>
 
-static void	*del_char_pointers(char *s1, char *s2);
+static void	*del_strs(char *s1, char *s2);
 
-t_dict	*new_dict(char *key, char *value)
+t_str_pair	*new_str_pair(char *s1, char *s2)
 {
-	t_dict	*dict;
+	t_str_pair	*pair;
 
-	if (!key || !value)
-		return (del_char_pointers(key, value));
-	dict = (t_dict *)ft_calloc(1, sizeof(t_dict));
-	if (!dict)
-		return (del_char_pointers(key, value));
-	dict->key = key;
-	dict->value = value;
-	return (dict);
+	if (!s1 || !s2)
+		return (del_strs(s1, s2));
+	pair = (t_str_pair *)ft_calloc(1, sizeof(t_str_pair));
+	if (!pair)
+		return (del_strs(s1, s2));
+	pair->s1 = s1;
+	pair->s2 = s2;
+	return (pair);
 }
 
-static void	*del_char_pointers(char *s1, char *s2)
+static void	*del_strs(char *s1, char *s2)
 {
 	if (s1)
 		free(s1);

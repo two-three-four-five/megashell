@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   del_dict.c                                         :+:      :+:    :+:   */
+/*   del_str_pair.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:34:05 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 17:09:18 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/02 20:23:32 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell/type.h"
 #include <stdlib.h>
 
-void	del_dict(void *ptr)
+void	del_str_pair(void *ptr)
 {
 	if (!ptr)
 		return ;
-	if (((t_dict *)ptr)->key)
-		free(((t_dict *)ptr)->key);
-	if (((t_dict *)ptr)->value)
-		free(((t_dict *)ptr)->value);
+	if (((t_str_pair *)ptr)->s1)
+		free(((t_str_pair *)ptr)->s1);
+	if (((t_str_pair *)ptr)->s2)
+		free(((t_str_pair *)ptr)->s2);
 	free(ptr);
 }
