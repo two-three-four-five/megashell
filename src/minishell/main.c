@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/06 17:42:55 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/06 22:50:47 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		tokenized_lst = tokenize(input);
 		check_syntax(tokenized_lst);
-		expand(tokenized_lst, env);
+		expand(&tokenized_lst, env);
 		print_token_lst(tokenized_lst);
 		add_history(input);
 		ft_lstclear(&tokenized_lst, del_token);

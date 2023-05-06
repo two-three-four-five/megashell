@@ -8,6 +8,8 @@
 		"parse.h": "c",
 		"error.h": "c",
 		"signal.h": "c",
-		"_null.h": "c"
+		"_null.h": "c",
+		"unistd.h": "c",
+		"dirent.h": "c"
 	}
 }
