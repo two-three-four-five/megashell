@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/07 00:44:23 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/07 03:24:51 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum e_token_type
 {
 	UNDEFINED = 0x0000,
 	WORD = 0x0001,
+	NAME = 0x0002,
 	PIPE = 0x0003,
 	NEWLINE = 0x0005,
 
