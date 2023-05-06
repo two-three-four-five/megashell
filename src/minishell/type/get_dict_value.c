@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   get_dict_value.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/06 17:26:48 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/06 17:23:01 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/06 17:48:35 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include "libft.h"
+#include "shell/type.h"
 
-# include "libft.h"
-# include "shell/type.h"
+char	*get_dict_value(t_dict *dict, char *key)
+{
+	char	*dict_key;
 
-t_dict	*get_envp_dict(char **envp);
-
-#endif
+	while (dict)
+	{
+		dict_key = ((t_str_pair *)dict->content)->s1;
+		if (!ft_strncmp(dict_key, key, ft_strlen(dict_key)))
+			return (((t_str_pair *)dict->content)->s2);
+		dict = dict->next;
+	}
+	return (NULL);
+}

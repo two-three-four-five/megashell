@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:17:38 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 20:20:07 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/06 17:27:40 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ int			isquote(int c);
 
 void		del_str_pair(void *ptr);
 t_str_pair	*new_str_pair(char *s1, char *s2);
+
+char		*get_dict_value(t_dict *dict, char *key);
 
 #endif
