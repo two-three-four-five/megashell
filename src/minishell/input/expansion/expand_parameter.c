@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 20:58:34 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/06 17:57:09 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/06 22:43:16 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ void	expand_parameter(t_list *lst, t_dict *env)
 static int	count_parameter(char *s)
 {
 	t_bool	quote;
+	t_bool	dquote;
 	int		var_cnt;
 
 	quote = FALSE;
+	dquote = FALSE;
 	var_cnt = 0;
 	while (*s)
 	{
-		if (*s == '\'')
+		if (!dquote && *s == '\'')
 			quote = !quote;
+		else if (!quote && *s == '\"')
+			dquote = !dquote;
 		if (!quote && *s == '$' && (ft_isalpha(s[1]) || s[1] == '_'))
 			var_cnt++;
 		s++;
@@ -67,14 +71,18 @@ static int	count_parameter(char *s)
 static int	get_identifier_idx(char *s)
 {
 	t_bool	quote;
+	t_bool	dquote;
 	int		idx;
 
 	quote = FALSE;
+	dquote = FALSE;
 	idx = 0;
 	while (s[idx])
 	{
-		if (s[idx] == '\'')
+		if (!dquote && *s == '\'')
 			quote = !quote;
+		else if (!quote && *s == '\"')
+			dquote = !dquote;
 		if (!quote && s[idx] == '$' && \
 			(ft_isalpha(s[idx + 1]) || s[idx + 1] == '_'))
 			return (idx);
