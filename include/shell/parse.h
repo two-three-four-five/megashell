@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/06 17:40:18 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/07 00:44:23 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ t_bool	check_token_syntax(t_list *lst);
 t_bool	check_undefined_token(t_list *lst);
 t_bool	check_syntax(t_list *lst);
 
-void	expand(t_list *lst, t_dict *env);
+void	expand(t_list **lst, t_dict *env);
 void	expand_parameter(t_list *lst, t_dict *env);
+void	expand_filename(t_list *lst);
+void	remove_quote(t_list *lst);
 
 #endif
