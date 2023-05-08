@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/08 21:41:32 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/08 21:58:40 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	expand_filename(t_list *lst)
 	t_list	*filename_lst;
 	t_list	*temp;
 
+	lst = lst->next;
 	while (lst)
 	{
 		if (((t_token *)lst->content)->type == WORD && \

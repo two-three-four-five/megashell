@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 20:58:34 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/06 22:43:16 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/08 21:58:50 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	expand_parameter(t_list *lst, t_dict *env)
 	int		i;
 	char	*new_token;
 
+	lst = lst->next;
 	while (lst)
 	{
 		if (((t_token *)lst->content)->type == WORD)

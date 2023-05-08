@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/02 16:55:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/08 21:52:26 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ t_list	*tokenize(char *s)
 	t_list	*lst;
 	t_list	*node;
 
-	lst = NULL;
+	lst = ft_lstnew(NULL);
+	if (!lst)
+		return (NULL);
 	node = NULL;
 	while (*s)
 	{

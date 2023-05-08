@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:11:52 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/07 00:47:33 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/08 22:00:00 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	remove_quote(t_list *lst)
 {
 	char	*new_token;
 
+	lst = lst->next;
 	while (lst)
 	{
 		if (((t_token *)lst->content)->type == WORD)

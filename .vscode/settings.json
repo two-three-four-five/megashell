@@ -10,6 +10,7 @@
 		"signal.h": "c",
 		"_null.h": "c",
 		"unistd.h": "c",
-		"dirent.h": "c"
+		"dirent.h": "c",
+		"__node_handle": "c"
 	}
 }
