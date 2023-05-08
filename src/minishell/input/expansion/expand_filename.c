@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/07 03:24:49 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/08 21:41:32 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_list	*get_matching_file_lst(char *pattern)
 			break ;
 		if (file->d_name[0] != '.')
 		{
-			node = ft_lstnew(new_token(NAME, ft_strdup(file->d_name)));
+			node = ft_lstnew(new_token(FILENAME, ft_strdup(file->d_name)));
 			ft_lstadd_back(&head, node);
 		}
 	}
