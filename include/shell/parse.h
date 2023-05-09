@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/09 23:59:46 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/10 00:47:38 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		get_token_len(char *s);
 char	get_token_type(char *s);
 t_token	*get_next_token(char *s);
 t_token	*new_token(char type, char *str);
+void	print_token(void *ptr);
 t_list	*tokenize(char *s);
 
 t_bool	check_matching_syntax(t_list *lst);

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/08 21:56:09 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/10 00:50:37 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-void	print_token_lst(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	printf("---------------------------------------------------------\n");
-	while (lst)
-	{
-		printf("%3d | type(%2d) | %s\n", i++, ((t_token *)lst->content)->type, \
-										((t_token *)lst->content)->token);
-		lst = lst->next;
-	}
-	printf("---------------------------------------------------------\n");
-}
 
 void	print_dict(t_dict *lst)
 {
@@ -82,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		tokenized_lst = tokenize(input);
 		check_syntax(tokenized_lst->next);
 		expand(tokenized_lst, env);
-		print_token_lst(tokenized_lst->next);
+		ft_lstiter(tokenized_lst, print_token);
 		add_history(input);
 		ft_lstclear(&tokenized_lst, del_token);
 		free(input);
