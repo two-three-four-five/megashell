@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/08 21:58:40 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/09 23:46:56 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	expand_filename(t_list *lst)
 			filename_lst = get_matching_file_lst("*");
 			if (filename_lst)
 			{
-				((t_token *)lst->content)->token[0] = 0;
+				((t_token *)lst->content)->token[0] = '\0';
 				ft_lstadd_back(&filename_lst, lst->next);
 				temp = lst->next;
 				lst->next = filename_lst;

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/08 21:56:04 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/09 23:59:46 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	expand(t_list *lst, t_dict *env);
 void	expand_parameter(t_list *lst, t_dict *env);
 void	expand_filename(t_list *lst);
 void	remove_quote(t_list *lst);
+void	split_word(t_list *lst);
 
 #endif
