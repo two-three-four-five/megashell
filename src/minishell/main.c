@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/10 00:50:37 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/10 21:06:36 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-void	print_dict(t_dict *lst)
-{
-	int	i;
-
-	i = 0;
-	printf("---------------------------------------------------------\n");
-	while (lst)
-	{
-		printf("%3d | %-30s | %s\n", i++, ((t_str_pair *)lst->content)->s1, \
-										((t_str_pair *)lst->content)->s2);
-		lst = lst->next;
-	}
-	printf("---------------------------------------------------------\n");
-}
 
 static t_bool	check_arg(int argc, char **argv)
 {
@@ -57,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	env = get_envp_dict(envp);
-	print_dict(env);
+	ft_lstiter(env, print_str_pair);
 	set_signal_handler();
 	while (TRUE)
 	{
