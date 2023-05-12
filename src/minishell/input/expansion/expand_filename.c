@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/09 23:46:56 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/12 23:50:23 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-//t_bool	is_matching(char *s, char *pattern);
+t_bool	is_matching(char *s, char *pattern);
 t_bool	has_unquoted_wildcard(char *s);
 t_list	*get_matching_file_lst(char *pattern);
 void	expand_filename(t_list *lst);
@@ -34,7 +34,8 @@ void	expand_filename(t_list *lst)
 		if (((t_token *)lst->content)->type == WORD && \
 			has_unquoted_wildcard(((t_token *)lst->content)->token))
 		{
-			filename_lst = get_matching_file_lst("*");
+			filename_lst = get_matching_file_lst(\
+				((t_token *)lst->content)->token);
 			if (filename_lst)
 			{
 				((t_token *)lst->content)->token[0] = '\0';
@@ -72,10 +73,29 @@ t_bool	has_unquoted_wildcard(char *s)
 }
 
 
-// t_bool	is_matching(char *s, char *pattern)
-// {
+t_bool	is_matching(char *s, char *pattern)
+{
+	size_t	idx;
+	size_t	repeat;
 
-// }
+	idx = 0;
+	while (s[idx] && pattern[idx] && \
+			(pattern[idx] == '?' || pattern[idx] == s[idx]))
+		idx++;
+	if (idx == ft_strlen(pattern))
+		return ((t_bool)(idx == ft_strlen(s)));
+	if (pattern[idx] == '*')
+	{
+		repeat = 0;
+		while (repeat <= ft_strlen(s) - idx)
+		{
+			if (is_matching(s + repeat, pattern + 1))
+				return (TRUE);
+			repeat++;
+		}
+	}
+	return (FALSE);
+}
 
 t_list	*get_matching_file_lst(char *pattern)
 {
@@ -96,7 +116,7 @@ t_list	*get_matching_file_lst(char *pattern)
 		file = readdir(dir);
 		if (!file)
 			break ;
-		if (file->d_name[0] != '.')
+		if (file->d_name[0] != '.' && is_matching(file->d_name, pattern))
 		{
 			node = ft_lstnew(new_token(FILENAME, ft_strdup(file->d_name)));
 			ft_lstadd_back(&head, node);
