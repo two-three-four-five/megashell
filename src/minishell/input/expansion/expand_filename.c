@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/12 23:50:23 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/12 23:53:58 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ t_list	*get_matching_file_lst(char *pattern)
 	t_list			*head;
 	t_list			*node;
 
-	(void)pattern;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (NULL);
