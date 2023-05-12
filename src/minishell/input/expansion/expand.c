@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:51:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/09 23:27:04 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/13 00:15:54 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	delete_empty_word(t_list *lst)
 
 void	expand(t_list *lst, t_dict *env)
 {
+	expand_tilde(lst, env);
 	expand_parameter(lst, env);
 	expand_filename(lst);
 	split_word(lst);
