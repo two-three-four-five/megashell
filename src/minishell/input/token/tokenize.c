@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/08 21:52:26 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/13 00:37:34 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_list	*tokenize(char *s)
 	while (*s)
 	{
 		s = skip_delimeter(s);
+		if (*s == '#')
+			break ;
 		node = ft_lstnew(get_next_token(s));
 		if (!node || !node->content)
 			return (clear_lst(&lst, del_token));
