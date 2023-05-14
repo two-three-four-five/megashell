@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:17:38 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/10 21:06:31 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 16:36:39 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ struct s_str_pair
 	char	*s2;
 };
 
+// tree
+typedef struct s_tree		t_tree;
+
+struct s_tree
+{
+	void			*content;
+	struct s_tree	*left;
+	struct s_tree	*right;
+};
+
+t_tree		*ft_treenew(void *content);
 
 int			isdelimeter(int c);
 int			ismeta(int c);
