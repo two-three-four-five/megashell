@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:03:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 21:30:02 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 22:31:02 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_tree	*parse_lst(t_list *lst)
 	}
 	else if (has_pipe(lst))
 	{
-		printf("** pipe **\n");
+		// printf("** pipe **\n");
 		head = ft_treenew(new_token(PIPE, ft_strdup("|")));
 		head->left = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
 		head->right = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
@@ -143,16 +143,16 @@ t_tree	*parse_lst(t_list *lst)
 			curr = curr->next;
 		}
 		del_token_lstlast(left);
-		printf("%-10s", "left :");
-		ft_lstiter(left, print_token);
-		printf("%-10s", "right :");
-		ft_lstiter(right, print_token);
+		// printf("%-10s", "left :");
+		// ft_lstiter(left, print_token);
+		// printf("%-10s", "right :");
+		// ft_lstiter(right, print_token);
 		head->left->left = parse_lst(left);
 		head->right->left = parse_lst(right);
 	}
 	else if (has_logic_operator(lst))
 	{
-		printf("** logic **\n");
+		// printf("** logic **\n");
 		head = ft_treenew(new_token(REDIRECT, ft_strdup("&&||")));
 		head->left = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
 		head->right = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
@@ -180,17 +180,17 @@ t_tree	*parse_lst(t_list *lst)
 			curr = curr->next;
 		}
 		del_token_lstlast(left);
-		printf("%-10s", "left :");
-		ft_lstiter(left, print_token);
-		printf("%-10s", "right :");
-		ft_lstiter(right, print_token);
+		// printf("%-10s", "left :");
+		// ft_lstiter(left, print_token);
+		// printf("%-10s", "right :");
+		// ft_lstiter(right, print_token);
 		head->left->left = parse_lst(left);
 		head->right->left = parse_lst(right);
 	}
 	else
 	{
-		printf("** command **\n");
-		head = ft_treenew(new_token(CMD, ft_strdup("")));
+		//printf("** command **\n");
+		head = ft_treenew(new_token(CMD, ft_strdup("[COMMAND]")));
 
 
 		if (((t_token *)lst->content)->type == OPEN_PAREN)
@@ -228,7 +228,6 @@ t_tree	*parse_lst(t_list *lst)
 				prev = lst;
 				if (((t_token *)lst->content)->type == WORD)
 				{
-					printf("!!!token : WORD\n");
 					ft_treeadd_leftend(&head, ft_treenew(\
 						new_token(WORD, \
 						ft_strdup(((t_token *)lst->content)->token))));
@@ -237,7 +236,6 @@ t_tree	*parse_lst(t_list *lst)
 				}
 				else if (((t_token *)lst->content)->type & REDIRECT)
 				{
-					printf("!!!token : REDIRECT\n");
 					new_tree = ft_treenew(\
 						new_token(((t_token *)lst->content)->type, \
 								ft_strdup(((t_token *)lst->content)->token)));
