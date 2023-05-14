@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 16:08:50 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 22:55:44 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,12 @@ t_token	*new_token(char type, char *str);
 void	print_token(void *ptr);
 t_list	*tokenize(char *s);
 
+t_bool	check_undefined_token(t_list *lst);
 t_bool	check_matching_syntax(t_list *lst);
 t_bool	check_token_syntax(t_list *lst);
-t_bool	check_undefined_token(t_list *lst);
+t_bool	check_word_order(char prev, char curr);
+t_bool	check_newline_order(char prev, char curr);
+t_bool	check_operator_order(char prev, char curr);
 t_bool	check_syntax(t_list *lst);
 
 void	expand(t_list *lst, t_dict *env);
