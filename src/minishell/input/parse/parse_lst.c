@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:03:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 21:06:43 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 21:30:02 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,19 +228,22 @@ t_tree	*parse_lst(t_list *lst)
 				prev = lst;
 				if (((t_token *)lst->content)->type == WORD)
 				{
+					printf("!!!token : WORD\n");
 					ft_treeadd_leftend(&head, ft_treenew(\
-						new_token(WORD, ((t_token *)lst->content)->token)));
+						new_token(WORD, \
+						ft_strdup(((t_token *)lst->content)->token))));
 					lst = lst->next;
 					ft_lstdelone(prev, del_token);
 				}
 				else if (((t_token *)lst->content)->type & REDIRECT)
 				{
+					printf("!!!token : REDIRECT\n");
 					new_tree = ft_treenew(\
 						new_token(((t_token *)lst->content)->type, \
-								((t_token *)lst->content)->token));
+								ft_strdup(((t_token *)lst->content)->token)));
 					new_tree->left = ft_treenew(\
 						new_token(((t_token *)lst->next->content)->type, \
-								((t_token *)lst->next->content)->token));
+							ft_strdup(((t_token *)lst->next->content)->token)));
 					ft_treeadd_rightend(&head, new_tree);
 					lst = lst->next->next;
 					prev->next->next = NULL;

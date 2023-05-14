@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 21:14:16 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 21:28:22 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ int	main(int argc, char **argv, char **envp)
 		{
 			expand(tokenized_lst, env);
 			parse_tree = parse_lst(tokenized_lst->next);
+			print_tree(parse_tree);
+			ft_treeclear(&parse_tree, del_token);
+			ft_lstdelone(tokenized_lst, del_token);
 		}
+		else
+			ft_lstclear(&tokenized_lst, del_token);
 		add_history(input);
-		ft_lstdelone(tokenized_lst, del_token);
-		//ft_treeclear(&parse_tree, del_token);
-		ft_lstclear(&tokenized_lst, del_token);
 		free(input);
 	}
 	ft_lstclear(&env, del_str_pair);

@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_treeclear.c                                     :+:      :+:    :+:   */
+/*   print_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/14 21:07:46 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 21:20:37 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/14 21:26:39 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/14 21:28:08 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell/type.h"
-#include <stdlib.h>
+#include "shell/parse.h"
+#include <stdio.h>
 
-void	ft_treeclear(t_tree **tree, void (*del)(void *))
+void	print_tree(t_tree *tree)
 {
-	t_tree	*curr;
-
-	curr = *tree;
-	if (!curr)
+	if (!tree)
 		return ;
-	ft_treeclear(&curr->left, del);
-	ft_treeclear(&curr->right, del);
-	del(curr->content);
-	free(curr);
-	*tree = NULL;
+	print_token(tree->content);
+	print_tree(tree->left);
+	print_tree(tree->right);
 }
