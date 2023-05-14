@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 22:55:44 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 22:57:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_list	*tokenize(char *s);
 
 t_bool	check_undefined_token(t_list *lst);
 t_bool	check_matching_syntax(t_list *lst);
-t_bool	check_token_syntax(t_list *lst);
+t_bool	check_token_order(t_list *lst);
 t_bool	check_word_order(char prev, char curr);
 t_bool	check_newline_order(char prev, char curr);
 t_bool	check_operator_order(char prev, char curr);

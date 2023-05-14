@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_token_syntax.c                               :+:      :+:    :+:   */
+/*   check_token_order.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:54:36 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 22:55:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 22:59:18 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "shell/parse.h"
 #include <stdio.h>
 
-t_bool	check_token_syntax(t_list *lst)
+t_bool	check_token_order(t_list *lst)
 {
 	char	prev;
 	char	curr;
