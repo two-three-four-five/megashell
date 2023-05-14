@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:17:38 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 16:36:39 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 21:11:05 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ struct s_tree
 };
 
 t_tree		*ft_treenew(void *content);
+void		ft_treeadd_leftend(t_tree **tree, t_tree *new);
+void		ft_treeadd_rightend(t_tree **tree, t_tree *new);
+void		ft_treeclear(t_tree **tree, void (*del)(void *));
 
 int			isdelimeter(int c);
 int			ismeta(int c);

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 17:28:20 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/14 21:14:16 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		add_history(input);
 		ft_lstdelone(tokenized_lst, del_token);
-		//ft_lstclear(&tokenized_lst, del_token);
+		//ft_treeclear(&parse_tree, del_token);
+		ft_lstclear(&tokenized_lst, del_token);
 		free(input);
 	}
 	ft_lstclear(&env, del_str_pair);
