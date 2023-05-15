@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:03:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 22:31:02 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/15 20:49:16 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,8 @@ t_tree	*parse_lst(t_list *lst)
 
 
 		int		subshell = 0;
-		t_list	*prev;
 		t_list	*curr;
 
-		prev = NULL;
 		curr = lst;
 		while (curr)
 		{
@@ -139,7 +137,6 @@ t_tree	*parse_lst(t_list *lst)
 				left = lst;
 				break ;
 			}
-			prev = curr;
 			curr = curr->next;
 		}
 		del_token_lstlast(left);
@@ -158,10 +155,8 @@ t_tree	*parse_lst(t_list *lst)
 		head->right = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
 
 		int		subshell = 0;
-		t_list	*prev;
 		t_list	*curr;
 
-		prev = NULL;
 		curr = lst;
 		while (curr)
 		{
@@ -176,7 +171,6 @@ t_tree	*parse_lst(t_list *lst)
 				left = lst;
 				break ;
 			}
-			prev = curr;
 			curr = curr->next;
 		}
 		del_token_lstlast(left);

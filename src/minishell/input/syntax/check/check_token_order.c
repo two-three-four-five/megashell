@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:54:36 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/15 20:45:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/15 20:50:20 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static t_bool	check_order_without_redirect(t_list *lst)
 			!check_newline_order(prev, ((t_token *)lst->content)->type) || \
 			!check_operator_order(prev, ((t_token *)lst->content)->type))
 		{
-			if (((t_token *)lst->content)->token == NEWLINE)
+			if (((t_token *)lst->content)->type == NEWLINE)
 				raise_syntax_error(UNEXPECTED_TOKEN, "newline", 0, 0);
 			else
 				raise_syntax_error(UNEXPECTED_TOKEN, \
