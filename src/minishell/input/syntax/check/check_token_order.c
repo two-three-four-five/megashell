@@ -6,16 +6,28 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:54:36 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 22:59:18 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/15 20:45:12 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell/type.h"
 #include "shell/parse.h"
-#include <stdio.h>
+#include "shell/error.h"
+
+static t_bool	check_order(t_list *lst);
+static t_bool	check_order_without_redirect(t_list *lst);
+t_bool			check_token_order(t_list *lst);
 
 t_bool	check_token_order(t_list *lst)
+{
+	if (check_order(lst) && check_order_without_redirect(lst))
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
+static t_bool	check_order(t_list *lst)
 {
 	char	prev;
 	char	curr;
@@ -29,14 +41,42 @@ t_bool	check_token_order(t_list *lst)
 			!check_operator_order(prev, curr))
 		{
 			if (curr == NEWLINE)
-				printf("dish: syntax error near unexpected token `%s\'\n", \
-						"newline");
+				raise_syntax_error(UNEXPECTED_TOKEN, "newline", 0, 0);
 			else
-				printf("dish: syntax error near unexpected token `%s\'\n", \
-					((t_token *)lst->content)->token);
+				raise_syntax_error(UNEXPECTED_TOKEN, \
+					((t_token *)lst->content)->token, 0, 0);
 			return (FALSE);
 		}
 		prev = curr;
+		lst = lst->next;
+	}
+	return (TRUE);
+}
+
+static t_bool	check_order_without_redirect(t_list *lst)
+{
+	char	prev;
+
+	prev = UNDEFINED;
+	while (lst)
+	{
+		if (((t_token *)lst->content)->type == REDIRECT)
+		{
+			lst = lst->next->next;
+			continue ;
+		}
+		if (!check_word_order(prev, ((t_token *)lst->content)->type) || \
+			!check_newline_order(prev, ((t_token *)lst->content)->type) || \
+			!check_operator_order(prev, ((t_token *)lst->content)->type))
+		{
+			if (((t_token *)lst->content)->token == NEWLINE)
+				raise_syntax_error(UNEXPECTED_TOKEN, "newline", 0, 0);
+			else
+				raise_syntax_error(UNEXPECTED_TOKEN, \
+					((t_token *)lst->content)->token, 0, 0);
+			return (FALSE);
+		}
+		prev = ((t_token *)lst->content)->type;
 		lst = lst->next;
 	}
 	return (TRUE);

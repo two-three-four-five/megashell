@@ -6,14 +6,14 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:07:45 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 22:57:15 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/15 20:43:03 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell/type.h"
 #include "shell/parse.h"
-#include <stdio.h>
+#include "shell/error.h"
 
 static t_bool	check_quote(t_list *lst);
 static t_bool	check_parenthesis(t_list *lst);
@@ -46,7 +46,7 @@ static t_bool	check_quote(t_list *lst)
 		}
 		if (quote)
 		{
-			printf("dish: %c: missing `%c\'\n", quote, quote);
+			raise_syntax_error(MISSING_TOKEN, NULL, quote, quote);
 			return (FALSE);
 		}
 		lst = lst->next;
@@ -71,12 +71,12 @@ static t_bool	check_parenthesis(t_list *lst)
 	}
 	if (parenthesis < 0)
 	{
-		printf("dish: syntax error near unexpected token `%c\'\n", ')');
+		raise_syntax_error(UNEXPECTED_TOKEN, ")", 0, 0);
 		return (FALSE);
 	}
 	else if (parenthesis > 0)
 	{
-		printf("dish: %c: missing `%c\'\n", '(', ')');
+		raise_syntax_error(MISSING_TOKEN, NULL, '(', ')');
 		return (FALSE);
 	}
 	return (TRUE);
