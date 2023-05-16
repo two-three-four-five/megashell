@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/16 21:49:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/17 02:13:34 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
 	t_dict		*env;
+	t_tree		*ptree;
 
 	if (!check_arg(argc, argv))
 	{
@@ -47,7 +48,13 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("dish-0.2$ ");
 		if (!input)
 			break ;
-		analyze_input(input, env);
+		ptree = parse_input(input, env);
+		if (!ptree)
+		{
+			free(input);
+			continue ;
+		}
+		ft_treeclear(&ptree, del_token);
 		add_history(input);
 		free(input);
 	}

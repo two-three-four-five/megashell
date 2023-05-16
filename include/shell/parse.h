@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 01:16:47 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/17 02:06:53 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ typedef struct s_token
 	char	*token;
 }	t_token;
 
-void	analyze_input(char *input, t_dict *env);
-
 void	del_token_lstlast(t_list *lst);
 void	del_token(void *ptr);
 int		get_token_len(char *s);
@@ -83,8 +81,11 @@ void	expand_filename(t_list *lst);
 void	remove_quote(t_list *lst);
 void	split_word(t_list *lst);
 
+t_bool	has_heredoc(t_list *lst);
 t_bool	redirect_heredoc(t_list *lst);
 
 t_tree	*parse_lst(t_list *lst);
+
+t_tree	*parse_input(char *input, t_dict *env);
 
 #endif
