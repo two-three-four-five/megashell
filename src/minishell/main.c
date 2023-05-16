@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 21:28:22 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/16 21:49:12 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ static t_bool	check_arg(int argc, char **argv)
 int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
-	t_list		*tokenized_lst;
 	t_dict		*env;
-	t_tree		*parse_tree;
 
 	if (!check_arg(argc, argv))
 	{
@@ -43,25 +41,13 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	env = get_envp_dict(envp);
-	ft_lstiter(env, print_str_pair);
 	set_signal_handler();
 	while (TRUE)
 	{
 		input = readline("dish-0.2$ ");
 		if (!input)
 			break ;
-		tokenized_lst = tokenize(input);
-		ft_lstiter(tokenized_lst, print_token);
-		if (check_syntax(tokenized_lst->next))
-		{
-			expand(tokenized_lst, env);
-			parse_tree = parse_lst(tokenized_lst->next);
-			print_tree(parse_tree);
-			ft_treeclear(&parse_tree, del_token);
-			ft_lstdelone(tokenized_lst, del_token);
-		}
-		else
-			ft_lstclear(&tokenized_lst, del_token);
+		analyze_input(input, env);
 		add_history(input);
 		free(input);
 	}

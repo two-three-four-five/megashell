@@ -12,6 +12,9 @@
 		"unistd.h": "c",
 		"dirent.h": "c",
 		"__node_handle": "c",
-		"ios": "c"
+		"ios": "c",
+		"_mcontext.h": "c",
+		"history.h": "c",
+		"__config": "c"
 	}
 }
