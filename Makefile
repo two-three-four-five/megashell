@@ -6,7 +6,7 @@
 #    By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 16:53:40 by gyoon             #+#    #+#              #
-#    Updated: 2023/05/15 20:48:01 by gyoon            ###   ########.fr        #
+#    Updated: 2023/05/17 15:35:18 by gyoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ version = "mandatory version"
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $@ -lft -lreadline -L lib -L $(READLINE_M1)/lib
+	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $@ -lft -lreadline -L lib -L $(READLINE)/lib
 	@printf "\rCompiling source files... "
 	@printf "%.$(shell printf "%d" 64)s" $(bar_done)
 	@printf "%7.2f%%\n" 100
@@ -96,7 +96,7 @@ $(NAME) : $(OBJS)
 	@printf "%.$(shell printf "%d" $(len_done))s" $(bar_done)
 	@printf "%.$(shell printf "%d" $(len_ready))s" $(bar_ready)
 	@printf "%7.2f%%" $(percent)
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE) -I $(READLINE_M1)/include
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE) -I $(READLINE)/include
 
 clean :
 	@$(RM) $(OBJS)
