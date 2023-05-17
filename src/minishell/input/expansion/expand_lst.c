@@ -1,17 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   expand_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:51:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/14 16:08:57 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/17 21:10:14 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell/type.h"
 #include "shell/parse.h"
+
+static void	remove_empty_word(t_list *lst);
+void		expand_lst(t_list *lst, t_dict *env);
+
+void	expand_lst(t_list *lst, t_dict *env)
+{
+	expand_tilde_lst(lst, env);
+	expand_parameter_lst(lst, env);
+	expand_filename_lst(lst);
+	split_word_lst(lst);
+	remove_empty_word(lst);
+	remove_quote_lst(lst);
+	del_token_lstlast(lst);
+}
 
 static void	remove_empty_word(t_list *lst)
 {
@@ -34,17 +48,4 @@ static void	remove_empty_word(t_list *lst)
 			lst = lst->next;
 		}
 	}
-}
-
-
-
-void	expand(t_list *lst, t_dict *env)
-{
-	expand_tilde(lst, env);
-	expand_parameter(lst, env);
-	expand_filename(lst);
-	split_word(lst);
-	remove_empty_word(lst);
-	remove_quote(lst);
-	del_token_lstlast(lst);
 }

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 17:05:54 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/17 21:10:14 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,25 @@ t_bool	check_newline_order(char prev, char curr);
 t_bool	check_operator_order(char prev, char curr);
 t_bool	check_syntax(t_list *lst);
 
-void	expand(t_list *lst, t_dict *env);
-void	expand_tilde(t_list *lst, t_dict *env);
-void	expand_parameter(t_list *lst, t_dict *env);
-void	expand_filename(t_list *lst);
-void	remove_quote(t_list *lst);
-void	split_word(t_list *lst);
+//		expansion
+void	expand_lst(t_list *lst, t_dict *env);
+void	expand_tilde_lst(t_list *lst, t_dict *env);
+//		parameter
+void	expand_parameter_lst(t_list *lst, t_dict *env);
+char	*expand_parameter_token(char *token, t_dict *env);
+void	expand_filename_lst(t_list *lst);
+//		quote
+//		for quote removal
+int		count_quote(char *token);
+char	*remove_quote_token(char *token);
+void	remove_quote_lst(t_list *lst);
+void	split_word_lst(t_list *lst);
 
+//		heredoc
+t_bool	redirect_heredoc(t_list *lst, t_dict *env);
 t_bool	has_heredoc(t_list *lst);
-t_bool	redirect_heredoc(t_list *lst);
+t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd);
+void	exec_heredoc(char *eof, int fd, t_dict *env);
 
 t_tree	*parse_lst(t_list *lst);
 t_tree	*parse_subshell(t_list *lst);
