@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_tilde.c                                     :+:      :+:    :+:   */
+/*   expand_tilde_lst.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:05:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/13 00:26:50 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/17 21:12:55 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "shell/parse.h"
 
 char	*expand_tilde_token(char *token, t_dict *env);
-void	expand_tilde(t_list *lst, t_dict *env);
+void	expand_tilde_lst(t_list *lst, t_dict *env);
 
-void	expand_tilde(t_list *lst, t_dict *env)
+void	expand_tilde_lst(t_list *lst, t_dict *env)
 {
 	char	*new_token;
 
@@ -38,6 +38,7 @@ void	expand_tilde(t_list *lst, t_dict *env)
 	}
 }
 
+//		what happens if when there is no $HOME?
 char	*expand_tilde_token(char *token, t_dict *env)
 {
 	char	*new_token;

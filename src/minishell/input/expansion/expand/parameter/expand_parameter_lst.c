@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_token.c                                      :+:      :+:    :+:   */
+/*   expand_parameter_lst.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 00:36:57 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 21:16:51 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/02 20:58:34 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/17 21:10:23 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include "shell/type.h"
 #include "shell/parse.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-void	print_token(void *ptr)
+void	expand_parameter_lst(t_list *lst, t_dict *env)
 {
-	t_token	*token;
+	char	*new_token;
 
-	token = (t_token *)ptr;
-	if (!token)
-		printf("    type | token\n");
-	else
-		printf("%8d | %s\n", token->type, token->token);
+	lst = lst->next;
+	while (lst)
+	{
+		if (((t_token *)lst->content)->type == WORD)
+		{
+			new_token = expand_parameter_token(\
+				((t_token *)lst->content)->token, env);
+			free(((t_token *)lst->content)->token);
+			((t_token *)lst->content)->token = new_token;
+		}
+		lst = lst->next;
+	}
 }

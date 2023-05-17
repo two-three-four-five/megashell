@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_word.c                                       :+:      :+:    :+:   */
+/*   split_word_lst.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:27:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/10 00:10:45 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/17 21:09:36 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 static int		count_ifs(char *token);
 static t_list	*split_token(char *token);
 static char		*split_initial_word(char *token);
-void			split_word(t_list *lst);
+void			split_word_lst(t_list *lst);
 
-void	split_word(t_list *lst)
+void	split_word_lst(t_list *lst)
 {
 	t_list	*splitted_lst;
 	t_list	*temp;

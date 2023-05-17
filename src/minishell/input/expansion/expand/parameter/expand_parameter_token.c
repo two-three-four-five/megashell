@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_parameter.c                                 :+:      :+:    :+:   */
+/*   expand_parameter_token.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 20:58:34 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/08 21:58:50 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/17 20:45:57 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/17 20:56:52 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,27 @@ static int	count_parameter(char *s);
 static int	get_identifier_idx(char *s);
 static char	*get_identifier(char *s);
 static char	*expand_initial_parameter(char *s, t_dict *env);
-void		expand_parameter(t_list *lst, t_dict *env);
 
-void	expand_parameter(t_list *lst, t_dict *env)
+char	*expand_parameter_token(char *token, t_dict *env)
 {
 	int		var_cnt;
 	int		i;
+	char	*prev;
 	char	*new_token;
 
-	lst = lst->next;
-	while (lst)
+	prev = ft_strdup(token);
+	var_cnt = count_parameter(prev);
+	if (!var_cnt)
+		return (prev);
+	i = 0;
+	while (i < var_cnt)
 	{
-		if (((t_token *)lst->content)->type == WORD)
-		{
-			var_cnt = count_parameter(((t_token *)lst->content)->token);
-			i = 0;
-			while (i < var_cnt)
-			{
-				new_token = expand_initial_parameter(\
-					((t_token *)lst->content)->token, env);
-				free(((t_token *)lst->content)->token);
-				((t_token *)lst->content)->token = new_token;
-				i++;
-			}
-		}
-		lst = lst->next;
+		new_token = expand_initial_parameter(prev, env);
+		free(prev);
+		prev = new_token;
+		i++;
 	}
+	return (new_token);
 }
 
 static int	count_parameter(char *s)
