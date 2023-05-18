@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:11:12 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 14:27:34 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:36:18 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_list	*split_path(char *path)
 	int		i;
 	int		len;
 
+	if (!path)
+		return (NULL);
 	head = NULL;
 	i = 0;
 	while (path[i])

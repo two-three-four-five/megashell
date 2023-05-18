@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 15:29:43 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:41:12 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,33 @@ static t_bool	is_builtin_token(char *token)
 		return (FALSE);
 }
 
+static char	*join_path_and_command(char *path, char *token)
+{
+	char	*ret;
+	char	*temp;
+
+	temp = ft_strjoin(path, "/");
+	if (!temp)
+		return (NULL);
+	ret = ft_strjoin(temp, token);
+	free(temp);
+	return (ret);
+}
+
 static char	*search_command_token(char *token, t_dict *env)
 {
 	t_list	*path;
 	t_list	*curr;
-	char	*temp;
 	char	*cmd;
 	int		fd;
 
 	path = split_path(get_dict_value(env, "PATH"));
+	if (!path)
+		return (NULL);
 	curr = path;
 	while (curr)
 	{
-		temp = ft_strjoin(curr->content, "/");
-		cmd = ft_strjoin(temp, token);
-		free(temp);
+		cmd = join_path_and_command(curr->content, token);
 		fd = open(cmd, O_RDONLY);
 		if (fd > 0)
 		{
