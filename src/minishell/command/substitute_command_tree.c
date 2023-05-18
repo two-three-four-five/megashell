@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 15:41:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 20:48:02 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	substitute_command_tree(t_tree *ptree, t_dict *env)
 		return ;
 	else if (((t_token *)ptree->content)->type == CMD && \
 			!has_slash(((t_token *)ptree->content)->token) && \
-			!is_builtin_token(((t_token *)ptree->content)->token))
+			!is_builtin_token(((t_token *)ptree->content)->token) && \
+			((t_token *)ptree->content)->token[0] != '\0')
 	{
 		cmd = search_command_token(((t_token *)ptree->content)->token, env);
 		if (cmd)
