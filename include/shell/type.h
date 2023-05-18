@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:17:38 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/16 01:34:48 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:25:24 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int			isdelimeter(int c);
 int			ismeta(int c);
 int			isoperator(int c);
 int			isquote(int c);
+
+int			ft_strcmp(const char *s1, const char *s2);
 
 void		del_str_pair(void *ptr);
 t_str_pair	*new_str_pair(char *s1, char *s2);

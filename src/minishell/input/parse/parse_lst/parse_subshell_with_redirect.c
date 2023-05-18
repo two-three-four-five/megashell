@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:42:15 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 17:07:13 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 14:21:15 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ t_tree	*parse_subshell_with_redirect(t_list *lst)
 	right = close_paren->next;
 	close_paren->next = NULL;
 	head = parse_lst(lst);
-	head->right = parse_lst(lst);
+	head->right = parse_lst(right);
 	return (head);
 }
+
+// head->right makes empty CMD node
 
 static t_list	*find_close_paran_ptr(t_list *lst)
 {

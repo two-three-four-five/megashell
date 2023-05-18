@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:38:21 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 21:08:06 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:31:21 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@
 static t_tree	*parse_input_failed(t_list **lst);
 t_tree			*parse_input(char *input, t_dict *env);
 
-#include <stdio.h>
-
 t_tree	*parse_input(char *input, t_dict *env)
 {
 	t_list	*lst;
-	t_tree	*parse_tree;
+	t_tree	*ptree;
 
 	lst = tokenize(input);
 	if (!lst)
@@ -35,11 +33,9 @@ t_tree	*parse_input(char *input, t_dict *env)
 		if (has_heredoc(lst->next) && !redirect_heredoc(lst->next, env))
 			return (parse_input_failed(&lst));
 		expand_lst(lst, env);
-		parse_tree = parse_lst(lst->next);
-		printf("%10s", "head |");
-		print_tree(parse_tree);
+		ptree = parse_lst(lst->next);
 		ft_lstdelone(lst, del_token);
-		return (parse_tree);
+		return (ptree);
 	}
 }
 

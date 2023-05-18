@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:58:10 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 21:04:17 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:26:33 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ static t_bool	check_delimiter(char *input, char *eof)
 	delimiter = remove_quote_token(eof);
 	if (!delimiter)
 		return (TRUE);
-	if (!ft_strncmp(input, delimiter, ft_strlen(input)) && \
-		!ft_strncmp(input, delimiter, ft_strlen(delimiter)))
+	if (!ft_strcmp(input, delimiter))
 		ret = TRUE;
 	else
 		ret = FALSE;

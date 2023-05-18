@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 02:13:34 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/18 15:07:28 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static t_bool	check_arg(int argc, char **argv)
 		return (TRUE);
 	else
 		return (FALSE);
+}
+
+void	print_string(void *ptr)
+{
+	printf("%s\n", (char *)ptr);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -54,6 +59,9 @@ int	main(int argc, char **argv, char **envp)
 			free(input);
 			continue ;
 		}
+		substitute_command_tree(ptree, env);
+		printf("%10s", "head |");
+		print_tree(ptree);
 		ft_treeclear(&ptree, del_token);
 		add_history(input);
 		free(input);
