@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 20:48:02 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/19 16:31:36 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,27 @@
 #include <stdlib.h>
 
 static t_bool	has_slash(char *token);
-static t_bool	is_builtin_token(char *token);
+static t_bool	is_builtin_cmd(char *token);
 static char		*search_command_token(char *token, t_dict *env);
 void			substitute_command_tree(t_tree *ptree, t_dict *env);
 
 void	substitute_command_tree(t_tree *ptree, t_dict *env)
 {
+	char	type;
 	char	*cmd;
+	char	*new_cmd;
 
 	if (!ptree)
 		return ;
-	else if (((t_token *)ptree->content)->type == CMD && \
-			!has_slash(((t_token *)ptree->content)->token) && \
-			!is_builtin_token(((t_token *)ptree->content)->token) && \
-			((t_token *)ptree->content)->token[0] != '\0')
+	type = ((t_token *)ptree->content)->type;
+	cmd = ((t_token *)ptree->content)->token;
+	if (type == CMD && !has_slash(cmd) && !is_builtin_cmd(cmd) && *cmd)
 	{
-		cmd = search_command_token(((t_token *)ptree->content)->token, env);
-		if (cmd)
+		new_cmd = search_command_token(cmd, env);
+		if (new_cmd)
 		{
-			free(((t_token *)ptree->content)->token);
-			((t_token *)ptree->content)->token = cmd;
+			free(cmd);
+			((t_token *)ptree->content)->token = new_cmd;
 		}
 	}
 	substitute_command_tree(ptree->left, env);
@@ -55,21 +56,21 @@ static t_bool	has_slash(char *token)
 	return (FALSE);
 }
 
-static t_bool	is_builtin_token(char *token)
+static t_bool	is_builtin_cmd(char *cmd)
 {
-	if (!ft_strcmp(token, "echo"))
+	if (!ft_strcmp(cmd, "echo"))
 		return (TRUE);
-	else if (!ft_strcmp(token, "cd"))
+	else if (!ft_strcmp(cmd, "cd"))
 		return (TRUE);
-	else if (!ft_strcmp(token, "pwd"))
+	else if (!ft_strcmp(cmd, "pwd"))
 		return (TRUE);
-	else if (!ft_strcmp(token, "export"))
+	else if (!ft_strcmp(cmd, "export"))
 		return (TRUE);
-	else if (!ft_strcmp(token, "unset"))
+	else if (!ft_strcmp(cmd, "unset"))
 		return (TRUE);
-	else if (!ft_strcmp(token, "env"))
+	else if (!ft_strcmp(cmd, "env"))
 		return (TRUE);
-	else if (!ft_strcmp(token, "exit"))
+	else if (!ft_strcmp(cmd, "exit"))
 		return (TRUE);
 	else
 		return (FALSE);
