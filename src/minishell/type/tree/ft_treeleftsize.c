@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   ft_treeleftsize.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/20 14:53:00 by jinhchoi         ###   ########.fr       */
+/*   Created: 2023/05/20 14:20:30 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/20 14:21:32 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include "shell/type.h"
 
-# include "libft.h"
-# include "shell/type.h"
+int	ft_treeleftsize(t_tree *tree)
+{
+	int	size;
 
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
-
-#endif
+	size = 0;
+	while (tree)
+	{
+		++size;
+		tree = tree->left;
+	}
+	return (size);
+}

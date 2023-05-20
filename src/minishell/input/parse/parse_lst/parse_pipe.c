@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:15:28 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 16:37:14 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 15:26:10 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ t_tree	*parse_pipe(t_list *lst)
 	pipe->next = NULL;
 	del_token_lstlast(lst);
 	head = ft_treenew(new_token(PIPE, ft_strdup("|")));
-	head->left = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
-	head->right = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
-	head->left->left = parse_lst(lst);
-	head->right->left = parse_lst(right);
+	head->left = parse_lst(lst);
+	head->right = parse_lst(right);
 	return (head);
 }
 

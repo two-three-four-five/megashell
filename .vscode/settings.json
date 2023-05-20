@@ -17,6 +17,7 @@
 		"history.h": "c",
 		"__config": "c",
 		"fcntl.h": "c",
-		"wait.h": "c"
+		"wait.h": "c",
+		"command.h": "c"
 	}
 }

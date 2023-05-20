@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 15:07:28 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 15:35:59 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "shell/command.h"
 #include "shell/type.h"
 #include "shell/signal.h"
 #include "shell/parse.h"
@@ -50,9 +51,10 @@ int	main(int argc, char **argv, char **envp)
 	set_signal_handler();
 	while (TRUE)
 	{
-		input = readline("dish-0.2$ ");
+		input = readline("dish-0.5$ ");
 		if (!input)
 			break ;
+		add_history(input);
 		ptree = parse_input(input, env);
 		if (!ptree)
 		{
@@ -62,8 +64,8 @@ int	main(int argc, char **argv, char **envp)
 		substitute_command_tree(ptree, env);
 		printf("%10s", "head |");
 		print_tree(ptree);
+		execute(ptree, env);
 		ft_treeclear(&ptree, del_token);
-		add_history(input);
 		free(input);
 	}
 	ft_lstclear(&env, del_str_pair);

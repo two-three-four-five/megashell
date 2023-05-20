@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   substitute_command_tree.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/19 16:31:36 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 14:06:27 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "shell/type.h"
-#include "shell/parse.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include "libft.h"
+#include "shell/command.h"
+#include "shell/parse.h"
+#include "shell/type.h"
 
 static t_bool	has_slash(char *token);
-static t_bool	is_builtin_cmd(char *token);
 static char		*search_command_token(char *token, t_dict *env);
 void			substitute_command_tree(t_tree *ptree, t_dict *env);
 
@@ -54,26 +54,6 @@ static t_bool	has_slash(char *token)
 		token++;
 	}
 	return (FALSE);
-}
-
-static t_bool	is_builtin_cmd(char *cmd)
-{
-	if (!ft_strcmp(cmd, "echo"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "cd"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "pwd"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "export"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "unset"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "env"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "exit"))
-		return (TRUE);
-	else
-		return (FALSE);
 }
 
 static char	*join_path_and_command(char *path, char *token)

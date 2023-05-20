@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:17:38 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 15:25:24 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 14:21:53 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_tree		*ft_treenew(void *content);
 void		ft_treeadd_leftend(t_tree **tree, t_tree *new);
 void		ft_treeadd_rightend(t_tree **tree, t_tree *new);
 void		ft_treeclear(t_tree **tree, void (*del)(void *));
+int			ft_treeleftsize(t_tree *tree);
 void		print_tree(t_tree *tree);
 
 int			isdelimeter(int c);

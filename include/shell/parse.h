@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/18 14:48:32 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 14:06:57 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,6 @@ t_tree	*parse_pipe(t_list *lst);
 t_tree	*parse_logic(t_list *lst);
 t_tree	*parse_subshell_with_redirect(t_list *lst);
 t_tree	*parse_command(t_list *lst);
-
-t_list	*split_path(char *path);
-void	substitute_command_tree(t_tree *ptree, t_dict *env);
 
 t_tree	*parse_input(char *input, t_dict *env);
 
