@@ -18,6 +18,7 @@
 		"__config": "c",
 		"fcntl.h": "c",
 		"wait.h": "c",
-		"command.h": "c"
+		"command.h": "c",
+		"envp.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 01:46:40 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 03:17:06 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	execute_cmd_head(t_tree *tree, t_dict *env)
 	pid = fork();
 	if (pid == 0)
 	{
+		redirect_fd(tree);
 		argv = get_argv(tree);
 		envp = get_envp(env);
 		execve(((t_token *)tree->content)->token, argv, envp);
@@ -53,58 +54,6 @@ static int	execute_cmd_head(t_tree *tree, t_dict *env)
 	}
 	return (-1);
 }
-
-// #include <fcntl.h>
-// #include "shell/error.h"
-
-// int	raise_file_error(int errno, char *filename, int type)
-// {
-
-// }
-
-// int	check_file(char *filename, int type)
-// {
-// 	if (access(filename, F_OK) != 0)
-// 		return (NO_SUCH_FILE_OR_DIRECTORY);
-// }
-
-// int	open_file(char *filename, int type)
-// {
-// 	int	fd;
-// 	int	check;
-
-// 	check = raise_file_error
-// 	if (type == LESS)
-// 		fd = open(filename, O_RDONLY);
-// 	else if (type == DLESS)
-// 		fd = open(filename, O_RDONLY);
-// 	else if (type == GREAT)
-// 		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	else if (type == DGREAT)
-// 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 	if (fd < 0)
-// }
-
-// int	redirect_fd(t_tree *tree)
-// {
-// 	int	type;
-
-// 	tree = tree->right;
-// 	while (tree)
-// 	{
-// 		type = ((t_token *)tree->content)->type;
-// 		if (type & REDIRECT_OUT)
-// 		{
-
-// 		}
-// 		else
-// 		{
-			
-// 		}
-// 		tree = tree->right;
-// 	}
-// 	return (0);
-// }
 
 int	execute_cmd(t_tree *tree, t_dict *env)
 {
@@ -120,6 +69,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 			execute_cmd_head(tree, env);
 		else
 		{
+			redirect_fd(tree);
 			argv = get_argv(tree);
 			envp = get_envp(env);
 			execve(token->token, argv, envp);

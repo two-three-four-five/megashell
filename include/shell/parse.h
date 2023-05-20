@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/20 16:17:28 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:39:33 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_token_type
 	REDIRECT = 0x0010,
 	LESS = 0x0011,
 	DLESS = 0x0013,
+	REDIRECT_OUT = 0x0004,
 	GREAT = 0x0015,
 	DGREAT = 0x017,
 	BRACKET = 0x0020,
