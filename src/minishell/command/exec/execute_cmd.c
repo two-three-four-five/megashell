@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 16:45:13 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:42:23 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,22 @@ static char	**get_argv(t_tree *tree)
 	return (argv);
 }
 
+static void	free_strp(char **strp)
+{
+	int	idx;
+
+	idx = 0;
+	while (strp[idx])
+		free(strp[idx]);
+	free(strp);
+}
+
 static void	raise_exec_error(t_tree *tree)
 {
 	(void) tree;
 	ft_putstr_fd("ERROR\n", 2);
-	exit(1);
+	if ((((t_token *)tree->content)->type & HEAD) == 0)
+		exit(1);
 }
 
 int	execute_cmd(t_tree *tree, t_dict *env)
@@ -52,14 +63,16 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			**argv;
 	char			**envp;
 
+	argv = get_argv(tree);
 	envp = get_envp(env);
 	if (is_builtin_cmd(token->token))
 	{
-		execute_builtin(tree, env);
+		execute_builtin(argv, envp);
+		free_strp(argv);
+		free_strp(envp);
 	}
 	else if (is_executable(token->token))
 	{
-		argv = get_argv(tree);
 		if (token->type & HEAD)
 		{
 			pid_t	pid;
@@ -72,6 +85,8 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 			else
 			{
 				wait(&status);
+				// free_strp(argv);
+				// free_strp(envp);
 				return (WEXITSTATUS(status));
 			}
 		}
