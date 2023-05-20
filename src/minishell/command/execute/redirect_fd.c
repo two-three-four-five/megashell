@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 02:52:55 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 03:14:45 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 03:58:11 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	redirect_fd(t_tree *tree)
 		if (type & REDIRECT_OUT)
 			dup2(fd, STDOUT_FILENO);
 		else
-			dup2(fd, STDOUT_FILENO);
+			dup2(fd, STDIN_FILENO);
 		tree = tree->right;
 	}
 	return (0);
