@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 14:53:18 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:45:13 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	raise_exec_error(t_tree *tree)
 	exit(1);
 }
 
-int	exec_cmd(t_tree *tree, t_dict *env)
+int	execute_cmd(t_tree *tree, t_dict *env)
 {
 	const t_token	*token = tree->content;
 	char			**argv;
@@ -55,11 +55,26 @@ int	exec_cmd(t_tree *tree, t_dict *env)
 	envp = get_envp(env);
 	if (is_builtin_cmd(token->token))
 	{
-		exec_builtin(tree, env);
+		execute_builtin(tree, env);
 	}
 	else if (is_executable(token->token))
 	{
 		argv = get_argv(tree);
+		if (token->type & HEAD)
+		{
+			pid_t	pid;
+			int		status;
+			pid = fork();
+			if (pid == 0)
+			{
+				execve(token->token, argv, envp);
+			}
+			else
+			{
+				wait(&status);
+				return (WEXITSTATUS(status));
+			}
+		}
 		execve(token->token, argv, envp);
 	}
 	else

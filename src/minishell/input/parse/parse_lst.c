@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 15:03:47 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 17:09:06 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 17:12:51 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_tree	*parse_lst(t_list *lst)
 		return (NULL);
 	else if (is_subshell(lst))
 		return (parse_subshell(lst));
-	else if (has_pipe(lst))
-		return (parse_pipe(lst));
 	else if (has_logic_operator(lst))
 		return (parse_logic(lst));
+	else if (has_pipe(lst))
+		return (parse_pipe(lst));
 	else if (((t_token *)lst->content)->type == OPEN_PAREN)
 		return (parse_subshell_with_redirect(lst));
 	else
