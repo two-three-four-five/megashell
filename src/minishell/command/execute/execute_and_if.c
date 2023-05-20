@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:18:58 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 17:24:37 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:48:01 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,21 @@ int	execute_and_if(t_tree *node, t_dict *env)
 	pid[0] = fork();
 	if (pid[0] == 0)
 		exit_status = execute(node->left, env);
-	else
+	waitpid(pid[0], &status, 0);
+	if (get_exit_status(status) != 0)
 	{
-		waitpid(pid[0], &status, 0);
-		if (WEXITSTATUS(status) != 0)
-		{
-			if (((t_token *)node->content)->type & HEAD)
-				return (WEXITSTATUS(status));
-			else
-				exit(WEXITSTATUS(status));
-		}
-		pid[1] = fork();
-		if (pid[1] == 0)
-			exit_status = execute(node->right, env);
+		if (((t_token *)node->content)->type & HEAD)
+			return (get_exit_status(status));
 		else
-		{
-			waitpid(pid[1], &status, 0);
-			if (((t_token *)node->content)->type & HEAD)
-				return (WEXITSTATUS(status));
-			else
-				exit(WEXITSTATUS(status));
-		}
+			exit(get_exit_status(status));
 	}
+	pid[1] = fork();
+	if (pid[1] == 0)
+		exit_status = execute(node->right, env);
+	waitpid(pid[1], &status, 0);
+	if (((t_token *)node->content)->type & HEAD)
+		return (get_exit_status(status));
+	else
+		exit(get_exit_status(status));
 	return (0);
 }

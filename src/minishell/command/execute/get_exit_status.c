@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_subshell.c                                 :+:      :+:    :+:   */
+/*   get_exit_status.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 17:18:55 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 17:24:53 by jinhchoi         ###   ########.fr       */
+/*   Created: 2023/05/21 00:30:41 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/21 00:32:11 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <sys/wait.h>
-#include "shell/command.h"
-#include "shell/type.h"
 
-int	execute_subshell(t_tree *node, t_dict *env)
+int	get_exit_status(int status)
 {
-	int		status;
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		execute(node->left, env);
-	}
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (WTERMSIG(status) + 128);
 	else
-	{
-		waitpid(pid, &status, WNOHANG);
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
-		else if (WIFSIGNALED(status))
-			return (WTERMSIG(status) + 128);
-	}
-	return (0);
+		return (-1);
 }

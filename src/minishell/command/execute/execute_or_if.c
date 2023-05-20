@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_pipe.c                                     :+:      :+:    :+:   */
+/*   execute_or_if.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 17:19:01 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 17:20:12 by jinhchoi         ###   ########.fr       */
+/*   Created: 2023/05/20 17:18:59 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/21 00:47:29 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,30 @@
 #include "shell/parse.h"
 #include "shell/type.h"
 
-int	execute_pipe(t_tree *node, t_dict *env)
+int	execute_or_if(t_tree *node, t_dict *env)
 {
 	pid_t	pid[2];
 	int		exit_status;
 	int		status;
-	int		fd[2];
 
-	pipe(fd);
 	pid[0] = fork();
 	if (pid[0] == 0)
-	{
-		close(fd[READ_FD]);
-		dup2(fd[WRITE_FD], STDOUT_FILENO);
 		exit_status = execute(node->left, env);
-	}
-	else
+	waitpid(pid[0], &status, 0);
+	if (get_exit_status(status) == 0)
 	{
-		pid[1] = fork();
-		if (pid[1] == 0)
-		{
-			close(fd[WRITE_FD]);
-			dup2(fd[READ_FD], STDIN_FILENO);
-			exit_status = execute(node->right, env);
-		}
+		if (((t_token *)node->content)->type & HEAD)
+			return (get_exit_status(status));
 		else
-		{
-			close(fd[READ_FD]);
-			close(fd[WRITE_FD]);
-			waitpid(pid[0], &status, 0);
-			waitpid(pid[1], &status, 0);
-		}
+			exit(get_exit_status(status));
 	}
+	pid[1] = fork();
+	if (pid[1] == 0)
+		exit_status = execute(node->right, env);
+	waitpid(pid[1], &status, 0);
 	if (((t_token *)node->content)->type & HEAD)
-		return (WEXITSTATUS(status));
+		return (get_exit_status(status));
 	else
-		exit(WEXITSTATUS(status));
+		exit(get_exit_status(status));
+	return (0);
 }

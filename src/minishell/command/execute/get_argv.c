@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_builtin.c                                  :+:      :+:    :+:   */
+/*   get_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 17:31:54 by jinhchoi         ###   ########.fr       */
+/*   Created: 2023/05/21 00:13:12 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/21 00:27:01 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "shell/parse.h"
 #include "shell/type.h"
 
-int	execute_builtin(char **argv, char **envp)
+char	**get_argv(t_tree *tree)
 {
-	(void) argv;
-	(void) envp;
-	exit (0);
+	char	**argv;
+	int		idx;
+
+	argv = ft_calloc(ft_treeleftsize(tree) + 1, sizeof(char *));
+	idx = 0;
+	while (tree)
+	{
+		argv[idx++] = ft_strdup(((t_token *)tree->content)->token);
+		tree = tree->left;
+	}
+	return (argv);
 }

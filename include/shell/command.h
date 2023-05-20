@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/20 17:35:58 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 00:32:25 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ int		execute(t_tree *node, t_dict *env);
 t_list	*split_path(char *path);
 void	substitute_command_tree(t_tree *ptree, t_dict *env);
 t_bool	is_builtin_cmd(char *cmd);
+char	**get_argv(t_tree *tree);
 int		execute_cmd(t_tree *tree, t_dict *env);
 int		execute_subshell(t_tree *tree, t_dict *env);
 int		execute_and_if(t_tree *tree, t_dict *env);
 int		execute_or_if(t_tree *tree, t_dict *env);
 int		execute_pipe(t_tree *tree, t_dict *env);
-int		execute_builtin(char **argv, char **envp);
+int		execute_builtin(t_tree *tree, t_dict *env);
+int		get_exit_status(int status);
+
+
+void	free_strp(char **strp);
 
 #endif
