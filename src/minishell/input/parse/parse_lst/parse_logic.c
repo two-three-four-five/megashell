@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_logic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:31:12 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 17:06:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/20 16:51:32 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ t_tree	*parse_logic(t_list *lst)
 	right = logic->next;
 	logic->next = NULL;
 	logic_operator = ft_strdup(((t_token *)logic->content)->token);
+	head = ft_treenew(new_token(((t_token *)logic->content)->type, \
+						logic_operator));
 	del_token_lstlast(lst);
-	head = ft_treenew(new_token(REDIRECT, logic_operator));
-	head->left = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
-	head->right = ft_treenew(new_token(SUBSHELL, ft_strdup("()")));
-	head->left->left = parse_lst(lst);
-	head->right->left = parse_lst(right);
+	head->left = parse_lst(lst);
+	head->right = parse_lst(right);
 	return (head);
 }
 

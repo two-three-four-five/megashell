@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/20 14:06:57 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:17:28 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@ typedef enum e_token_type
 	META = 0x0040,
 	PIPE = 0x0041,
 	NEWLINE = 0x0043,
+	HEAD = 0x0080,
 }	t_token_type;
 
 typedef struct s_token
 {
-	char	type;
+	int		type;
 	char	*token;
 }	t_token;
 
