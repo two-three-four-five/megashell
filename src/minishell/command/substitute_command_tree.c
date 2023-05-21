@@ -6,11 +6,10 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/21 23:48:44 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:50:57 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "libft.h"
