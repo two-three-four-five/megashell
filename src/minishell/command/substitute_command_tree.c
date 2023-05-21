@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/20 14:06:27 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 23:48:44 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static char	*search_command_token(char *token, t_dict *env)
 	t_list	*path;
 	t_list	*curr;
 	char	*cmd;
-	int		fd;
 
 	path = split_path(get_dict_value(env, "PATH"));
 	if (!path)
@@ -83,10 +82,8 @@ static char	*search_command_token(char *token, t_dict *env)
 	while (curr)
 	{
 		cmd = join_path_and_command(curr->content, token);
-		fd = open(cmd, O_RDONLY);
-		if (fd > 0)
+		if (access(cmd, X_OK) == 0)
 		{
-			close(fd);
 			ft_lstclear(&path, free);
 			return (cmd);
 		}
