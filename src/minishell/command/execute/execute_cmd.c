@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 08:23:15 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:01:04 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static int	execute_cmd_head(t_tree *tree, t_dict *env)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		redirect_fd(tree);
+		if (redirect_fd(tree) < 0)
+			exit(1);
 		argv = get_argv(tree);
 		envp = get_envp(env);
 		execve(((t_token *)tree->content)->token, argv, envp);
@@ -68,10 +69,11 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	else if (is_executable(token->token))
 	{
 		if (token->type & HEAD)
-			execute_cmd_head(tree, env);
+			return (execute_cmd_head(tree, env));
 		else
 		{
-			redirect_fd(tree);
+			if (redirect_fd(tree) < 0)
+				return (1);
 			argv = get_argv(tree);
 			envp = get_envp(env);
 			execve(token->token, argv, envp);

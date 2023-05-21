@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:12:33 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/21 13:06:15 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:57:46 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ int	main(int argc, char **argv, char **envp)
 		printf("%10s", "head |");
 		((t_token *)ptree->content)->type |= HEAD;
 		print_tree(ptree);
-		execute(ptree, env);
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, SIG_IGN);
+		printf("$?: %d\n", execute(ptree, env));
+		set_signal_handler();
 		ft_treeclear(&ptree, del_token);
 		free(input);
 	}

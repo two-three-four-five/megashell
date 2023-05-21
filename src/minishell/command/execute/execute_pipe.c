@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:19:01 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 08:22:02 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:50:24 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int	execute_pipe_left(t_tree *node, t_dict *env, int *fd)
 {
 	close(fd[READ_FD]);
 	dup2(fd[WRITE_FD], STDOUT_FILENO);
-	return (execute(node->left, env));
+	return (execute_in_child(node->left, env));
 }
 
 static int	execute_pipe_right(t_tree *node, t_dict *env, int *fd)
 {
 	close(fd[WRITE_FD]);
 	dup2(fd[READ_FD], STDIN_FILENO);
-	return (execute(node->right, env));
+	return (execute_in_child(node->right, env));
 }
 
 int	execute_pipe(t_tree *tree, t_dict *env)
@@ -38,18 +38,10 @@ int	execute_pipe(t_tree *tree, t_dict *env)
 	pipe(fd);
 	pid[0] = fork();
 	if (pid[0] == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		execute_pipe_left(tree, env, fd);
-	}
 	pid[1] = fork();
 	if (pid[1] == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		execute_pipe_right(tree, env, fd);
-	}
 	close(fd[READ_FD]);
 	close(fd[WRITE_FD]);
 	waitpid(pid[0], &status, 0);

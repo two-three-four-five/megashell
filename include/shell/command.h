@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 03:01:29 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:49:43 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		execute_and_if(t_tree *tree, t_dict *env);
 int		execute_or_if(t_tree *tree, t_dict *env);
 int		execute_pipe(t_tree *tree, t_dict *env);
 int		execute_builtin(t_tree *tree, t_dict *env);
+int		execute_in_child(t_tree *tree, t_dict *env);
 int		get_exit_status(int status);
 
 

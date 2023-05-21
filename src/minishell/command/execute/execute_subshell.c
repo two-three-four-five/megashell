@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:18:55 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 08:21:29 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 14:58:48 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	execute_subshell(t_tree *tree, t_dict *env)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		redirect_fd(tree);
+		if (redirect_fd(tree) < 0)
+			exit(1);
 		execute(tree->left, env);
 	}
 	else

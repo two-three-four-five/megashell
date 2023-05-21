@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_sigquit_in_execution.c                      :+:      :+:    :+:   */
+/*   execute_in_child.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 13:03:44 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 13:06:59 by jinhchoi         ###   ########.fr       */
+/*   Created: 2023/05/21 14:47:06 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/21 14:51:41 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
+#include <signal.h>
+#include "shell/command.h"
+#include "shell/type.h"
 
-void	handle_sigquit_in_execution(int sig)
+int	execute_in_child(t_tree *tree, t_dict *env)
 {
-	(void)sig;
-	printf("Quit: 3\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	return (execute(tree, env));
 }
