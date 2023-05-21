@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 03:17:06 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/21 08:23:15 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static int	execute_cmd_head(t_tree *tree, t_dict *env)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		redirect_fd(tree);
 		argv = get_argv(tree);
 		envp = get_envp(env);

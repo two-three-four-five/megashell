@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:16:24 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/16 23:52:24 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/21 13:04:49 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SIGNAL_H
 
 void	handle_sigint(int sig);
+void	handle_sigint_in_execution(int sig);
+void	handle_sigquit_in_execution(int sig);
 void	set_signal_handler(void);
 
 #endif
