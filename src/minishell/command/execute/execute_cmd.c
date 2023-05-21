@@ -6,7 +6,11 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/21 15:01:04 by jinhchoi         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/21 15:47:55 by jinhchoi         ###   ########.fr       */
+>>>>>>> feature/28_exec_node
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +68,15 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			**argv;
 	char			**envp;
 
-	if (is_builtin_cmd(token->token))
-		execute_builtin(tree, env);
-	else if (is_executable(token->token))
+	if (token->type & HEAD && is_builtin_cmd(token->token))
+		return (execute_builtin(tree, env));
+	else if (!(token->type & HEAD) && is_builtin_cmd(token->token))
+		return (execute_builtin(tree, env));
+	else if (token->type & HEAD && is_executable(token->token))
+		return (execute_cmd_head(tree, env));
+	else if (!(token->type & HEAD) && is_executable(token->token))
 	{
+<<<<<<< HEAD
 		if (token->type & HEAD)
 			return (execute_cmd_head(tree, env));
 		else
@@ -78,8 +87,15 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 			envp = get_envp(env);
 			execve(token->token, argv, envp);
 		}
+=======
+		if (redirect_fd(tree) < 0)
+			return (1);
+		argv = get_argv(tree);
+		envp = get_envp(env);
+		return (execve(token->token, argv, envp));
+>>>>>>> feature/28_exec_node
 	}
 	else
 		raise_exec_error(tree);
-	return (0);
+	return (1);
 }
