@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   print_str_pair.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/10 21:05:46 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include "type.h"
+#include <stdio.h>
 
-# include "libft.h"
-# include "type.h"
+void	print_str_pair(void *ptr)
+{
+	t_str_pair	*str_pair;
 
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
-
-#endif
+	str_pair = (t_str_pair *)ptr;
+	printf("%-30s | %s\n", str_pair->s1, str_pair->s2);
+}

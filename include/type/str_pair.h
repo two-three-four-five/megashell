@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   str_pair.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/22 14:36:26 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/22 14:37:07 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#ifndef STR_PAIR_H
+# define STR_PAIR_H
 
-# include "libft.h"
-# include "type.h"
+typedef struct s_str_pair	t_str_pair;
 
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
+struct s_str_pair
+{
+	char	*s1;
+	char	*s2;
+};
+
+void		del_str_pair(void *ptr);
+t_str_pair	*new_str_pair(char *s1, char *s2);
+void		print_str_pair(void *ptr);
 
 #endif

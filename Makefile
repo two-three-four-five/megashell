@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 16:53:40 by gyoon             #+#    #+#              #
-#    Updated: 2023/05/20 17:42:44 by jinhchoi         ###   ########.fr        #
+#    Updated: 2023/05/22 15:35:49 by gyoon            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,16 +35,19 @@ RM		= rm -rf
 # F_TOKEN		= $(wildcard $(addprefix src/minishell/token/,	*.c */*.c))
 # F_TYPE		= $(wildcard $(addprefix src/minishell/type/,	*.c))
 # F_MAIN		= src/minishell/main.c
-SRCS		= $(wildcard	src/minishell/*.c		\
-							src/minishell/*/*.c		\
-							src/minishell/*/*/*.c	\
-							src/minishell/*/*/*/*.c	\
-							src/minishell/*/*/*/*/*.c)
+SRCS		= $(wildcard	src/shell/*.c		\
+							src/shell/*/*.c		\
+							src/shell/*/*/*.c	\
+							src/shell/*/*/*/*.c	\
+							src/shell/*/*/*/*/*.c \
+							src/type/*.c		\
+							src/type/*/*.c		\
+							src/main.c)
 OBJS 		= ${SRCS:.c=.o}
 INCLUDE		= ./include
+LIBFT		= ./lib/libft.a
 READLINE	= ~/.brew/opt/readline
 READLINE_M1	= /opt/homebrew/opt/readline
-
 
 # **************************************************************************** #
 #                                                                              #
@@ -77,13 +80,18 @@ version = "mandatory version"
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $@ -lft -lreadline -L lib -L $(READLINE)/lib
+$(NAME) : $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -I $(INCLUDE) -o $@ -lft -lreadline -L lib -L $(READLINE_M1)/lib
 	@printf "\rCompiling source files... "
 	@printf "%.$(shell printf "%d" 64)s" $(bar_done)
 	@printf "%7.2f%%\n" 100
 	@printf "🐚 Now you execute ${bold}$(MSHELL).${end}"
 	@printf " (%s)\n" $(version)
+
+$(LIBFT) :
+	@printf "make ${bold}LIBFT.${end}\n"
+	@make -C ./lib/libft
+	@cp ./lib/libft/libft.a ./lib/libft.a
 
 %.o : %.c
 	@$(eval cnt=$(shell printf $$(($(cnt)+1))))
@@ -96,16 +104,19 @@ $(NAME) : $(OBJS)
 	@printf "%.$(shell printf "%d" $(len_done))s" $(bar_done)
 	@printf "%.$(shell printf "%d" $(len_ready))s" $(bar_ready)
 	@printf "%7.2f%%" $(percent)
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE) -I $(READLINE)/include
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDE) -I $(READLINE_M1)/include
 
 clean :
 	@$(RM) $(OBJS)
 	@$(RM) $(B_OBJS)
+	@make clean -C ./lib/libft
 	@printf "make clean ${bold}$(MSHELL).${end}\n"
 
 fclean :
 	@make clean
 	@$(RM) $(NAME)
+	@$(RM) $(LIBFT)
+	@make fclean -C ./lib/libft
 	@printf "make fclean ${bold}$(MSHELL).${end}\n"
 
 re :

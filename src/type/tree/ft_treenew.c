@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   ft_treenew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/14 15:25:49 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/22 14:47:09 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include <stdlib.h>
+#include "type/tree.h"
 
-# include "libft.h"
-# include "type.h"
+t_tree	*ft_treenew(void *content)
+{
+	t_tree	*ret;
 
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
-
-#endif
+	ret = (t_tree *)malloc(sizeof(t_tree));
+	if (!ret)
+		return (0);
+	ret->content = content;
+	ret->left = NULL;
+	ret->right = NULL;
+	return (ret);
+}

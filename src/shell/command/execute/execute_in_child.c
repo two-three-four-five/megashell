@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   execute_in_child.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/21 14:47:06 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include <signal.h>
+#include "shell/command.h"
+#include "type.h"
 
-# include "libft.h"
-# include "type.h"
-
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
-
-#endif
+int	execute_in_child(t_tree *tree, t_dict *env)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	return (execute(tree, env));
+}

@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   ft_treeclear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/14 21:07:46 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/22 14:46:44 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include <stdlib.h>
+#include "type/tree.h"
 
-# include "libft.h"
-# include "type.h"
+void	ft_treeclear(t_tree **tree, void (*del)(void *))
+{
+	t_tree	*curr;
 
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
-
-#endif
+	curr = *tree;
+	if (!curr)
+		return ;
+	ft_treeclear(&curr->left, del);
+	ft_treeclear(&curr->right, del);
+	del(curr->content);
+	free(curr);
+	*tree = NULL;
+}

@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envp.h                                             :+:      :+:    :+:   */
+/*   get_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 17:01:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/21 00:13:12 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVP_H
-# define ENVP_H
+#include "shell/parse.h"
+#include "type.h"
 
-# include "libft.h"
-# include "type.h"
+char	**get_argv(t_tree *tree)
+{
+	char	**argv;
+	int		idx;
 
-t_dict	*get_envp_dict(char **envp);
-char	**get_envp(t_dict *env);
-
-#endif
+	argv = ft_calloc(ft_treeleftsize(tree) + 1, sizeof(char *));
+	idx = 0;
+	while (tree)
+	{
+		argv[idx++] = ft_strdup(((t_token *)tree->content)->token);
+		tree = tree->left;
+	}
+	return (argv);
+}

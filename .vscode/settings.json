@@ -19,6 +19,7 @@
 		"fcntl.h": "c",
 		"wait.h": "c",
 		"command.h": "c",
-		"envp.h": "c"
+		"envp.h": "c",
+		"tree.h": "c"
 	}
 }
