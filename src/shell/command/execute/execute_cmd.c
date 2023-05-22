@@ -6,14 +6,14 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:51:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "shell/command.h"
 #include "shell/envp.h"
-#include "shell/parse.h"
+#include "shell/input.h"
 #include "type.h"
 
 static t_bool	is_executable(char *cmd)

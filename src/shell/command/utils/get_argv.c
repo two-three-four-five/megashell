@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtin_cmd.c                                   :+:      :+:    :+:   */
+/*   get_argv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 14:04:31 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/21 00:13:12 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/22 16:32:14 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include "shell/input.h"
 #include "type.h"
 
-t_bool	is_builtin_cmd(char *cmd)
+char	**get_argv(t_tree *tree)
 {
-	if (!ft_strcmp(cmd, "echo"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "cd"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "pwd"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "export"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "unset"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "env"))
-		return (TRUE);
-	else if (!ft_strcmp(cmd, "exit"))
-		return (TRUE);
-	else
-		return (FALSE);
+	char	**argv;
+	int		idx;
+
+	argv = ft_calloc(ft_treeleftsize(tree) + 1, sizeof(char *));
+	idx = 0;
+	while (tree)
+	{
+		argv[idx++] = ft_strdup(((t_token *)tree->content)->token);
+		tree = tree->left;
+	}
+	return (argv);
 }

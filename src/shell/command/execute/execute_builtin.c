@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:26:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 
 	// Do Something
 
-	free_strp(argv);
-	free_strp(envp);
+	del_strp(argv);
+	del_strp(envp);
 	exit (0);
 }

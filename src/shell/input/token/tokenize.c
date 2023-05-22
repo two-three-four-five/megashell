@@ -6,13 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:01:51 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "shell/input.h"
 #include "type.h"
-#include "shell/parse.h"
 
 static void	*tokenize_failed(t_list **lst, t_list *node);
 static char	*skip_delimeter(const char *s);

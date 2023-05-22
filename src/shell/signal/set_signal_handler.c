@@ -6,12 +6,12 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 20:20:57 by gyoon             #+#    #+#             */
-/*   Updated: 2023/04/26 20:22:50 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:03:06 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell/signal.h"
 #include <signal.h>
+#include "shell/signal.h"
 
 void	set_signal_handler(void)
 {

@@ -6,13 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:27:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:51:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "type.h"
-#include "shell/parse.h"
+#include "shell/input.h"
 
 static int		count_ifs(char *token);
 static t_list	*split_token(char *token);

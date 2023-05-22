@@ -6,13 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:05:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:34:51 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "type.h"
-#include "shell/parse.h"
+#include "shell/input.h"
 
 char	*expand_tilde_token(char *token, t_dict *env);
 void	expand_tilde_lst(t_list *lst, t_dict *env);
@@ -29,7 +29,9 @@ void	expand_tilde_lst(t_list *lst, t_dict *env)
 			if (!ft_strncmp("~/", ((t_token *)lst->content)->token, 2) || \
 				!ft_strncmp("~", ((t_token *)lst->content)->token, 1))
 			{
-				new_token = expand_tilde_token(((t_token *)lst->content)->token, env);
+				new_token = expand_tilde_token(\
+								((t_token *)lst->content)->token, \
+								env);
 				free(((t_token *)lst->content)->token);
 				((t_token *)lst->content)->token = new_token;
 			}

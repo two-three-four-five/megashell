@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:31:35 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,20 @@ enum e_pipe_fd
 	WRITE_FD = 1
 };
 
-int		execute(t_tree *node, t_dict *env);
-t_list	*split_path(char *path);
-void	substitute_command_tree(t_tree *ptree, t_dict *env);
-t_bool	is_builtin_cmd(char *cmd);
-char	**get_argv(t_tree *tree);
 int		redirect_fd(t_tree *tree);
-int		execute_cmd(t_tree *tree, t_dict *env);
-int		execute_subshell(t_tree *tree, t_dict *env);
 int		execute_and_if(t_tree *tree, t_dict *env);
+int		execute_builtin(t_tree *tree, t_dict *env);
+int		execute_cmd(t_tree *tree, t_dict *env);
+int		execute_in_child(t_tree *tree, t_dict *env);
 int		execute_or_if(t_tree *tree, t_dict *env);
 int		execute_pipe(t_tree *tree, t_dict *env);
-int		execute_builtin(t_tree *tree, t_dict *env);
-int		execute_in_child(t_tree *tree, t_dict *env);
+int		execute_subshell(t_tree *tree, t_dict *env);
+
+char	**get_argv(t_tree *tree);
 int		get_exit_status(int status);
+t_bool	is_builtin_cmd(char *cmd);
 
-
-void	free_strp(char **strp);
+int		execute(t_tree *node, t_dict *env);
+void	substitute_command_tree(t_tree *ptree, t_dict *env);
 
 #endif

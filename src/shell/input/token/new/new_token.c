@@ -6,12 +6,12 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:04:36 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 14:05:23 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:51:55 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell/parse.h"
 #include <stdlib.h>
+#include "shell/input.h"
 
 t_token	*new_token(char type, char *str)
 {

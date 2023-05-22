@@ -6,20 +6,15 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:51:43 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:06:30 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/wait.h>
-#include "type.h"
-#include "shell/parse.h"
+#include <signal.h>
 #include "shell/command.h"
+#include "shell/input.h"
 #include "shell/signal.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
+#include "type.h"
 
 int	execute(t_tree *node, t_dict *env)
 {

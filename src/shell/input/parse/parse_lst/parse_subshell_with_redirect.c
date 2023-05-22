@@ -6,16 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:42:15 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:36:01 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "type.h"
-#include "shell/parse.h"
-
-
-#include <stdio.h>
+#include "shell/input.h"
 
 static t_list	*find_close_paran_ptr(t_list *lst);
 static t_tree	*parse_remaining_redirect(t_list *lst);
@@ -50,7 +47,8 @@ static t_list	*find_close_paran_ptr(t_list *lst)
 		if (subshell == 0 && ((t_token *)lst->content)->type == CLOSE_PAREN)
 			return (lst);
 		else if (subshell == 0)
-			printf("********** ERROR !!!! ***********");
+		{
+		}
 		lst = lst->next;
 	}
 	return (NULL);

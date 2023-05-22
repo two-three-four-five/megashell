@@ -6,12 +6,12 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:36:57 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/17 21:16:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:51:59 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell/parse.h"
 #include <stdio.h>
+#include "shell/input.h"
 
 void	print_token(void *ptr)
 {

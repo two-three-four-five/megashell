@@ -6,12 +6,12 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 22:32:34 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/01 20:09:21 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:52:08 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "shell/parse.h"
+#include "shell/input.h"
 
 static char	get_control_operator_type(char *s);
 static char	get_redirection_operator_type(char *s);

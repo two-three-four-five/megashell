@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:56:53 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 15:50:05 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef INPUT_H
+# define INPUT_H
 
 # include "libft.h"
 # include "type.h"
 
 /*
-* RULES for [e_token_type]
+@ RULES for [e_token_type]
 
-* enum with even number is not a token
+@ enum with even number is not a token
 * for example, UNDEFINED is not a TOKEN.
 * for example, REDIRECT is not a token, but CATEGORY
 
-* valid token has odd number.
+@ valid token has odd number.
 * for example, a WORD is a valid token.
 * for example, a PIPE is a valid token. 
 */
@@ -59,50 +59,51 @@ typedef struct s_token
 	char	*token;
 }	t_token;
 
-void	del_token_lstlast(t_list *lst);
-void	del_token(void *ptr);
-int		get_token_len(char *s);
-char	get_token_type(char *s);
-t_token	*get_next_token(char *s);
-t_token	*new_token(char type, char *str);
-void	print_token(void *ptr);
-t_list	*tokenize(char *s);
-
-t_bool	check_undefined_token(t_list *lst);
-t_bool	check_matching_syntax(t_list *lst);
-t_bool	check_token_order(t_list *lst);
-t_bool	check_word_order(char prev, char curr);
-t_bool	check_newline_order(char prev, char curr);
-t_bool	check_operator_order(char prev, char curr);
-t_bool	check_syntax(t_list *lst);
-
 //		expansion
-void	expand_lst(t_list *lst, t_dict *env);
-void	expand_tilde_lst(t_list *lst, t_dict *env);
-//		parameter
 void	expand_parameter_lst(t_list *lst, t_dict *env);
 char	*expand_parameter_token(char *token, t_dict *env);
-void	expand_filename_lst(t_list *lst);
-//		quote
-//		for quote removal
 int		count_quote(char *token);
-char	*remove_quote_token(char *token);
 void	remove_quote_lst(t_list *lst);
+char	*remove_quote_token(char *token);
+void	expand_filename_lst(t_list *lst);
+void	expand_tilde_lst(t_list *lst, t_dict *env);
 void	split_word_lst(t_list *lst);
+void	expand_lst(t_list *lst, t_dict *env);
 
-//		heredoc
-t_bool	redirect_heredoc(t_list *lst, t_dict *env);
-t_bool	has_heredoc(t_list *lst);
-t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd);
-void	exec_heredoc(char *eof, int fd, t_dict *env);
-
-t_tree	*parse_lst(t_list *lst);
-t_tree	*parse_subshell(t_list *lst);
-t_tree	*parse_pipe(t_list *lst);
-t_tree	*parse_logic(t_list *lst);
-t_tree	*parse_subshell_with_redirect(t_list *lst);
+//		parse
 t_tree	*parse_command(t_list *lst);
+t_tree	*parse_logic(t_list *lst);
+t_tree	*parse_pipe(t_list *lst);
+t_tree	*parse_subshell_with_redirect(t_list *lst);
+t_tree	*parse_subshell(t_list *lst);
+t_tree	*parse_lst(t_list *lst);
 
+//		redirect
+void	exec_heredoc(char *eof, int fd, t_dict *env);
+t_bool	has_heredoc(t_list *lst);
+t_bool	redirect_heredoc(t_list *lst, t_dict *env);
+t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd);
+
+//		syntax
+t_bool	check_newline_order(char prev, char curr);
+t_bool	check_word_order(char prev, char curr);
+t_bool	check_operator_order(char prev, char curr);
+t_bool	check_matching_syntax(t_list *lst);
+t_bool	check_token_order(t_list *lst);
+t_bool	check_undefined_token(t_list *lst);
+t_bool	check_syntax(t_list *lst);
+
+//		token
+void	del_token_lstlast(t_list *lst);
+void	del_token(void *ptr);
+t_token	*new_token(char type, char *str);
+void	print_token(void *ptr);
+t_token	*get_next_token(char *s);
+int		get_token_len(char *s);
+char	get_token_type(char *s);
+t_list	*tokenize(char *s);
+
+//		main
 t_tree	*parse_input(char *input, t_dict *env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_sigint_in_execution.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:02:11 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/21 13:04:12 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:02:34 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
