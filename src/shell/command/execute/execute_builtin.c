@@ -3,28 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 16:26:19 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:27:14 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell/command.h"
-#include "shell/envp.h"
+#include "shell.h"
 #include "type.h"
 
 int	execute_builtin(t_tree *tree, t_dict *env)
 {
-	char	**argv;
-	char	**envp;
+	t_token	*token;
 
-	argv = get_argv(tree);
-	envp = get_envp(env);
+	token = tree->content;
+	if (ft_strcmp(token->token, "echo") == 0)
+	{
+		return (execute_echo(tree, env));
+	}
 
-	// Do Something
-
-	del_strp(argv);
-	del_strp(envp);
 	exit (0);
 }
