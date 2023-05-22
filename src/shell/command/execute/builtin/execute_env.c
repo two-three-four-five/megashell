@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_str_pair.c                                   :+:      :+:    :+:   */
+/*   execute_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 21:05:46 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 21:15:48 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/22 21:07:40 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/22 21:17:04 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "type.h"
+#include "libft.h"
+#include "shell.h"
 
-void	print_str_pair(void *ptr)
+static int	raise_env_usage_error(void);
+
+int	execute_env(t_tree *tree, t_dict *env)
 {
-	t_str_pair	*str_pair;
+	if (tree->left)
+		return (raise_env_usage_error());
+	ft_lstiter(env->next, print_str_pair);
+	return (0);
+}
 
-	str_pair = (t_str_pair *)ptr;
-	printf("%s=%s\n", str_pair->s1, str_pair->s2);
+static int	raise_env_usage_error(void)
+{
+	ft_putendl_fd("usage: env", 2);
+	return (1);
 }
