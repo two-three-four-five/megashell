@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 22:36:16 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/21 03:06:17 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:23:43 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ enum e_errno
 	NO_SUCH_FILE_OR_DIRECTORY = 0x0027,
 };
 
+void	raise_exit(void);
 void	raise_syntax_error(int errno, char *token, char c1, char c2);
 void	raise_file_error(int errno, char *filename);
 

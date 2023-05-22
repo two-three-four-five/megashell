@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:38:21 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 15:51:39 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 16:49:59 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_tree	*parse_input(char *input, t_dict *env)
 	lst = tokenize(input);
 	if (!lst)
 		return (NULL);
-	ft_lstiter(lst, print_token);
 	if (!check_syntax(lst->next))
 		return (parse_input_failed(&lst));
 	else

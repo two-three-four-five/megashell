@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 15:50:05 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 17:24:50 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef enum e_token_type
 	CLOSE_PAREN = 0x0023,
 	META = 0x0040,
 	PIPE = 0x0041,
-	NEWLINE = 0x0043,
+	NL = 0x0043,
 	HEAD = 0x0080,
 }	t_token_type;
 
