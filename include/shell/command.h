@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:25:26 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:37:49 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		execute_pipe(t_tree *tree, t_dict *env);
 int		execute_subshell(t_tree *tree, t_dict *env);
 
 int		execute_echo(t_tree *tree, t_dict *env);
+int		execute_exit(t_tree *tree, t_dict *env);
 
 char	**get_argv(t_tree *tree);
 int		get_exit_status(int status);
