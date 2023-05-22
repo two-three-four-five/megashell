@@ -21,6 +21,7 @@
 		"command.h": "c",
 		"envp.h": "c",
 		"tree.h": "c",
-		"input.h": "c"
+		"input.h": "c",
+		"shell.h": "c"
 	}
 }

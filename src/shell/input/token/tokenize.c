@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:30:40 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 16:01:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 17:25:13 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_list	*tokenize(char *s)
 		s += ft_strlen(((t_token *)node->content)->token);
 		s = skip_delimeter(s);
 	}
-	node = ft_lstnew(new_token(NEWLINE, ft_strdup("\n")));
+	node = ft_lstnew(new_token(NL, ft_strdup("\n")));
 	if (!node || !node->content)
 		return (tokenize_failed(&lst, node));
 	ft_lstadd_back(&lst, node);
