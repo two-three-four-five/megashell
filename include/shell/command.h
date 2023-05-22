@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 16:31:35 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:57:56 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ enum e_pipe_fd
 	WRITE_FD = 1
 };
 
+int		execute_unset(t_tree *tree, t_dict *env);
 int		redirect_fd(t_tree *tree);
 int		execute_and_if(t_tree *tree, t_dict *env);
 int		execute_builtin(t_tree *tree, t_dict *env);
