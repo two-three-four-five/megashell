@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 17:23:16 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 18:41:48 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,16 @@ void	execute_shell(char **envp)
 		if (!input)
 			raise_exit();
 		ptree = parse_input(input, env);
-		if (!ptree)
-			free(input);
-		else
+		if (ptree)
 		{
 			add_history(input);
-			free(input);
 			substitute_command_tree(ptree, env);
 			((t_token *)ptree->content)->type |= HEAD;
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
 			ft_treeclear(&ptree, del_token);
 		}
+		free(input);
 	}
 	ft_lstclear(&env, del_str_pair);
 }
