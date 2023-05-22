@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:07:02 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 21:16:36 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 23:29:08 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,27 @@ static t_bool	is_valid_n_option(char *arg);
 int	execute_echo(t_tree *tree, t_dict *env)
 {
 	t_bool	is_n_option_exist;
-	char	**argv;
-	int		idx;
 
 	(void)env;
-	argv = get_argv(tree);
 	is_n_option_exist = FALSE;
-	idx = 0;
-	while (argv[++idx])
+	tree = tree->left;
+	while (tree)
 	{
-		if (is_valid_n_option(argv[idx]))
+		if (is_valid_n_option(((t_token *)tree->content)->token))
 			is_n_option_exist = TRUE;
 		else
 			break ;
+		tree = tree->left;
 	}
-	while (argv[idx])
+	while (tree)
 	{
-		printf("%s", argv[idx++]);
-		if (argv[idx])
+		printf("%s", ((t_token *)tree->content)->token);
+		if (tree->left)
 			printf(" ");
+		tree = tree->left;
 	}
 	if (!is_n_option_exist)
 		printf("\n");
-	del_strp(argv);
 	return (0);
 }
 
