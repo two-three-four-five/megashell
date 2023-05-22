@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 21:58:20 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:03:46 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,32 @@
 
 #define TOO_MANY_ARGUMENTS 1
 #define NUMERIC_ARGUMENT_REQUIRED 2
+
+static long long	ft_atoll(char *str);
+static t_bool		is_nondigit_contained(char *arg);
+static t_bool		is_numeric_argument(char *arg);
+static void			raise_exit_error(int errno, char *arg);
+
+int	execute_exit(t_tree *tree, t_dict *env)
+{
+	t_token	*token;
+
+	(void)env;
+	if (!tree->left)
+		exit(g_exit_status);
+	tree = tree->left;
+	token = tree->content;
+	if (!is_numeric_argument(token->token))
+		raise_exit_error(NUMERIC_ARGUMENT_REQUIRED, token->token);
+	else
+	{
+		if (tree->left)
+			raise_exit_error(TOO_MANY_ARGUMENTS, token->token);
+		else
+			exit(ft_atoll(token->token));
+	}
+	return (1);
+}
 
 static long long	ft_atoll(char *str)
 {
@@ -82,25 +108,4 @@ static void	raise_exit_error(int errno, char *arg)
 		ft_putendl_fd(": numeric argument required", 2);
 		exit(2);
 	}
-}
-
-int	execute_exit(t_tree *tree, t_dict *env)
-{
-	t_token	*token;
-
-	(void)env;
-	if (!tree->left)
-		exit(g_exit_status);
-	tree = tree->left;
-	token = tree->content;
-	if (is_numeric_argument(token->token))
-	{
-		if (tree->left)
-			raise_exit_error(TOO_MANY_ARGUMENTS, token->token);
-		else
-			exit(ft_atoll(token->token));
-	}
-	else
-		raise_exit_error(NUMERIC_ARGUMENT_REQUIRED, token->token);
-	return (1);
 }
