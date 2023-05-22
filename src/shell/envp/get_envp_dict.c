@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:20:55 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 14:53:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:14:12 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_dict	*get_envp_dict(char **envp)
 	t_dict	*lst;
 	t_dict	*node;
 
-	lst = NULL;
+	lst = ft_lstnew(NULL);
 	while (*envp)
 	{
 		node = ft_lstnew(\

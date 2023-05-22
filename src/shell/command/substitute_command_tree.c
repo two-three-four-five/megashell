@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 16:30:06 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:17:02 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*search_command_token(char *token, t_dict *env)
 	t_list	*curr;
 	char	*cmd;
 
-	path = split_path(get_dict_value(env, "PATH"));
+	path = split_path(get_dict_value(env->next, "PATH"));
 	if (!path)
 		return (NULL);
 	curr = path;

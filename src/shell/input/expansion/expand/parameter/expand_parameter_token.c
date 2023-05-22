@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:45:57 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 19:57:36 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:17:17 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static char	*expand_initial_parameter(char *s, t_dict *env)
 	if (!ft_strcmp(key, "$?"))
 		value = ft_itoa(g_exit_status);
 	else
-		value = get_dict_value(env, key + 1);
+		value = get_dict_value(env->next, key + 1);
 	if (value)
 		len += ft_strlen(value);
 	new_token = (char *)ft_calloc(len + 1, sizeof(char));

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 15:51:19 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:21:25 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	execute_cmd_head(t_tree *tree, t_dict *env)
 		if (redirect_fd(tree) < 0)
 			exit(1);
 		argv = get_argv(tree);
-		envp = get_envp(env);
+		envp = get_envp(env->next);
 		execve(((t_token *)tree->content)->token, argv, envp);
 	}
 	else
@@ -75,7 +75,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 		if (redirect_fd(tree) < 0)
 			return (1);
 		argv = get_argv(tree);
-		envp = get_envp(env);
+		envp = get_envp(env->next);
 		return (execve(token->token, argv, envp));
 	}
 	else
