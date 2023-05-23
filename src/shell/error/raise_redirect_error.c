@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*   raise_redirect_error.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/26 21:05:20 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 23:07:02 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/23 23:50:55 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/23 23:52:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "type.h"
-#include "shell/input.h"
-#include <stdio.h>
+#include "shell/error.h"
 
-t_bool	check_syntax(t_list *lst, t_dict *env)
+void	raise_redirect_error(char *token)
 {
-	if (!check_undefined_token(lst) || \
-		!check_matching_syntax(lst) || \
-		!check_token_order(lst))
-		return (FALSE);
-	else if (!check_redirect_syntax(lst, env))
-		return (FALSE);
-	else
-		return (TRUE);
+	ft_putstr_fd("dish: ", 2);
+	ft_putstr_fd(token, 2);
+	ft_putendl_fd(": ambiguous redirect", 2);
 }
