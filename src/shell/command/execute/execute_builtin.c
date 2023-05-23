@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 22:06:34 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 16:09:29 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,9 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 		return (execute_unset(tree, env));
 	else if (ft_strcmp(token->token, "env") == 0)
 		return (execute_env(tree, env));
+	else if (ft_strcmp(token->token, "cd") == 0)
+		return (execute_cd(tree, env));
+	else if (ft_strcmp(token->token, "pwd") == 0)
+		return (execute_pwd(tree, env));
 	exit (0);
 }
