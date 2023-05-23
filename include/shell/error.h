@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 22:36:16 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 12:05:38 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:52:31 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ enum e_errno
 void	raise_exit(void);
 void	raise_syntax_error(int errno, char *token, char c1, char c2);
 void	raise_file_error(int errno, char *filename);
+void	raise_redirect_error(char *token);
 int		raise_cmd_error(int errno, char *cmd);
 
 #endif
