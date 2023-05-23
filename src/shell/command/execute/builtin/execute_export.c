@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 21:32:58 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 15:09:39 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 15:58:31 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	execute_export(t_tree *tree, t_dict *env)
 	else if (!tree->left)
 		return (execute_export_nop(tree, env));
 	else
-	{
-	}
+		return (execute_export_op(tree, env));
 	return (0);
 }
