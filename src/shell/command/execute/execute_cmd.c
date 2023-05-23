@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 10:49:29 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:47:32 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ static int	raise_exec_error(t_tree *tree)
 		return (raise_cmd_error(NO_SUCH_FILE_OR_DIRECTORY, token->token));
 	else if (is_directory(token->token))
 		return (raise_cmd_error(IS_A_DIRECTORY, token->token));
-	else if (!is_executable(token->token))
+	else if (!is_executable(token->token) && ft_strchr(token->token, '/'))
 		return (raise_cmd_error(PERMISSION_DENIED, token->token));
+	else if (!is_executable(token->token))
+		return (raise_cmd_error(COMMAND_NOT_FOUND, token->token));
 	else
 		return (-1);
 }
