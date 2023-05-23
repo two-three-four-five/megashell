@@ -6,14 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 17:39:32 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:32:24 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <readline/readline.h>
-#include <readline/history.h>
 #include "shell.h"
 #include "type.h"
 
@@ -26,17 +25,17 @@ void	execute_shell(char **envp)
 	env = get_envp_dict(envp);
 	while (TRUE)
 	{
-		input = readline("dish-0.9$ ");
+		input = readline("\033[0;32mdish-0.9\033[0m$ ");
 		if (!input)
 			raise_exit();
 		ptree = parse_input(input, env);
 		if (ptree)
 		{
-			add_history(input);
 			substitute_command_tree(ptree, env);
 			((t_token *)ptree->content)->type |= HEAD;
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
+			del_heredoc_tmp_files(ptree);
 			ft_treeclear(&ptree, del_token);
 		}
 		free(input);
