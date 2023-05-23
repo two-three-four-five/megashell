@@ -22,6 +22,8 @@
 		"envp.h": "c",
 		"tree.h": "c",
 		"input.h": "c",
-		"shell.h": "c"
+		"shell.h": "c",
+		"str_pair.h": "c",
+		"dict.h": "c"
 	}
 }
