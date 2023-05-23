@@ -6,10 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:38:21 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 16:49:59 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:20:59 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include "libft.h"
 #include "shell/input.h"
 #include "type.h"
@@ -25,6 +28,8 @@ t_tree	*parse_input(char *input, t_dict *env)
 	lst = tokenize(input);
 	if (!lst)
 		return (NULL);
+	if (lst->next && ((t_token *)lst->next->content)->type != NL)
+		add_history(input);
 	if (!check_syntax(lst->next))
 		return (parse_input_failed(&lst));
 	else

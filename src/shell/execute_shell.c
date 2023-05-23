@@ -6,14 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 20:35:44 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:16:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <readline/readline.h>
-#include <readline/history.h>
 #include "shell.h"
 #include "type.h"
 
@@ -32,7 +31,6 @@ void	execute_shell(char **envp)
 		ptree = parse_input(input, env);
 		if (ptree)
 		{
-			add_history(input);
 			substitute_command_tree(ptree, env);
 			((t_token *)ptree->content)->type |= HEAD;
 			g_exit_status = execute(ptree, env);
