@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:21:25 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:49:29 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include <unistd.h>
-#include "shell/command.h"
-#include "shell/envp.h"
-#include "shell/input.h"
+#include "shell.h"
 #include "type.h"
 
-static t_bool	is_executable(char *cmd)
+static int	raise_exec_error(t_tree *tree)
 {
-	if (access(cmd, X_OK) == 0)
-		return (TRUE);
-	else
-		return (FALSE);
-}
+	t_token	*token;
 
-static void	raise_exec_error(t_tree *tree)
-{
-	(void) tree;
-	ft_putstr_fd("ERROR\n", 2);
-	if ((((t_token *)tree->content)->type & HEAD) == 0)
-		exit(1);
+	token = tree->content;
+	if (!is_file_exist(token->token) && !ft_strchr(token->token, '/'))
+		return (raise_cmd_error(COMMAND_NOT_FOUND, token->token));
+	else if (!is_file_exist(token->token) && ft_strchr(token->token, '/'))
+		return (raise_cmd_error(NO_SUCH_FILE_OR_DIRECTORY, token->token));
+	else if (is_directory(token->token))
+		return (raise_cmd_error(IS_A_DIRECTORY, token->token));
+	else if (!is_executable(token->token))
+		return (raise_cmd_error(PERMISSION_DENIED, token->token));
+	else
+		return (-1);
 }
 
 static int	execute_cmd_head(t_tree *tree, t_dict *env)
@@ -63,22 +63,26 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	const t_token	*token = tree->content;
 	char			**argv;
 	char			**envp;
+	char			*cmd;
 
-	if (token->type & HEAD && is_builtin_cmd(token->token))
+	cmd = token->token;
+	if (token->type & HEAD && is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
-	else if (!(token->type & HEAD) && is_builtin_cmd(token->token))
+	else if (!(token->type & HEAD) && is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
-	else if (token->type & HEAD && is_executable(token->token))
+	else if (token->type & HEAD && !is_directory(cmd) && is_executable(cmd))
 		return (execute_cmd_head(tree, env));
-	else if (!(token->type & HEAD) && is_executable(token->token))
+	else if (!(token->type & HEAD) && !is_directory(cmd) && is_executable(cmd))
 	{
 		if (redirect_fd(tree) < 0)
 			return (1);
 		argv = get_argv(tree);
 		envp = get_envp(env->next);
-		return (execve(token->token, argv, envp));
+		return (execve(cmd, argv, envp));
 	}
+	else if (!(token->type & HEAD))
+		exit(raise_exec_error(tree));
 	else
-		raise_exec_error(tree);
+		return (raise_exec_error(tree));
 	return (1);
 }

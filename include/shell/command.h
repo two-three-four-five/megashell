@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 22:05:11 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 13:45:59 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ int		execute_pipe(t_tree *tree, t_dict *env);
 int		execute_subshell(t_tree *tree, t_dict *env);
 
 
+t_bool	is_directory(char *filename);
+t_bool	is_executable(char *filename);
+t_bool	is_file_exist(char *filename);
 char	**get_argv(t_tree *tree);
 int		get_exit_status(int status);
 t_bool	is_builtin_cmd(char *cmd);
