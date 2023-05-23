@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_export.c                                   :+:      :+:    :+:   */
+/*   raise_export_arg_error.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 21:32:58 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 15:09:39 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/23 13:57:53 by gyoon             #+#    #+#             */
+/*   Updated: 2023/05/23 13:59:54 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "shell.h"
 #include "type.h"
 
-static t_bool	is_valid_export_option(t_tree *tree)
-{
-	while (tree)
-	{
-		if (((t_token *)tree->content)->token[0] == '-')
-			return (FALSE);
-		tree = tree->left;
-	}
-	return (TRUE);
-}
+static void	put_export_arg_error_fd(char *str);
+int			raise_export_arg_error(t_tree *tree);
 
-static t_bool	is_valid_export_arg(t_tree *tree)
+int	raise_export_arg_error(t_tree *tree)
 {
 	char	*arg;
 
@@ -32,30 +25,28 @@ static t_bool	is_valid_export_arg(t_tree *tree)
 	{
 		arg = ((t_token *)tree->content)->token;
 		if (!ft_isalpha(*arg) && *arg != '_')
-			return (FALSE);
+		{
+			put_export_arg_error_fd(((t_token *)tree->content)->token);
+			return (1);
+		}
 		arg++;
 		while (*arg && *arg != '=')
 		{
 			if (!ft_isalnum(*arg) && *arg != '_')
-				return (FALSE);
+			{
+				put_export_arg_error_fd(((t_token *)tree->content)->token);
+				return (1);
+			}
 			arg++;
 		}
 		tree = tree->left;
 	}
-	return (TRUE);
+	return (1);
 }
 
-int	execute_export(t_tree *tree, t_dict *env)
+static void	put_export_arg_error_fd(char *str)
 {
-	(void)env;
-	if (!is_valid_export_option(tree->left))
-		return (raise_export_usage_error(tree->left));
-	else if (!is_valid_export_arg(tree->left))
-		return (raise_export_arg_error(tree->left));
-	else if (!tree->left)
-		return (execute_export_nop(tree, env));
-	else
-	{
-	}
-	return (0);
+	ft_putstr_fd("dish: export: `", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd("\': not a valid identifier", 2);
 }
