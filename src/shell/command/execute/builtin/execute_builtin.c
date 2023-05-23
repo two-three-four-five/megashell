@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 20:30:09 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 22:13:11 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "shell.h"
 #include "type.h"
 
-static int	(*get_matching_function(char *cmd))(t_tree *, t_dict *);
+static int	(*get_builtin_function(char *cmd))(t_tree *, t_dict *);
 
 t_bool	is_executed_in_parent(char *cmd)
 {
@@ -44,12 +44,12 @@ static int	execute_builtin_in_head(t_tree *tree, t_dict *env)
 		signal(SIGQUIT, SIG_DFL);
 		if (redirect_fd(tree) < 0)
 			exit(1);
-		exit(get_matching_function(token->token)(tree, env));
+		exit(get_builtin_function(token->token)(tree, env));
 	}
 	else if (pid == 0)
 		exit(0);
 	else if (is_executed_in_parent(token->token))
-		return (get_matching_function(token->token)(tree, env));
+		return (get_builtin_function(token->token)(tree, env));
 	else
 	{
 		waitpid(pid, &status, 0);
@@ -69,10 +69,10 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 		return (execute_builtin_in_head(tree, env));
 	if (redirect_fd(tree) < 0)
 		return (1);
-	return (get_matching_function(token->token)(tree, env));
+	return (get_builtin_function(token->token)(tree, env));
 }
 
-static int	(*get_matching_function(char *cmd))(t_tree *tree, t_dict *env)
+static int	(*get_builtin_function(char *cmd))(t_tree *tree, t_dict *env)
 {
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (execute_echo);
