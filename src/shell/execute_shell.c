@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 18:41:48 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 17:39:32 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <readline/history.h>
 #include "shell.h"
 #include "type.h"
-
 
 void	execute_shell(char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 15:32:43 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:27:00 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,14 @@ enum e_pipe_fd
 	WRITE_FD = 1
 };
 
+int		execute_export_nop(t_tree *tree, t_dict *env);
+int		execute_export_op(t_tree *tree, t_dict *env);
+int		raise_export_arg_error(t_tree *tree);
+int		raise_export_usage_error(t_tree *tree);
+
 int		execute_echo(t_tree *tree, t_dict *env);
 int		execute_env(t_tree *tree, t_dict *env);
+int		execute_export(t_tree *tree, t_dict *env);
 int		execute_unset(t_tree *tree, t_dict *env);
 int		execute_exit(t_tree *tree, t_dict *env);
 int		execute_cd(t_tree *tree, t_dict *env);

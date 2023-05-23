@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:20:55 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 20:14:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 17:05:09 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "type.h"
 
 static void	*clear_dict(t_dict **dict, void (*del)(void *));
+static void	increment_shlvl(t_dict *dict);
+t_dict		*get_envp_dict(char **envp);
 
 t_dict	*get_envp_dict(char **envp)
 {
@@ -37,6 +39,7 @@ t_dict	*get_envp_dict(char **envp)
 		ft_lstadd_back(&lst, node);
 		envp++;
 	}
+	increment_shlvl(lst);
 	return (lst);
 }
 
@@ -44,4 +47,23 @@ static void	*clear_dict(t_dict **dict, void (*del)(void *))
 {
 	ft_lstclear(dict, del);
 	return (NULL);
+}
+
+static void	increment_shlvl(t_dict *dict)
+{
+	int			shlvl;
+	char		*value;
+	t_str_pair	*str_pair;
+
+	if (get_dict_value(dict->next, "SHLVL"))
+	{
+		shlvl = ft_atoi(get_dict_value(dict->next, "SHLVL"));
+		value = ft_itoa(shlvl + 1);
+		reassign_dict_value(dict->next, "SHLVL", value);
+	}
+	else
+	{
+		str_pair = new_str_pair(ft_strdup("SHLVL"), ft_strdup("1"));
+		ft_lstadd_back(&dict, ft_lstnew(str_pair));
+	}
 }
