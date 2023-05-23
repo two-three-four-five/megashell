@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 21:47:32 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:52:25 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	if (token->type & HEAD && is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
 	else if (!(token->type & HEAD) && is_builtin_cmd(cmd))
-		return (execute_builtin(tree, env));
+		exit(execute_builtin(tree, env));
 	else if (token->type & HEAD && !is_directory(cmd) && is_executable(cmd))
 		return (execute_cmd_head(tree, env));
 	else if (!(token->type & HEAD) && !is_directory(cmd) && is_executable(cmd))
