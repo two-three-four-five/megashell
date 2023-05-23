@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 00:32:20 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/24 01:04:57 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 		return (execute_builtin_head(tree, env));
 	if (redirect_fd(tree) < 0)
 		return (1);
-	return (get_builtin_function(token->token)(tree, env));
+	exit(get_builtin_function(token->token)(tree, env));
 }
 
 static int	(*get_builtin_function(char *cmd))(t_tree *tree, t_dict *env)
