@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 11:03:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 13:57:17 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:40:22 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "type.h"
 
 static int	raise_cd_error(int errno, char *arg);
-static int	chdir_to_oldpwd(t_dict *env);
+static int	chdir_to_oldpwd(t_tree *tree, t_dict *env);
 
 int	execute_cd(t_tree *tree, t_dict *env)
 {
@@ -35,7 +35,7 @@ int	execute_cd(t_tree *tree, t_dict *env)
 	if (ft_treeleftsize(tree) > 2)
 		return (raise_cd_error(TOO_MANY_ARGUMENTS, NULL));
 	if (ft_strcmp(token->token, "-") == 0)
-		return (chdir_to_oldpwd(env));
+		return (chdir_to_oldpwd(tree, env));
 	else if (!is_file_exist(token->token))
 		return (raise_cd_error(NO_SUCH_FILE_OR_DIRECTORY, token->token));
 	else if (!is_directory(token->token))
@@ -77,8 +77,10 @@ static int	raise_cd_error(int errno, char *arg)
 	return (1);
 }
 
-static int	chdir_to_oldpwd(t_dict *env)
+static int	chdir_to_oldpwd(t_tree *tree, t_dict *env)
 {
+	pid_t	pid;
+	int		status;
 	char	*oldpwd;
 
 	oldpwd = get_dict_value(env->next, "OLDPWD");
@@ -86,7 +88,23 @@ static int	chdir_to_oldpwd(t_dict *env)
 		return (raise_cd_error(OLDPWD_NOT_SET, NULL));
 	else
 	{
-		printf("%s\n", oldpwd);
+		if (!(((t_token *)tree->content)->type & HEAD))
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				if (redirect_fd(tree) < 0)
+					exit (1);
+				printf("%s\n", oldpwd);
+			}
+			else
+			{
+				waitpid(pid, &status, 0);
+				return (get_exit_status(status));
+			}
+		}
+		else
+			printf("%s\n", oldpwd);
 		reassign_dict_value(env->next, "OLDPWD", getcwd(0, 0));
 		chdir(oldpwd);
 		reassign_dict_value(env->next, "PWD", getcwd(0, 0));

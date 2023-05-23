@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 20:25:52 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 23:21:59 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int	execute_exit(t_tree *tree, t_dict *env)
 
 	(void)env;
 	if (!tree->left)
-	{
-		ft_putendl_fd("exit", 2);
 		exit(g_exit_status);
-	}
 	tree = tree->left;
 	token = tree->content;
 	if (!is_numeric_argument(token->token))
@@ -43,10 +40,7 @@ int	execute_exit(t_tree *tree, t_dict *env)
 			return (127);
 		}
 		else
-		{
-			ft_putendl_fd("exit", 2);
 			exit(ft_atoll(token->token));
-		}
 	}
 	return (1);
 }
@@ -106,13 +100,9 @@ static t_bool	is_numeric_argument(char *arg)
 static void	raise_exit_error(int errno, char *arg)
 {
 	if (errno == TOO_MANY_ARGUMENTS)
-	{
-		ft_putendl_fd("exit", 2);
 		ft_putendl_fd("dish: exit: too many arguments", 2);
-	}
 	else if (errno == NUMERIC_ARGUMENT_REQUIRED)
 	{
-		ft_putendl_fd("exit", 2);
 		ft_putstr_fd("dish: exit: ", 2);
 		ft_putstr_fd(arg, 2);
 		ft_putendl_fd(": numeric argument required", 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 22:13:11 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 00:32:20 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,34 @@ t_bool	is_executed_in_parent(char *cmd)
 		return (FALSE);
 }
 
-static int	execute_builtin_in_head(t_tree *tree, t_dict *env)
+static int	execute_builtin_head_in_parent(t_tree *tree, t_dict *env)
+{
+	char	*cmd;
+
+	(void)env;
+	cmd = ((t_token *)tree->content)->token;
+	if (ft_strcmp(cmd, "exit") == 0)
+		return (execute_exit_in_parent(tree, env));
+	else if (ft_strcmp(cmd, "export") == 0)
+		return (execute_export_in_parent(tree, env));
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return (execute_unset(tree, env));
+	else if (ft_strcmp(cmd, "cd") == 0)
+		return (execute_cd(tree, env));
+	return (0);
+}
+
+static int	execute_builtin_head(t_tree *tree, t_dict *env)
 {
 	t_token	*token;
 	pid_t	pid;
 	int		status;
 
 	token = tree->content;
+	if (is_executed_in_parent(token->token))
+		return (execute_builtin_head_in_parent(tree, env));
 	pid = fork();
-	if (pid == 0 && !is_executed_in_parent(token->token))
+	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -46,10 +65,6 @@ static int	execute_builtin_in_head(t_tree *tree, t_dict *env)
 			exit(1);
 		exit(get_builtin_function(token->token)(tree, env));
 	}
-	else if (pid == 0)
-		exit(0);
-	else if (is_executed_in_parent(token->token))
-		return (get_builtin_function(token->token)(tree, env));
 	else
 	{
 		waitpid(pid, &status, 0);
@@ -64,9 +79,9 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 
 	token = tree->content;
 	if (token->type & HEAD && !is_executed_in_parent(token->token))
-		return (execute_builtin_in_head(tree, env));
+		return (execute_builtin_head(tree, env));
 	else if (token->type & HEAD && is_executed_in_parent(token->token))
-		return (execute_builtin_in_head(tree, env));
+		return (execute_builtin_head(tree, env));
 	if (redirect_fd(tree) < 0)
 		return (1);
 	return (get_builtin_function(token->token)(tree, env));
