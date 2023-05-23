@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 01:51:45 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 02:08:46 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef enum e_token_type
 	LESS = 0x0043,
 	DLESS = 0x0045,
 	_REDIRECT_OUT = 0x0008,
-	GREAT = 0x002B,
-	DGREAT = 0x02D,
+	GREAT = 0x004B,
+	DGREAT = 0x04D,
 	_BRACKET = 0x0080,
 	_SUBSHELL = 0x0080,
 	OPEN_PAREN = 0x0083,
