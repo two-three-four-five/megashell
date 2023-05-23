@@ -23,6 +23,8 @@
 		"tree.h": "c",
 		"input.h": "c",
 		"shell.h": "c"
+		"str_pair.h": "c",
+		"dict.h": "c"
 	},
 	"C_Cpp.dimInactiveRegions": true
 }
