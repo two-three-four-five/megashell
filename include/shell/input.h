@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 23:06:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:51:45 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,27 @@
 typedef enum e_token_type
 {
 	UNDEFINED = 0x0000,
-	WORD = 0x0001,
-	FILENAME = 0x0003,
-	CMD = 0x0005,
-	LOGIC = 0x0008,
-	AND_IF = 0x0009,
-	OR_IF = 0x000B,
-	REDIRECT = 0x0010,
-	LESS = 0x0011,
-	DLESS = 0x0013,
-	REDIRECT_OUT = 0x0004,
-	GREAT = 0x0015,
-	DGREAT = 0x017,
-	BRACKET = 0x0020,
-	SUBSHELL = 0x0020,
-	OPEN_PAREN = 0x0021,
-	CLOSE_PAREN = 0x0023,
-	META = 0x0040,
-	PIPE = 0x0041,
-	NL = 0x0043,
-	HEAD = 0x0080,
+	_WORD = 0x0010,
+	WORD = 0x0013,
+	FILENAME = 0x0015,
+	CMD = 0x0019,
+	_LOGIC = 0x0020,
+	AND_IF = 0x0023,
+	OR_IF = 0x0025,
+	_REDIRECT = 0x0040,
+	LESS = 0x0043,
+	DLESS = 0x0045,
+	_REDIRECT_OUT = 0x0008,
+	GREAT = 0x002B,
+	DGREAT = 0x02D,
+	_BRACKET = 0x0080,
+	_SUBSHELL = 0x0080,
+	OPEN_PAREN = 0x0083,
+	CLOSE_PAREN = 0x0085,
+	_META = 0x0100,
+	PIPE = 0x0103,
+	NL = 0x0105,
+	_HEAD = 0x1000,
 }	t_token_type;
 
 typedef struct s_token
@@ -86,9 +87,9 @@ t_bool	redirect_heredoc(t_list *lst, t_dict *env);
 t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd);
 
 //		syntax
-t_bool	check_newline_order(char prev, char curr);
-t_bool	check_word_order(char prev, char curr);
-t_bool	check_operator_order(char prev, char curr);
+t_bool	check_newline_order(int prev, int curr);
+t_bool	check_word_order(int prev, int curr);
+t_bool	check_operator_order(int prev, int curr);
 t_bool	check_matching_syntax(t_list *lst);
 t_bool	check_redirect_syntax(t_list *lst, t_dict *env);
 t_bool	check_token_order(t_list *lst);
@@ -98,11 +99,11 @@ t_bool	check_syntax(t_list *lst, t_dict *env);
 //		token
 void	del_token_lstlast(t_list *lst);
 void	del_token(void *ptr);
-t_token	*new_token(char type, char *str);
+t_token	*new_token(int type, char *str);
 void	print_token(void *ptr);
 t_token	*get_next_token(char *s);
 int		get_token_len(char *s);
-char	get_token_type(char *s);
+int		get_token_type(char *s);
 t_list	*tokenize(char *s);
 
 //		main

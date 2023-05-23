@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:36:57 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 15:51:59 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:53:21 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	print_token(void *ptr)
 	if (!token)
 		printf("    type | token\n");
 	else
-		printf("%8d | %s\n", token->type, token->token);
+		printf("%8x | %s\n", token->type, token->token);
 }

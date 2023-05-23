@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:42:15 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 16:36:01 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:43:04 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_tree	*parse_remaining_redirect(t_list *lst)
 	while (lst)
 	{
 		prev = lst;
-		if (((t_token *)lst->content)->type & REDIRECT)
+		if (((t_token *)lst->content)->type & _REDIRECT)
 		{
 			ft_treeadd_rightend(&head, parse_redirect(lst));
 			lst = lst->next->next;

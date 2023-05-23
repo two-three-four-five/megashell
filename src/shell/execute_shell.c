@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 22:36:48 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:55:38 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	execute_shell(char **envp)
 		if (ptree)
 		{
 			substitute_command_tree(ptree, env);
-			((t_token *)ptree->content)->type |= HEAD;
+			((t_token *)ptree->content)->type |= _HEAD;
+			print_tree(ptree);
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
 			del_heredoc_tmp_files(ptree);

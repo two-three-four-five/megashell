@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 21:47:32 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:44:42 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			*cmd;
 
 	cmd = token->token;
-	if (token->type & HEAD && is_builtin_cmd(cmd))
+	if (token->type & _HEAD && is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
-	else if (!(token->type & HEAD) && is_builtin_cmd(cmd))
+	else if (!(token->type & _HEAD) && is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
-	else if (token->type & HEAD && !is_directory(cmd) && is_executable(cmd))
+	else if (token->type & _HEAD && !is_directory(cmd) && is_executable(cmd))
 		return (execute_cmd_head(tree, env));
-	else if (!(token->type & HEAD) && !is_directory(cmd) && is_executable(cmd))
+	else if (!(token->type & _HEAD) && !is_directory(cmd) && is_executable(cmd))
 	{
 		if (redirect_fd(tree) < 0)
 			return (1);
@@ -82,7 +82,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 		envp = get_envp(env->next);
 		return (execve(cmd, argv, envp));
 	}
-	else if (!(token->type & HEAD))
+	else if (!(token->type & _HEAD))
 		exit(raise_exec_error(tree));
 	else
 		return (raise_exec_error(tree));

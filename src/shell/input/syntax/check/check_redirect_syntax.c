@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:56:24 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 00:02:30 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:43:04 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	check_redirect_syntax(t_list *lst, t_dict *env)
 	prev = UNDEFINED;
 	while (lst)
 	{
-		if ((prev & REDIRECT) && (prev != DLESS))
+		if ((prev & _REDIRECT) && (prev != DLESS))
 		{
 			temp = expand_parameter_token(\
 				((t_token *)lst->content)->token, env);

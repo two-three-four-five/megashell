@@ -6,18 +6,18 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 22:32:34 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 15:52:08 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:46:06 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "shell/input.h"
 
-static char	get_control_operator_type(char *s);
-static char	get_redirection_operator_type(char *s);
-char		get_token_type(char *s);
+static int	get_control_operator_type(char *s);
+static int	get_redirection_operator_type(char *s);
+int			get_token_type(char *s);
 
-char	get_token_type(char *s)
+int	get_token_type(char *s)
 {
 	int	ctrl_operator;
 	int	redirect_operator;
@@ -32,7 +32,7 @@ char	get_token_type(char *s)
 		return (WORD);
 }
 
-static char	get_control_operator_type(char *s)
+static int	get_control_operator_type(char *s)
 {
 	if (!ft_strncmp(s, "&&", 2))
 		return (AND_IF);
@@ -52,7 +52,7 @@ static char	get_control_operator_type(char *s)
 		return (WORD);
 }
 
-static char	get_redirection_operator_type(char *s)
+static int	get_redirection_operator_type(char *s)
 {
 	if (!ft_strncmp(s, "<<", 2))
 		return (DLESS);

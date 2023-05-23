@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:38:21 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 22:55:49 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:53:26 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_tree	*parse_input(char *input, t_dict *env)
 		return (NULL);
 	if (lst->next && ((t_token *)lst->next->content)->type != NL)
 		add_history(input);
+	ft_lstiter(lst, print_token);
 	if (!check_syntax(lst->next, env))
 		return (parse_input_failed(&lst));
 	else

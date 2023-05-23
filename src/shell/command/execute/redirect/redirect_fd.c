@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 02:52:55 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 16:31:03 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:41:28 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static int	check_file(char *filename, int type)
 {
 	if (filename[0] == '$')
 		return (AMBIGUOUS_REDIRECT);
-	else if (type & REDIRECT_OUT)
+	else if (type & _REDIRECT_OUT)
 	{
 		if (is_directory(filename))
 			return (IS_A_DIRECTORY);
 		else if (access(filename, F_OK) == 0 && access(filename, W_OK) != 0)
 			return (PERMISSION_DENIED);
 	}
-	else if (!(type & REDIRECT_OUT))
+	else if (!(type & _REDIRECT_OUT))
 	{
 		if (access(filename, F_OK) != 0)
 			return (NO_SUCH_FILE_OR_DIRECTORY);
@@ -91,7 +91,7 @@ int	redirect_fd(t_tree *tree)
 		fd = open_file(((t_token *)tree->left->content)->token, type);
 		if (fd < 0)
 			return (-1);
-		if (type & REDIRECT_OUT)
+		if (type & _REDIRECT_OUT)
 			dup2(fd, STDOUT_FILENO);
 		else
 			dup2(fd, STDIN_FILENO);

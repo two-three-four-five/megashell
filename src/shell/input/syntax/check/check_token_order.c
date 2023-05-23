@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:54:36 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 17:25:13 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 01:47:05 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_bool	check_token_order(t_list *lst)
 
 static t_bool	check_order(t_list *lst)
 {
-	char	prev;
-	char	curr;
+	int	prev;
+	int	curr;
 
 	prev = UNDEFINED;
 	while (lst)
@@ -55,12 +55,12 @@ static t_bool	check_order(t_list *lst)
 
 static t_bool	check_order_without_redirect(t_list *lst)
 {
-	char	prev;
+	int	prev;
 
 	prev = UNDEFINED;
 	while (lst)
 	{
-		if (((t_token *)lst->content)->type == REDIRECT)
+		if (((t_token *)lst->content)->type == _REDIRECT)
 		{
 			lst = lst->next->next;
 			continue ;
