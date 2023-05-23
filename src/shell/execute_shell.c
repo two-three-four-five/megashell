@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 21:16:10 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:32:24 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	execute_shell(char **envp)
 			((t_token *)ptree->content)->type |= HEAD;
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
+			del_heredoc_tmp_files(ptree);
 			ft_treeclear(&ptree, del_token);
 		}
 		free(input);

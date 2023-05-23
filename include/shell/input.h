@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 17:24:50 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/23 21:28:56 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_tree	*parse_subshell(t_list *lst);
 t_tree	*parse_lst(t_list *lst);
 
 //		redirect
+void	del_heredoc_tmp_files(t_tree *tree);
 void	exec_heredoc(char *eof, int fd, t_dict *env);
 t_bool	has_heredoc(t_list *lst);
 t_bool	redirect_heredoc(t_list *lst, t_dict *env);
