@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_str_pair.c                                   :+:      :+:    :+:   */
+/*   is_directory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/10 21:05:46 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 21:15:48 by gyoon            ###   ########.fr       */
+/*   Created: 2023/05/23 09:23:52 by jinhchoi          #+#    #+#             */
+/*   Updated: 2023/05/23 09:32:56 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "type.h"
 
-void	print_str_pair(void *ptr)
+t_bool	is_directory(char *filename)
 {
-	t_str_pair	*str_pair;
+	int	fd;
 
-	str_pair = (t_str_pair *)ptr;
-	printf("%s=%s\n", str_pair->s1, str_pair->s2);
+	fd = open(filename, O_DIRECTORY);
+	if (fd > 0)
+	{
+		close(fd);
+		return (TRUE);
+	}
+	else
+		return (FALSE);
 }

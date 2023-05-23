@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:37:39 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:59:39 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 		return (execute_echo(tree, env));
 	else if (ft_strcmp(token->token, "exit") == 0)
 		return (execute_exit(tree, env));
-
+	else if (ft_strcmp(token->token, "unset") == 0)
+		return (execute_unset(tree, env));
+	else if (ft_strcmp(token->token, "env") == 0)
+		return (execute_env(tree, env));
 	exit (0);
 }

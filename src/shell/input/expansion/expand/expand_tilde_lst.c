@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:05:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 16:34:51 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/22 20:17:08 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ char	*expand_tilde_token(char *token, t_dict *env)
 {
 	char	*new_token;
 
-	new_token = ft_strjoin(get_dict_value(env, "HOME"), token + 1);
+	new_token = ft_strjoin(get_dict_value(env->next, "HOME"), token + 1);
 	return (new_token);
 }

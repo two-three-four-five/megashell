@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:07:02 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:45:53 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/22 23:29:08 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,7 @@
 #include "shell.h"
 #include "type.h"
 
-static t_bool	is_valid_n_option(char *arg)
-{
-	if (*arg != '-')
-		return (FALSE);
-	while (*(++arg))
-	{
-		if (*arg != 'n')
-			return (FALSE);
-	}
-	return (TRUE);
-}
+static t_bool	is_valid_n_option(char *arg);
 
 int	execute_echo(t_tree *tree, t_dict *env)
 {
@@ -52,4 +42,16 @@ int	execute_echo(t_tree *tree, t_dict *env)
 	if (!is_n_option_exist)
 		printf("\n");
 	return (0);
+}
+
+static t_bool	is_valid_n_option(char *arg)
+{
+	if (*arg != '-')
+		return (FALSE);
+	while (*(++arg))
+	{
+		if (*arg != 'n')
+			return (FALSE);
+	}
+	return (TRUE);
 }
