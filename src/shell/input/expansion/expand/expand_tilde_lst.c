@@ -6,10 +6,11 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:05:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 20:17:08 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 16:09:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 #include "type.h"
 #include "shell/input.h"
@@ -40,11 +41,10 @@ void	expand_tilde_lst(t_list *lst, t_dict *env)
 	}
 }
 
-//		what happens if when there is no $HOME?
 char	*expand_tilde_token(char *token, t_dict *env)
 {
 	char	*new_token;
 
-	new_token = ft_strjoin(get_dict_value(env->next, "HOME"), token + 1);
+	new_token = ft_strjoin(getenv("HOME"), token + 1);
 	return (new_token);
 }
