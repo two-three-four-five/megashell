@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 16:39:19 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 21:41:27 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	execute_shell(char **envp)
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
 			del_heredoc_tmp_files(ptree);
+			print_tree(ptree, "", 0);
 			ft_treeclear(&ptree, del_token);
 		}
 		free(input);
