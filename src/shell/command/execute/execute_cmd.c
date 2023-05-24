@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 13:26:41 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 14:37:23 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,8 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	cmd = token->token;
 	if (ft_strlen(token->token) == 0)
 		return (execute_empty_cmd(tree, env));
-	else if (token->type & _HEAD && is_builtin_cmd(cmd))
+	else if (is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
-	else if (!(token->type & _HEAD) && is_builtin_cmd(cmd))
-		exit(execute_builtin(tree, env));
 	else if (token->type & _HEAD && !is_directory(cmd) && is_executable(cmd))
 		return (execute_cmd_head(tree, env));
 	else if (!(token->type & _HEAD) && !is_directory(cmd) && is_executable(cmd))

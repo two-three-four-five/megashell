@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 21:32:58 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 23:38:54 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:11:21 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,35 +55,6 @@ int	execute_export(t_tree *tree, t_dict *env)
 		return (raise_export_arg_error(tree->left));
 	else if (!tree->left)
 		return (execute_export_nop(tree, env));
-	else
-		return (execute_export_op(tree, env));
-	return (0);
-}
-
-int	execute_export_in_parent(t_tree *tree, t_dict *env)
-{
-	pid_t	pid;
-	int		status;
-
-	if (!is_valid_export_option(tree->left))
-		return (raise_export_usage_error(tree->left));
-	else if (!is_valid_export_arg(tree->left))
-		return (raise_export_arg_error(tree->left));
-	else if (!tree->left)
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			if (redirect_fd(tree) < 0)
-				return (1);
-			exit (execute_export_nop(tree, env));
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			return (get_exit_status(status));
-		}
-	}
 	else
 		return (execute_export_op(tree, env));
 	return (0);

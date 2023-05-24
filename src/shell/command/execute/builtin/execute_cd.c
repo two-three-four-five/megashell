@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 11:03:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 13:23:37 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 15:12:35 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,32 +79,15 @@ static int	raise_cd_error(int errno, char *arg)
 
 static int	chdir_to_oldpwd(t_tree *tree, t_dict *env)
 {
-	pid_t	pid;
-	int		status;
 	char	*oldpwd;
 
+	(void) tree;
 	oldpwd = get_dict_value(env->next, "OLDPWD");
 	if (!oldpwd)
 		return (raise_cd_error(OLDPWD_NOT_SET, NULL));
 	else
 	{
-		if (!(((t_token *)tree->content)->type & _HEAD))
-		{
-			pid = fork();
-			if (pid == 0)
-			{
-				if (redirect_fd(tree) < 0)
-					exit (1);
-				printf("%s\n", oldpwd);
-			}
-			else
-			{
-				waitpid(pid, &status, 0);
-				return (get_exit_status(status));
-			}
-		}
-		else
-			printf("%s\n", oldpwd);
+		printf("%s\n", oldpwd);
 		reassign_dict_value(env->next, "OLDPWD", getcwd(0, 0));
 		chdir(oldpwd);
 		reassign_dict_value(env->next, "PWD", getcwd(0, 0));

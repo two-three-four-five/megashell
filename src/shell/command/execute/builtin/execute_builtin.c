@@ -3,88 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 13:27:13 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 15:06:42 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include <unistd.h>
 #include "shell.h"
 #include "type.h"
 
 static int	(*get_builtin_function(char *cmd))(t_tree *, t_dict *);
 
-t_bool	is_executed_in_parent(char *cmd)
+static int	restore_fd(int stdin_fd, int stdout_fd)
 {
-	if (ft_strcmp(cmd, "exit") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "export") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "unset") == 0)
-		return (TRUE);
-	else if (ft_strcmp(cmd, "cd") == 0)
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-static int	execute_builtin_head_in_parent(t_tree *tree, t_dict *env)
-{
-	char	*cmd;
-
-	(void)env;
-	cmd = ((t_token *)tree->content)->token;
-	if (ft_strcmp(cmd, "exit") == 0)
-		return (execute_exit_in_parent(tree, env));
-	else if (ft_strcmp(cmd, "export") == 0)
-		return (execute_export_in_parent(tree, env));
-	else if (ft_strcmp(cmd, "unset") == 0)
-		return (execute_unset(tree, env));
-	else if (ft_strcmp(cmd, "cd") == 0)
-		return (execute_cd(tree, env));
+	if (stdin_fd < 0 || stdout_fd < 0)
+		return (-1);
+	close(0);
+	close(1);
+	dup2(stdin_fd, 0);
+	dup2(stdout_fd, 1);
+	close(stdin_fd);
+	close(stdout_fd);
 	return (0);
-}
-
-static int	execute_builtin_head(t_tree *tree, t_dict *env)
-{
-	t_token	*token;
-	pid_t	pid;
-	int		status;
-
-	token = tree->content;
-	if (is_executed_in_parent(token->token))
-		return (execute_builtin_head_in_parent(tree, env));
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (redirect_fd(tree) < 0)
-			exit(1);
-		exit(get_builtin_function(token->token)(tree, env));
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		return (get_exit_status(status));
-	}
-	return (-1);
 }
 
 int	execute_builtin(t_tree *tree, t_dict *env)
 {
 	t_token	*token;
+	int		exit_status;
+	int		stdin_fd;
+	int		stdout_fd;
 
 	token = tree->content;
-	if (token->type & _HEAD && !is_executed_in_parent(token->token))
-		return (execute_builtin_head(tree, env));
-	else if (token->type & _HEAD && is_executed_in_parent(token->token))
-		return (execute_builtin_head(tree, env));
+	if (token->type & _HEAD)
+	{
+		stdin_fd = dup(STDIN_FILENO);
+		stdout_fd = dup(STDOUT_FILENO);
+	}
 	if (redirect_fd(tree) < 0)
 		return (1);
-	exit(get_builtin_function(token->token)(tree, env));
+	exit_status = get_builtin_function(token->token)(tree, env);
+	if (token->type & _HEAD)
+	{
+		if (restore_fd(stdin_fd, stdout_fd) < 0)
+			return (-1);
+		else
+			return (exit_status);
+	}
+	else
+		exit(exit_status);
 }
 
 static int	(*get_builtin_function(char *cmd))(t_tree *tree, t_dict *env)
