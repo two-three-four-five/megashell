@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:48:25 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 01:43:04 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 14:10:42 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tree	*parse_command(t_list *lst)
 	while (lst)
 	{
 		prev = lst;
-		if (((t_token *)lst->content)->type == WORD)
+		if (((t_token *)lst->content)->type & _WORD)
 		{
 			treeadd_word(&head, parse_word(lst));
 			lst = lst->next;
