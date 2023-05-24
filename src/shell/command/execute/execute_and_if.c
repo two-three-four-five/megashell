@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_and_if.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:18:58 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 01:44:42 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 18:58:48 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,19 @@
 
 int	execute_and_if(t_tree *tree, t_dict *env)
 {
-	pid_t	pid[2];
-	int		status;
+	int		exit_status;
 
-	pid[0] = fork();
-	if (pid[0] == 0)
-		execute_in_child(tree->left, env);
-	waitpid(pid[0], &status, 0);
-	if (get_exit_status(status) != 0 || get_exit_status(status) == 130)
-	{
-		if (((t_token *)tree->content)->type & _HEAD)
-			return (get_exit_status(status));
-		else
-			exit(get_exit_status(status));
-	}
-	pid[1] = fork();
-	if (pid[1] == 0)
-		execute_in_child(tree->right, env);
-	waitpid(pid[1], &status, 0);
 	if (((t_token *)tree->content)->type & _HEAD)
-		return (get_exit_status(status));
+	{
+		((t_token *)tree->left->content)->type |= _HEAD;
+		((t_token *)tree->right->content)->type |= _HEAD;
+	}
+	exit_status = execute(tree->left, env);
+	if (exit_status == 0)
+		exit_status = execute(tree->right, env);
+	if (((t_token *)tree->content)->type & _HEAD)
+		return (exit_status);
 	else
-		exit(get_exit_status(status));
+		exit(exit_status);
 	return (0);
 }
