@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/23 18:27:00 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/24 00:32:10 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int		raise_export_usage_error(t_tree *tree);
 int		execute_echo(t_tree *tree, t_dict *env);
 int		execute_env(t_tree *tree, t_dict *env);
 int		execute_export(t_tree *tree, t_dict *env);
+int		execute_export_in_parent(t_tree *tree, t_dict *env);
 int		execute_unset(t_tree *tree, t_dict *env);
 int		execute_exit(t_tree *tree, t_dict *env);
+int		execute_exit_in_parent(t_tree *tree, t_dict *env);
 int		execute_cd(t_tree *tree, t_dict *env);
 int		execute_pwd(t_tree *tree, t_dict *env);
 

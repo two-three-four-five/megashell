@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 01:44:42 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 13:22:22 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,28 @@ static int	execute_cmd_head(t_tree *tree, t_dict *env)
 	return (-1);
 }
 
+static int	execute_empty_cmd(t_tree *tree, t_dict *env)
+{
+	pid_t	pid;
+	int		status;
+
+	(void)env;
+	pid = fork();
+	if (pid == 0)
+	{
+		if (redirect_fd(tree) < 0)
+			exit(1);
+		else
+			exit(0);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		return (get_exit_status(status));
+	}
+	return (0);
+}
+
 int	execute_cmd(t_tree *tree, t_dict *env)
 {
 	const t_token	*token = tree->content;
@@ -68,10 +90,12 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			*cmd;
 
 	cmd = token->token;
-	if (token->type & _HEAD && is_builtin_cmd(cmd))
+	if (ft_strlen(token->token) == 0)
+		return (execute_empty_cmd(tree, env));
+	else if (token->type & _HEAD && is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
 	else if (!(token->type & _HEAD) && is_builtin_cmd(cmd))
-		return (execute_builtin(tree, env));
+		exit(execute_builtin(tree, env));
 	else if (token->type & _HEAD && !is_directory(cmd) && is_executable(cmd))
 		return (execute_cmd_head(tree, env));
 	else if (!(token->type & _HEAD) && !is_directory(cmd) && is_executable(cmd))
