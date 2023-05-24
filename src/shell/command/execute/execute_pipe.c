@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:19:01 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 01:44:42 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 15:18:11 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int	execute_pipe(t_tree *tree, t_dict *env)
 	pipe(fd);
 	pid[0] = fork();
 	if (pid[0] == 0)
-		execute_pipe_left(tree, env, fd);
+		exit(execute_pipe_left(tree, env, fd));
 	pid[1] = fork();
 	if (pid[1] == 0)
-		execute_pipe_right(tree, env, fd);
+		exit(execute_pipe_right(tree, env, fd));
 	close(fd[READ_FD]);
 	close(fd[WRITE_FD]);
 	waitpid(pid[0], &status, 0);

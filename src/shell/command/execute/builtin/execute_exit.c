@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:11:07 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:34:21 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	execute_exit(t_tree *tree, t_dict *env)
 	(void)env;
 	if (!tree->left)
 	{
-		ft_putendl_fd("exit", 2);
+		if (((t_token *)tree->content)->type & _HEAD)
+			ft_putendl_fd("exit", 2);
 		exit(g_exit_status);
 	}
 	token = tree->left->content;
@@ -43,7 +44,8 @@ int	execute_exit(t_tree *tree, t_dict *env)
 		}
 		else
 		{
-			ft_putendl_fd("exit", 2);
+			if (token->type & _HEAD)
+				ft_putendl_fd("exit", 2);
 			exit(ft_atoll(token->token));
 		}
 	}
