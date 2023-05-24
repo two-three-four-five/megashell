@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:34:21 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/24 18:27:12 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ static t_bool		is_nondigit_contained(char *arg);
 static t_bool		is_numeric_argument(char *arg);
 static void			raise_exit_error(int errno, char *arg);
 
-int	execute_exit(t_tree *tree, t_dict *env)
+static int	_execute_exit(t_tree *tree, t_dict *env)
 {
 	t_token	*token;
 
 	(void)env;
 	if (!tree->left)
-	{
-		if (((t_token *)tree->content)->type & _HEAD)
-			ft_putendl_fd("exit", 2);
 		exit(g_exit_status);
-	}
 	token = tree->left->content;
 	if (!is_numeric_argument(token->token))
 		raise_exit_error(NUMERIC_ARGUMENT_REQUIRED, token->token);
@@ -43,13 +39,19 @@ int	execute_exit(t_tree *tree, t_dict *env)
 			return (127);
 		}
 		else
-		{
-			if (token->type & _HEAD)
-				ft_putendl_fd("exit", 2);
 			exit(ft_atoll(token->token));
-		}
 	}
 	return (1);
+}
+
+int	execute_exit(t_tree *tree, t_dict *env)
+{
+	t_token	*token;
+
+	token = tree->content;
+	if (token->type & _HEAD)
+		ft_putendl_fd("exit", 2);
+	return (_execute_exit(tree, env));
 }
 
 static long long	ft_atoll(char *str)
