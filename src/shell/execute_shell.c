@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 14:07:45 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/24 16:39:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	execute_shell(char **envp)
 	env = get_envp_dict(envp);
 	while (TRUE)
 	{
-		input = readline("\033[0;31mdish\033[0m-\033[0;34m0.9\033[0m$ ");
+		input = readline("\033[0;31m""dish""\033[0m""-"\
+						"\033[0;34m""0.9""\033[0m""$ ");
 		if (!input)
 			raise_exit();
 		ptree = parse_input(input, env);
