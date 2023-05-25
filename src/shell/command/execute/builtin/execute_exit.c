@@ -6,14 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/25 23:59:36 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 00:38:39 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "shell.h"
 
-static long long	ft_atoll(char *str);
 static t_bool		is_nondigit_contained(char *arg);
 static t_bool		is_numeric_argument(char *arg);
 static int			_execute_exit(t_tree *tree, t_dict *env);
@@ -50,32 +49,6 @@ static int	_execute_exit(t_tree *tree, t_dict *env)
 			exit(ft_atoll(token->token));
 	}
 	return (1);
-}
-
-static long long	ft_atoll(char *str)
-{
-	int					sign;
-	unsigned long long	result;
-	unsigned long long	pre_result;
-	long long			ret;
-
-	sign = 1;
-	result = 0;
-	pre_result = 0;
-	if (*str == '+' || *str == '-')
-		sign = *str++ - 44;
-	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + *str++ - '0';
-		if (result / 10 != pre_result)
-			return (-1);
-		pre_result = result;
-	}
-	ret = sign * result;
-	if ((unsigned long long)(ret * sign) == result)
-		return (sign * result);
-	else
-		return (-1);
 }
 
 static t_bool	is_nondigit_contained(char *arg)

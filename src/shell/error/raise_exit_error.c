@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:55:42 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/25 23:58:22 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 01:09:54 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	raise_exit_error(int errno, char *arg)
 {
-	ft_putendl_fd("exit", 2);
 	if (errno == TOO_MANY_ARGUMENTS)
 		ft_putendl_fd("dish: exit: too many arguments", 2);
 	else if (errno == NUMERIC_ARGUMENT_REQUIRED)
