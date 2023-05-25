@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:51:43 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 01:44:42 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 02:36:11 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	execute(t_tree *node, t_dict *env)
 
 	if (token->type & _HEAD)
 		signal(SIGINT, handle_sigint_in_execution);
-	if ((token->type & (~_HEAD)) == CMD)
+	if ((token->type & (~_HEAD)) & _CMD)
 		return (execute_cmd(node, env));
 	else if ((token->type & (~_HEAD)) == PIPE)
 		return (execute_pipe(node, env));

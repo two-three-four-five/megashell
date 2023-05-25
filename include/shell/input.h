@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/25 23:45:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 02:35:32 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define _HEAD 0x1000
 # define UNDEFINED 0x0000
 
-# define _WORD 0x0010
+# define _CMD 0x0010
 # define WORD 0x0013
 # define FILENAME 0x0015
 # define CMD 0x0019

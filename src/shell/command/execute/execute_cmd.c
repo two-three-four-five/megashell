@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 14:37:23 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/26 02:42:59 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			*cmd;
 
 	cmd = token->token;
-	if (ft_strlen(token->token) == 0)
+	if ((token->type & (~_HEAD)) == WORD)
 		return (execute_empty_cmd(tree, env));
 	else if (is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
