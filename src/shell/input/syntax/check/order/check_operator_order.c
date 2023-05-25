@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 22:53:02 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 01:51:31 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 01:23:22 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bool	check_operator_order(int prev, int curr)
 			prev & _REDIRECT || prev == OPEN_PAREN || prev == UNDEFINED))
 		return (FALSE);
 	else if ((curr & _REDIRECT) && \
-		(prev == PIPE || prev == NL || prev & _LOGIC || prev & _REDIRECT))
+		(prev == NL || prev & _LOGIC || prev & _REDIRECT))
 		return (FALSE);
 	else if ((curr == OPEN_PAREN) && \
 		(prev == WORD || prev == NL || \

@@ -6,14 +6,13 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:00:02 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 15:51:19 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 01:28:26 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "type.h"
-#include "shell/signal.h"
-#include "shell/input.h"
+#include "shell.h"
 #include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -27,6 +26,7 @@ t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd)
 	signal(SIGINT, handle_sigint);
 	if (WIFSIGNALED(status))
 	{
+		g_exit_status = get_exit_status(status);
 		ft_putendl_fd("", 1);
 		if (unlink(filename))
 			exit(1);
