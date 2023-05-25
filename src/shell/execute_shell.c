@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 03:21:20 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/26 03:30:53 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	execute_shell(char **envp)
 		{
 			substitute_command_tree(ptree, env);
 			update_tree_head(ptree, TRUE);
+			signal(SIGINT, handle_sigint_in_execution);
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
 			del_heredoc_tmp_files(ptree);
@@ -52,8 +53,8 @@ static void	update_tree_head(t_tree *tree, t_bool ishead)
 	if (ishead)
 		((t_token *)tree->content)->type |= _HEAD;
 	if (((t_token *)tree->content)->type & _SUBSHELL)
-		make_head(tree->left, TRUE);
+		update_tree_head(tree->left, TRUE);
 	else
-		make_head(tree->left, FALSE);
-	make_head(tree->right, FALSE);
+		update_tree_head(tree->left, FALSE);
+	update_tree_head(tree->right, FALSE);
 }

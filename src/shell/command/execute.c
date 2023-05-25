@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:51:43 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/26 02:36:11 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 03:30:39 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	execute(t_tree *node, t_dict *env)
 {
 	const t_token	*token = node->content;
 
-	if (token->type & _HEAD)
-		signal(SIGINT, handle_sigint_in_execution);
 	if ((token->type & (~_HEAD)) & _CMD)
 		return (execute_cmd(node, env));
 	else if ((token->type & (~_HEAD)) == PIPE)
