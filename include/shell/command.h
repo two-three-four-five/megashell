@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:53:24 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 00:32:10 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:24:18 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 
 # include "type.h"
 
-enum e_pipe_fd
-{
-	READ_FD = 0,
-	WRITE_FD = 1
-};
+# define READ_FD 0
+# define WRITE_FD 1
 
 int		execute_export_nop(t_tree *tree, t_dict *env);
 int		execute_export_op(t_tree *tree, t_dict *env);

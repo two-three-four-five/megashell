@@ -3,23 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   execute_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:27:12 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:59:36 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "shell.h"
 
-#define TOO_MANY_ARGUMENTS 1
-#define NUMERIC_ARGUMENT_REQUIRED 2
-
 static long long	ft_atoll(char *str);
 static t_bool		is_nondigit_contained(char *arg);
 static t_bool		is_numeric_argument(char *arg);
-static void			raise_exit_error(int errno, char *arg);
+static int			_execute_exit(t_tree *tree, t_dict *env);
+int					execute_exit(t_tree *tree, t_dict *env);
+
+int	execute_exit(t_tree *tree, t_dict *env)
+{
+	t_token	*token;
+
+	token = tree->content;
+	if (token->type & _HEAD)
+		ft_putendl_fd("exit", 2);
+	return (_execute_exit(tree, env));
+}
 
 static int	_execute_exit(t_tree *tree, t_dict *env)
 {
@@ -42,16 +50,6 @@ static int	_execute_exit(t_tree *tree, t_dict *env)
 			exit(ft_atoll(token->token));
 	}
 	return (1);
-}
-
-int	execute_exit(t_tree *tree, t_dict *env)
-{
-	t_token	*token;
-
-	token = tree->content;
-	if (token->type & _HEAD)
-		ft_putendl_fd("exit", 2);
-	return (_execute_exit(tree, env));
 }
 
 static long long	ft_atoll(char *str)
@@ -104,18 +102,4 @@ static t_bool	is_numeric_argument(char *arg)
 		return (FALSE);
 	else
 		return (TRUE);
-}
-
-static void	raise_exit_error(int errno, char *arg)
-{
-	ft_putendl_fd("exit", 2);
-	if (errno == TOO_MANY_ARGUMENTS)
-		ft_putendl_fd("dish: exit: too many arguments", 2);
-	else if (errno == NUMERIC_ARGUMENT_REQUIRED)
-	{
-		ft_putstr_fd("dish: exit: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": numeric argument required", 2);
-		exit(2);
-	}
 }

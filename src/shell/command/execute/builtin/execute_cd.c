@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 11:03:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:12:35 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:53:31 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include "libft.h"
 #include "type.h"
 
-static int	raise_cd_error(int errno, char *arg);
 static int	chdir_to_oldpwd(t_tree *tree, t_dict *env);
+int			execute_cd(t_tree *tree, t_dict *env);
 
 int	execute_cd(t_tree *tree, t_dict *env)
 {
@@ -46,35 +46,6 @@ int	execute_cd(t_tree *tree, t_dict *env)
 	chdir(token->token);
 	reassign_dict_value(env->next, "PWD", getcwd(0, 0));
 	return (0);
-}
-
-static int	raise_cd_error(int errno, char *arg)
-{
-	if (errno == NO_SUCH_FILE_OR_DIRECTORY)
-	{
-		ft_putstr_fd("dish: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": No such file or directory", 2);
-	}
-	else if (errno == NOT_A_DIRECTORY)
-	{
-		ft_putstr_fd("dish: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": Not a directory", 2);
-	}
-	else if (errno == PERMISSION_DENIED)
-	{
-		ft_putstr_fd("dish: ", 2);
-		ft_putstr_fd(arg, 2);
-		ft_putendl_fd(": Permission denied", 2);
-	}
-	else if (errno == TOO_MANY_ARGUMENTS)
-		ft_putendl_fd("dish: cd: too many arguments", 2);
-	else if (errno == HOME_NOT_SET)
-		ft_putendl_fd("dish: cd: HOME not set", 2);
-	else if (errno == OLDPWD_NOT_SET)
-		ft_putendl_fd("dish: cd: OLDPWD not set", 2);
-	return (1);
 }
 
 static int	chdir_to_oldpwd(t_tree *tree, t_dict *env)

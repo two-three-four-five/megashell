@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:45:57 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 20:17:17 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 00:10:59 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ static int	get_identifier_idx(char *s)
 	idx = 0;
 	while (s[idx])
 	{
-		if (!dquote && *s == '\'')
+		if (!dquote && s[idx] == '\'')
 			quote = !quote;
-		else if (!quote && *s == '\"')
+		else if (!quote && s[idx] == '\"')
 			dquote = !dquote;
 		if (!quote && s[idx] == '$' && \
 			(ft_isalpha(s[idx + 1]) || s[idx + 1] == '_'))

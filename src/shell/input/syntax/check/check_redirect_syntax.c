@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 22:56:24 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 01:43:04 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/25 23:45:27 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ t_bool	check_redirect_syntax(t_list *lst, t_dict *env)
 	}
 	return (TRUE);
 }
-

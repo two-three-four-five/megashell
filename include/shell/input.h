@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 02:08:46 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/25 23:45:12 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "type.h"
 
 /*
-@ RULES for [e_token_type]
+@ RULES for token.type
 
 @ enum with even number is not a token
 * for example, UNDEFINED is not a TOKEN.
@@ -28,31 +28,33 @@
 * for example, a PIPE is a valid token. 
 */
 
-typedef enum e_token_type
-{
-	UNDEFINED = 0x0000,
-	_WORD = 0x0010,
-	WORD = 0x0013,
-	FILENAME = 0x0015,
-	CMD = 0x0019,
-	_LOGIC = 0x0020,
-	AND_IF = 0x0023,
-	OR_IF = 0x0025,
-	_REDIRECT = 0x0040,
-	LESS = 0x0043,
-	DLESS = 0x0045,
-	_REDIRECT_OUT = 0x0008,
-	GREAT = 0x004B,
-	DGREAT = 0x04D,
-	_BRACKET = 0x0080,
-	_SUBSHELL = 0x0080,
-	OPEN_PAREN = 0x0083,
-	CLOSE_PAREN = 0x0085,
-	_META = 0x0100,
-	PIPE = 0x0103,
-	NL = 0x0105,
-	_HEAD = 0x1000,
-}	t_token_type;
+# define _HEAD 0x1000
+# define UNDEFINED 0x0000
+
+# define _WORD 0x0010
+# define WORD 0x0013
+# define FILENAME 0x0015
+# define CMD 0x0019
+
+# define _LOGIC 0x0020
+# define AND_IF 0x0023
+# define OR_IF 0x0025
+
+# define _REDIRECT 0x0040
+# define LESS 0x0043
+# define DLESS 0x0045
+# define _REDIRECT_OUT 0x0008
+# define GREAT 0x004B
+# define DGREAT 0x04D
+
+# define _BRACKET 0x0080
+# define _SUBSHELL 0x0080
+# define OPEN_PAREN 0x0083
+# define CLOSE_PAREN 0x0085
+
+# define _META 0x0100
+# define PIPE 0x0103
+# define NL 0x0105
 
 typedef struct s_token
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 15:02:41 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/02/19 19:57:47 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:45:44 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**ft_split(char const *s, char c)
 {
 	char	**ret;
 	int		ridx;
-	
+
 	if (get_word_count(s, c) == 0)
 		return (0);
 	ret = (char **)ft_calloc(get_word_count(s, c) + 1, sizeof(char *));
