@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 00:01:15 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 03:21:20 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <readline/readline.h>
 #include "shell.h"
 #include "type.h"
+
+static void	update_tree_head(t_tree *tree, t_bool ishead);
 
 void	execute_shell(char **envp)
 {
@@ -32,7 +34,7 @@ void	execute_shell(char **envp)
 		if (ptree)
 		{
 			substitute_command_tree(ptree, env);
-			((t_token *)ptree->content)->type |= _HEAD;
+			update_tree_head(ptree, TRUE);
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();
 			del_heredoc_tmp_files(ptree);
@@ -41,4 +43,17 @@ void	execute_shell(char **envp)
 		free(input);
 	}
 	ft_lstclear(&env, del_str_pair);
+}
+
+static void	update_tree_head(t_tree *tree, t_bool ishead)
+{
+	if (tree == NULL)
+		return ;
+	if (ishead)
+		((t_token *)tree->content)->type |= _HEAD;
+	if (((t_token *)tree->content)->type & _SUBSHELL)
+		make_head(tree->left, TRUE);
+	else
+		make_head(tree->left, FALSE);
+	make_head(tree->right, FALSE);
 }
