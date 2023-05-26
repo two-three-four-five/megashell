@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_or_if.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:18:59 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 18:59:17 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:49:15 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@ int	execute_or_if(t_tree *tree, t_dict *env)
 {
 	int		exit_status;
 
-	if (((t_token *)tree->content)->type & _HEAD)
+	if ((((t_token *)tree->content)->type & _REALHEAD) == _REALHEAD)
+	{
+		((t_token *)tree->left->content)->type |= _REALHEAD;
+		((t_token *)tree->right->content)->type |= _REALHEAD;
+	}
+	else if (((t_token *)tree->content)->type & _HEAD)
 	{
 		((t_token *)tree->left->content)->type |= _HEAD;
 		((t_token *)tree->right->content)->type |= _HEAD;

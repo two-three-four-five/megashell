@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 19:13:19 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:51:45 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	execute_shell(char **envp)
 		{
 			substitute_command_tree(ptree, env);
 			update_tree_head(ptree, TRUE);
+			((t_token *)ptree->content)->type |= _REALHEAD;
 			signal(SIGINT, handle_sigint_in_execution);
 			g_exit_status = execute(ptree, env);
 			set_signal_handler();

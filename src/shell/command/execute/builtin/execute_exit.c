@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/26 00:38:39 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:50:42 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	execute_exit(t_tree *tree, t_dict *env)
 	t_token	*token;
 
 	token = tree->content;
-	if (token->type & _HEAD)
+	if ((token->type & _REALHEAD) == _REALHEAD)
 		ft_putendl_fd("exit", 2);
 	return (_execute_exit(tree, env));
 }

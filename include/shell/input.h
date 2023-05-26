@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 18:38:35 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:46:38 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 * for example, a PIPE is a valid token. 
 */
 
+# define _REALHEAD 0x3000
 # define _HEAD 0x1000
 # define UNDEFINED 0x0000
 
