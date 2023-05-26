@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 02:35:32 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 18:38:35 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define _CMD 0x0010
 # define WORD 0x0013
 # define FILENAME 0x0015
+# define AMBIGUOUS 0x0017
 # define CMD 0x0019
 
 # define _LOGIC 0x0020

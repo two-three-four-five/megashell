@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 02:52:55 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 01:41:28 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 18:41:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ static t_bool	is_directory(char *filename)
 		return (FALSE);
 }
 
-static int	check_file(char *filename, int type)
+static int	check_file(t_token *token, int type)
 {
-	if (filename[0] == '$')
+	char	*filename;
+
+	filename = token->token;
+	if (token->type == AMBIGUOUS)
 		return (AMBIGUOUS_REDIRECT);
 	else if (type & _REDIRECT_OUT)
 	{
@@ -53,12 +56,14 @@ static int	check_file(char *filename, int type)
 	return (0);
 }
 
-static int	open_file(char *filename, int type)
+static int	open_file(t_token *token, int type)
 {
-	int	fd;
-	int	errno;
+	char	*filename;
+	int		fd;
+	int		errno;
 
-	errno = check_file(filename, type);
+	errno = check_file(token, type);
+	filename = token->token;
 	if (errno)
 	{
 		raise_file_error(errno, filename);
@@ -88,7 +93,7 @@ int	redirect_fd(t_tree *tree)
 	while (tree)
 	{
 		type = ((t_token *)tree->content)->type;
-		fd = open_file(((t_token *)tree->left->content)->token, type);
+		fd = open_file(tree->left->content, type);
 		if (fd < 0)
 			return (-1);
 		if (type & _REDIRECT_OUT)

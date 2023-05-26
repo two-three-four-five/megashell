@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:57:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 17:57:14 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:03:21 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static t_bool	is_valid_export_arg(t_tree *tree)
 	}
 	return (TRUE);
 }
-
 
 static void	alter_env_without_init(char *token, t_dict *env)
 {
