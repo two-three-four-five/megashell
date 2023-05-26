@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:31:14 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 13:44:12 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:52:48 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_bool	reassign_dict_value(t_dict *dict, char *key, char *value)
 	{
 		if (!ft_strcmp(((t_str_pair *)curr->content)->s1, key))
 		{
-			free(((t_str_pair *)curr->content)->s2);
+			if (((t_str_pair *)curr->content)->s2)
+				free(((t_str_pair *)curr->content)->s2);
 			((t_str_pair *)curr->content)->s2 = value;
 			return (TRUE);
 		}

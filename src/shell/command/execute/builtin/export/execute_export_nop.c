@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 14:31:20 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 15:29:44 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:54:32 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ static void	print_env_in_lexicographical_order(t_dict *env, t_dict *key_dict)
 
 static void	print_env_export(char *key, char *value)
 {
-	printf("declare -x %s=\"%s\"\n", key, value);
+	if (value)
+		printf("declare -x %s=\"%s\"\n", key, value);
+	else
+		printf("declare -x %s\n", key);
 }

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:57:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 17:31:38 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:57:14 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ static void	alter_env_without_init(char *token, t_dict *env)
 	t_dict	*node;
 
 	key = ft_strdup(token);
-	if (get_dict_value(env->next, key) == NULL)
+	if (!has_dict_key(env->next, key))
 	{
-		node = ft_lstnew(new_str_pair(key, ft_strdup("")));
+		node = ft_lstnew(new_str_pair(key, NULL));
 		ft_lstadd_back(&env, node);
 	}
 	else
@@ -100,7 +100,7 @@ static void	alter_env_with_init(char *token, t_dict *env)
 
 	key = ft_substr(token, 0, ft_strchr(token, '=') - token);
 	value = ft_strdup(ft_strchr(token, '=') + 1);
-	if (get_dict_value(env->next, key) == NULL)
+	if (!has_dict_key(env->next, key))
 	{
 		node = ft_lstnew(new_str_pair(key, value));
 		ft_lstadd_back(&env, node);
