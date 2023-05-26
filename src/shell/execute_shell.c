@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_shell.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 16:42:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 03:30:53 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:13:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	execute_shell(char **envp)
 	env = get_envp_dict(envp);
 	while (TRUE)
 	{
-		input = readline(RED"dish"END"-"YEL"1.2.5"END"$ ");
+		input = readline("dish""-""1.2.5""$ ");
 		if (!input)
 			raise_exit();
 		ptree = parse_input(input, env);

@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:52:39 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 01:46:48 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:26:52 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	raise_cd_error(int errno, char *arg)
 {
 	ft_putstr_fd(MSG_DISH, 2);
-	ft_putstr_fd("cd :", 2);
+	ft_putstr_fd("cd: ", 2);
 	if (errno == NO_SUCH_FILE_OR_DIRECTORY)
 	{
 		ft_putstr_fd(arg, 2);

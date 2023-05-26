@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 02:52:55 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/26 18:41:10 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 19:23:10 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ static int	check_file(t_token *token, int type)
 		return (AMBIGUOUS_REDIRECT);
 	else if (type & _REDIRECT_OUT)
 	{
-		if (is_directory(filename))
+		if (ft_strlen(filename) == 0)
+			return (NO_SUCH_FILE_OR_DIRECTORY);
+		else if (is_directory(filename))
 			return (IS_A_DIRECTORY);
 		else if (access(filename, F_OK) == 0 && access(filename, W_OK) != 0)
 			return (PERMISSION_DENIED);
