@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 20:00:02 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 01:28:26 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:24:01 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+static int	ft_wifsignaled(int status);
+
 t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd)
 {
 	int	status;
@@ -24,7 +26,7 @@ t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd)
 	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	signal(SIGINT, handle_sigint);
-	if (WIFSIGNALED(status))
+	if (ft_wifsignaled(status))
 	{
 		g_exit_status = get_exit_status(status);
 		ft_putendl_fd("", 1);
@@ -41,4 +43,14 @@ t_bool	wait_heredoc(pid_t pid, t_list *lst, char *filename, int fd)
 		close(fd);
 		return (TRUE);
 	}
+}
+
+static int	ft_wifsignaled(int status)
+{
+	int	w_int;
+	int	w_status;
+
+	w_int = (*(int *)&(status));
+	w_status = w_int & 0177;
+	return (w_status != 0177 && w_status != 0);
 }
