@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:57:53 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 13:59:54 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:25:39 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,21 @@ int	raise_export_arg_error(t_tree *tree)
 {
 	char	*arg;
 
-	while (tree)
+	arg = ((t_token *)tree->content)->token;
+	if (!ft_isalpha(*arg) && *arg != '_')
 	{
-		arg = ((t_token *)tree->content)->token;
-		if (!ft_isalpha(*arg) && *arg != '_')
+		put_export_arg_error_fd(((t_token *)tree->content)->token);
+		return (1);
+	}
+	arg++;
+	while (*arg && *arg != '=')
+	{
+		if (!ft_isalnum(*arg) && *arg != '_')
 		{
 			put_export_arg_error_fd(((t_token *)tree->content)->token);
 			return (1);
 		}
 		arg++;
-		while (*arg && *arg != '=')
-		{
-			if (!ft_isalnum(*arg) && *arg != '_')
-			{
-				put_export_arg_error_fd(((t_token *)tree->content)->token);
-				return (1);
-			}
-			arg++;
-		}
-		tree = tree->left;
 	}
 	return (1);
 }

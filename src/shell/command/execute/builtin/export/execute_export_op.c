@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 15:57:54 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/23 16:06:10 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:31:38 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,68 @@
 #include "shell.h"
 #include "type.h"
 
-static void	alter_env_without_init(char *token, t_dict *env);
-static void	alter_env_with_init(char *token, t_dict *env);
-int			execute_export_op(t_tree *tree, t_dict *env);
+static t_bool	is_valid_export_option(t_tree *tree);
+static t_bool	is_valid_export_arg(t_tree *tree);
+static void		alter_env_without_init(char *token, t_dict *env);
+static void		alter_env_with_init(char *token, t_dict *env);
+int				execute_export_op(t_tree *tree, t_dict *env);
 
 int	execute_export_op(t_tree *tree, t_dict *env)
 {
 	char	*token;
+	int		ret;
 
+	if (!is_valid_export_option(tree->left))
+		return (raise_export_usage_error(tree->left));
 	tree = tree->left;
+	ret = 0;
 	while (tree)
 	{
-		token = ((t_token *)tree->content)->token;
-		if (ft_strchr(token, '=') == NULL)
-			alter_env_without_init(token, env);
+		if (!is_valid_export_arg(tree))
+			ret = raise_export_arg_error(tree);
 		else
-			alter_env_with_init(token, env);
+		{
+			token = ((t_token *)tree->content)->token;
+			if (ft_strchr(token, '=') == NULL)
+				alter_env_without_init(token, env);
+			else
+				alter_env_with_init(token, env);
+		}
 		tree = tree->left;
 	}
-	return (0);
+	return (ret);
 }
+
+static t_bool	is_valid_export_option(t_tree *tree)
+{
+	while (tree)
+	{
+		if (((t_token *)tree->content)->token[0] == '-')
+			return (FALSE);
+		else
+			break ;
+		tree = tree->left;
+	}
+	return (TRUE);
+}
+
+static t_bool	is_valid_export_arg(t_tree *tree)
+{
+	char	*arg;
+
+	arg = ((t_token *)tree->content)->token;
+	if (!ft_isalpha(*arg) && *arg != '_')
+		return (FALSE);
+	arg++;
+	while (*arg && *arg != '=')
+	{
+		if (!ft_isalnum(*arg) && *arg != '_')
+			return (FALSE);
+		arg++;
+	}
+	return (TRUE);
+}
+
 
 static void	alter_env_without_init(char *token, t_dict *env)
 {

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_sigint.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:30:22 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/21 08:27:09 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:34:09 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <readline/readline.h>
+#include "shell.h"
 
 void	handle_sigint(int sig)
 {
@@ -20,4 +21,5 @@ void	handle_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();
+	g_exit_status = sig + 128;
 }
