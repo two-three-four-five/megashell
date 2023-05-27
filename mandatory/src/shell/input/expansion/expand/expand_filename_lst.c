@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 15:51:19 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/28 00:51:19 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ void	expand_filename_lst(t_list *lst)
 {
 	t_list	*filename_lst;
 	t_list	*temp;
+	int		prev;
 
 	lst = lst->next;
+	prev = UNDEFINED;
 	while (lst)
 	{
 		if (((t_token *)lst->content)->type == WORD && \
@@ -38,17 +40,34 @@ void	expand_filename_lst(t_list *lst)
 				((t_token *)lst->content)->token);
 			if (filename_lst)
 			{
-				((t_token *)lst->content)->token[0] = '\0';
-				ft_lstadd_back(&filename_lst, lst->next);
-				temp = lst->next;
-				lst->next = filename_lst;
-				lst = temp;
+				if (prev & _REDIRECT && prev != DLESS && ft_lstsize(filename_lst) != 1)
+				{
+					((t_token *)lst->content)->type = AMBIGUOUS;
+					ft_lstclear(&filename_lst, del_token);
+					prev = ((t_token *)lst->content)->type;
+					lst = lst->next;
+				}
+				else
+				{
+					((t_token *)lst->content)->token[0] = '\0';
+					ft_lstadd_back(&filename_lst, lst->next);
+					temp = lst->next;
+					lst->next = filename_lst;
+					prev = ((t_token *)lst->content)->type;
+					lst = temp;
+				}
 			}
 			else
+			{
+				prev = ((t_token *)lst->content)->type;
 				lst = lst->next;
+			}
 		}
 		else
+		{
+			prev = ((t_token *)lst->content)->type;
 			lst = lst->next;
+		}
 	}
 }
 

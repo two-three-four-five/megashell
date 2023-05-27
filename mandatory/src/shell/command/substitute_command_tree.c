@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 13:35:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/22 20:17:02 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/28 01:01:04 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*search_command_token(char *token, t_dict *env)
 	while (curr)
 	{
 		cmd = join_path_and_command(curr->content, token);
-		if (access(cmd, X_OK) == 0)
+		if (access(cmd, X_OK) == 0 && !is_directory(cmd))
 		{
 			ft_lstclear(&path, free);
 			return (cmd);
