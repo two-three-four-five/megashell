@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/26 02:42:59 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/27 23:32:29 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			*cmd;
 
 	cmd = token->token;
-	if ((token->type & (~_HEAD)) == WORD)
+	if ((token->type & (~_REALHEAD)) == WORD)
 		return (execute_empty_cmd(tree, env));
 	else if (is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));
