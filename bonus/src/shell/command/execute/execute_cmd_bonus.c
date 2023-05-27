@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/26 20:12:37 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/28 01:59:34 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ static int	raise_exec_error(t_tree *tree)
 		return (raise_cmd_error(COMMAND_NOT_FOUND, token->token));
 	else if (!is_file_exist(token->token) && ft_strchr(token->token, '/'))
 		return (raise_cmd_error(NO_SUCH_FILE_OR_DIRECTORY, token->token));
-	else if (is_directory(token->token))
+	else if (is_directory(token->token) && ft_strchr(token->token, '/'))
 		return (raise_cmd_error(IS_A_DIRECTORY, token->token));
 	else if (!is_executable(token->token) && ft_strchr(token->token, '/'))
 		return (raise_cmd_error(PERMISSION_DENIED, token->token));
-	else if (!is_executable(token->token))
-		return (raise_cmd_error(COMMAND_NOT_FOUND, token->token));
 	else
-		return (-1);
+		return (raise_cmd_error(COMMAND_NOT_FOUND, token->token));
 }
 
 static int	execute_cmd_head(t_tree *tree, t_dict *env)
@@ -90,7 +88,7 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			*cmd;
 
 	cmd = token->token;
-	if ((token->type & (~_HEAD)) == WORD)
+	if ((token->type & (~_REALHEAD)) == WORD)
 		return (execute_empty_cmd(tree, env));
 	else if (is_builtin_cmd(cmd))
 		return (execute_builtin(tree, env));

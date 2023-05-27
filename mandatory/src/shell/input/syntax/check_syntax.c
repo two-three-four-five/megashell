@@ -6,14 +6,14 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 21:05:20 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/27 22:44:20 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/28 01:57:08 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft.h"
 #include "type.h"
 #include "shell.h"
-#include <stdio.h>
 
 t_bool	check_syntax(t_list *lst, t_dict *env)
 {

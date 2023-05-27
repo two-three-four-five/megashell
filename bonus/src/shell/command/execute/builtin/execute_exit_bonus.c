@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:38:05 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/26 20:12:37 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/28 02:00:54 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	execute_exit(t_tree *tree, t_dict *env)
 
 	token = tree->content;
 	if ((token->type & _REALHEAD) == _REALHEAD)
-		ft_putendl_fd("exit", 2);
+		ft_putendl_fd("exit", 1);
 	return (_execute_exit(tree, env));
 }
 
@@ -43,7 +43,7 @@ static int	_execute_exit(t_tree *tree, t_dict *env)
 		if (tree->left->left)
 		{
 			raise_exit_error(TOO_MANY_ARGUMENTS, token->token);
-			return (127);
+			return (1);
 		}
 		else
 			exit(ft_atoll(token->token));
