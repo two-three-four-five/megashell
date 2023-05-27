@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 14:09:25 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:06:42 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/27 23:55:58 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,14 @@
 
 static int	(*get_builtin_function(char *cmd))(t_tree *, t_dict *);
 
-static int	restore_fd(int stdin_fd, int stdout_fd)
+static void	restore_fd(int stdin_fd, int stdout_fd)
 {
-	if (stdin_fd < 0 || stdout_fd < 0)
-		return (-1);
 	close(0);
 	close(1);
 	dup2(stdin_fd, 0);
 	dup2(stdout_fd, 1);
 	close(stdin_fd);
 	close(stdout_fd);
-	return (0);
 }
 
 int	execute_builtin(t_tree *tree, t_dict *env)
@@ -44,14 +41,15 @@ int	execute_builtin(t_tree *tree, t_dict *env)
 		stdout_fd = dup(STDOUT_FILENO);
 	}
 	if (redirect_fd(tree) < 0)
+	{
+		restore_fd(stdin_fd, stdout_fd);
 		return (1);
+	}
 	exit_status = get_builtin_function(token->token)(tree, env);
 	if (token->type & _HEAD)
 	{
-		if (restore_fd(stdin_fd, stdout_fd) < 0)
-			return (-1);
-		else
-			return (exit_status);
+		restore_fd(stdin_fd, stdout_fd);
+		return (exit_status);
 	}
 	else
 		exit(exit_status);
