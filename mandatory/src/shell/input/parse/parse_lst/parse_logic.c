@@ -6,7 +6,7 @@
 /*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 16:31:12 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/24 01:43:38 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/28 14:49:18 by gyoon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ t_tree	*parse_logic(t_list *lst)
 
 static t_list	*find_logic_ptr(t_list *lst)
 {
+	t_list	*logic;
 	int		subshell;
 
+	logic = NULL;
 	subshell = 0;
 	while (lst)
 	{
@@ -48,8 +50,8 @@ static t_list	*find_logic_ptr(t_list *lst)
 		else if (((t_token *)lst->content)->type == CLOSE_PAREN)
 			subshell--;
 		if (subshell == 0 && ((t_token *)lst->content)->type & _LOGIC)
-			return (lst);
+			logic = lst;
 		lst = lst->next;
 	}
-	return (NULL);
+	return (logic);
 }
