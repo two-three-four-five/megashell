@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:35:29 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 19:46:38 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/29 17:59:37 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 @ valid token has odd number.
 * for example, a WORD is a valid token.
-* for example, a PIPE is a valid token. 
+* for example, a PIPE is a valid token.
 */
 
 # define _REALHEAD 0x3000
@@ -74,6 +74,11 @@ void	expand_filename_lst(t_list *lst);
 void	expand_tilde_lst(t_list *lst, t_dict *env);
 void	split_word_lst(t_list *lst);
 void	expand_lst(t_list *lst, t_dict *env);
+
+
+void	expand_parameter_tree(t_tree *tree, t_dict *env, int parent);
+void	expand_tilde_tree(t_tree *tree, t_dict *env);
+void	expand_tree(t_tree *tree, t_dict *env);
 
 //		parse
 t_tree	*parse_command(t_list *lst);

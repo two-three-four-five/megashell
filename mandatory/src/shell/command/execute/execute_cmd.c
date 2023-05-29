@@ -6,7 +6,7 @@
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 13:57:13 by jinhchoi          #+#    #+#             */
-/*   Updated: 2023/05/28 00:01:44 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:00:57 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	execute_cmd(t_tree *tree, t_dict *env)
 	char			**envp;
 	char			*cmd;
 
+	expand_tree(tree, env);
+	print_tree(tree);
 	cmd = token->token;
 	if ((token->type & (~_REALHEAD)) == WORD)
 		return (execute_empty_cmd(tree, env));

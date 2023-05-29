@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 22:38:21 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 00:12:31 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/29 18:04:53 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_tree	*parse_input(char *input, t_dict *env)
 	{
 		if (has_heredoc(lst->next) && !redirect_heredoc(lst->next, env))
 			return (parse_input_failed(&lst));
-		expand_lst(lst, env);
+		del_token_lstlast(lst);
 		ptree = parse_lst(lst->next);
 		ft_lstdelone(lst, del_token);
 		return (ptree);

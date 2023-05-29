@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_word_lst_bonus.c                             :+:      :+:    :+:   */
+/*   split_word_tree.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:27:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/26 20:12:49 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/29 17:59:53 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "type_bonus.h"
-#include "shell/input_bonus.h"
+#include "type.h"
+#include "shell/input.h"
 
 static int		count_ifs(char *token);
 static t_list	*split_token(char *token);
 static char		*split_initial_word(char *token);
-void			split_word_lst(t_list *lst);
+void			split_word_tree(t_list *lst);
 
-void	split_word_lst(t_list *lst)
+void	split_word_tree(t_list *lst)
 {
 	t_list	*splitted_lst;
 	t_list	*temp;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_filename_lst_bonus.c                        :+:      :+:    :+:   */
+/*   expand_filename_tree.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gyoon <gyoon@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:00:08 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/28 01:58:09 by gyoon            ###   ########.fr       */
+/*   Updated: 2023/05/29 18:00:05 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "type_bonus.h"
-#include "shell/input_bonus.h"
+#include "type.h"
+#include "shell/input.h"
 #include <dirent.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -22,9 +22,9 @@ static t_bool	is_matching(char *s, char *pattern);
 static t_bool	has_unquoted_wildcard(char *s);
 static t_list	*get_matching_file_lst(char *pattern);
 static void		change_filename_lst(t_list **file_lst, t_list **lst, int *prev);
-void			expand_filename_lst(t_list *lst);
+void			expand_filename_tree(t_list *lst);
 
-void	expand_filename_lst(t_list *lst)
+void	expand_filename_tree(t_list *lst)
 {
 	t_list	*file_lst;
 	int		prev;

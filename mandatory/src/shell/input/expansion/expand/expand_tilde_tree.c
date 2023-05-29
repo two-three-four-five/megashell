@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_tilde_lst.c                                 :+:      :+:    :+:   */
+/*   expand_tilde_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jinhchoi <jinhchoi@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 00:05:13 by gyoon             #+#    #+#             */
-/*   Updated: 2023/05/29 18:00:33 by jinhchoi         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:00:30 by jinhchoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,28 @@
 static char	*expand_tilde_token(char *token, t_dict *env);
 void		expand_tilde_lst(t_list *lst, t_dict *env);
 
-void	expand_tilde_lst(t_list *lst, t_dict *env)
+void	expand_tilde_tree(t_tree *tree, t_dict *env)
 {
+	t_token	*token;
 	char	*new_token;
 
-	lst = lst->next;
-	while (lst)
+	token = tree->content;
+	if (token->type == WORD)
 	{
-		if (((t_token *)lst->content)->type == WORD)
+		if (!ft_strncmp("~/", token->token, 2) || \
+			!ft_strcmp("~", token->token))
 		{
-			if (!ft_strncmp("~/", ((t_token *)lst->content)->token, 2) || \
-				!ft_strcmp("~", ((t_token *)lst->content)->token))
-			{
-				new_token = expand_tilde_token(\
-								((t_token *)lst->content)->token, \
-								env);
-				free(((t_token *)lst->content)->token);
-				((t_token *)lst->content)->token = new_token;
-			}
+			new_token = expand_tilde_token(\
+							token->token, \
+							env);
+			free(token->token);
+			token->token = new_token;
 		}
-		lst = lst->next;
 	}
+	if (tree->left)
+		expand_tilde_tree(tree->left, env);
+	if (tree->right)
+		expand_tilde_tree(tree->right, env);
 }
 
 static char	*expand_tilde_token(char *token, t_dict *env)
